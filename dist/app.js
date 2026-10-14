@@ -31,5 +31,6 @@ theme(preference|| (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'l
 document.querySelector('#themeToggle').onclick=()=>{const v=document.documentElement.dataset.theme==='dark'?'light':'dark';theme(v);try{localStorage.setItem('dani-theme',v)}catch{}};
 document.querySelector('#menuToggle').onclick=()=>{const open=document.body.classList.toggle('menu-open');document.querySelector('#menuToggle').setAttribute('aria-expanded',String(open))};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.body.classList.remove('menu-open');document.querySelector('#menuToggle').setAttribute('aria-expanded','false')}});
+document.querySelector('.skip').onclick=e=>{e.preventDefault();main.focus()};
 window.addEventListener('hashchange',render);document.querySelector('#year').textContent=new Date().getFullYear();render();
 
