@@ -16,4 +16,9 @@ body{background-color:var(--bg);background-image:radial-gradient(ellipse at 5% 5
 .profile dl{grid-template-columns:minmax(160px,1.2fr) 1fr}.profile dl>div:nth-child(2) dd{font-size:12px;white-space:nowrap}
 @media(max-width:760px){.profile dl{grid-template-columns:1fr}.profile dl>div{grid-column:1/-1}}
 .back-button{display:inline-flex;align-items:center;gap:8px;margin:4px 0 22px;padding:10px 16px;background:var(--glass-strong);border:1px solid var(--glass-line);border-radius:30px;box-shadow:0 5px 16px #00000005;color:var(--accent);font-size:12px;font-weight:600;min-height:44px}.back-button:hover{background:var(--soft)}.back-button>span:first-child{font-size:19px;line-height:1}.back-context{color:var(--muted);font-weight:400;margin-left:-4px}@media(max-width:760px){.back-button{margin-bottom:17px;font-size:12px}.back-context{display:none}}
-@media(prefers-reduced-motion:reduce){.semester-card{transition:none}}
+/* Dropdown anchored to whichever hamburger opens it. */
+#sidebar{display:block;left:auto;right:5%;top:75px;width:350px;height:auto;max-height:calc(100dvh - 110px);padding:14px 16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 22px 70px #0003;z-index:60;overflow-y:auto;overscroll-behavior:contain;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-9px) scale(.98);transform-origin:top right;transition:opacity .2s ease,transform .24s cubic-bezier(.2,.8,.2,1),visibility .24s}
+.menu-open #sidebar{display:block;opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1)}
+#sidebar .nav-label{margin-top:18px}#sidebar .aside-foot{margin-top:18px;padding-bottom:0}#sidebar nav>a,#sidebar summary{padding-top:11px;padding-bottom:11px}#menuToggle[aria-expanded=true],.hero-menu[aria-expanded=true]{background:var(--soft);color:var(--accent)}
+@media(max-width:760px){#sidebar{max-height:calc(100dvh - 115px);border-radius:17px;padding:10px 13px 18px}}
+@media(prefers-reduced-motion:reduce){.semester-card,#sidebar{transition:none}}
