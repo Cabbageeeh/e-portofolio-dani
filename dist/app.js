@@ -33,7 +33,7 @@ let menuTrigger;
 const menuPanel=document.querySelector('#sidebar');
 menuPanel.setAttribute('aria-label','Menu portofolio');
 document.querySelector('#menuToggle').setAttribute('aria-controls','sidebar');
-function positionMenu(trigger){const r=trigger.getBoundingClientRect();const w=Math.min(350,innerWidth-24);menuPanel.style.width=w+'px';menuPanel.style.right=Math.max(12,Math.min(innerWidth-r.right,innerWidth-w-12))+'px';const top=Math.max(12,Math.min(r.bottom+12,innerHeight-180));menuPanel.style.top=top+'px';menuPanel.style.maxHeight=(innerHeight-top-12)+'px'}
+function positionMenu(trigger){const r=trigger.getBoundingClientRect();const vw=document.documentElement.clientWidth;const w=Math.min(350,vw-24);menuPanel.style.width=w+'px';menuPanel.style.right=Math.max(12,Math.min(vw-r.right,vw-w-12))+'px';const top=Math.max(12,Math.min(r.bottom+12,innerHeight-180));menuPanel.style.top=top+'px';menuPanel.style.maxHeight=(innerHeight-top-12)+'px'}
 function closeMenu(restore=false){document.body.classList.remove('menu-open');document.querySelectorAll('#menuToggle,.hero-menu').forEach(b=>b.setAttribute('aria-expanded','false'));menuPanel.inert=true;if(restore)menuTrigger?.focus()}
 function toggleMenu(trigger){if(document.body.classList.contains('menu-open'))return closeMenu();menuTrigger=trigger;positionMenu(trigger);menuPanel.inert=false;document.body.classList.add('menu-open');document.querySelectorAll('#menuToggle,.hero-menu').forEach(b=>b.setAttribute('aria-expanded','true'))}
 menuPanel.inert=true;
