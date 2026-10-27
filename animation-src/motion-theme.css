@@ -68,21 +68,21 @@
 .kav-world .kav-bubble-text { fill: #dcecf7 !important; }
 .kav-world .kav-ticks--read { stroke: #5fc7ff !important; }
 
-.ppg-motion-kit .sangrai {
-  --ink: #eaf6ff !important;
-  --ink-muted: #9bb6ca !important;
+.ppg-motion-kit .journey-film {
+  --journey-ink: #eaf6ff !important;
+  --journey-muted: #9bb6ca !important;
   background:
     radial-gradient(120% 90% at 85% 0%, rgb(77 155 208 / 0.18), transparent 60%),
     radial-gradient(80% 60% at 0% 100%, rgb(63 196 178 / 0.1), transparent 60%),
     #071a2b !important;
 }
-.ppg-motion-kit .sangrai-grid { stroke: rgb(157 211 240 / 0.08) !important; }
-.ppg-motion-kit .sangrai-base,
-.ppg-motion-kit .sangrai-playhead { stroke: rgb(157 211 240 / 0.35) !important; }
-.ppg-motion-kit .sangrai-year--now { fill: #c8f4ff !important; }
-.ppg-motion-kit .sangrai-phase { fill: rgb(157 211 240 / 0.09) !important; }
-.ppg-motion-kit .sangrai-point circle:last-child { stroke: #0e2438 !important; }
-.ppg-motion-kit .sangrai-readout span { background: linear-gradient(180deg, #c8f4ff, #4d9bd0) !important; filter: drop-shadow(0 0 18px rgb(77 155 208 / 0.32)) !important; }
-.ppg-motion-kit .sangrai-control:hover { background: rgb(120 190 230 / 0.12) !important; }
-.ppg-motion-kit .sangrai-entry:hover { background: rgb(157 211 240 / 0.07) !important; }
-.ppg-motion-kit .sangrai-stage--now .sangrai-entry { background: rgb(77 155 208 / 0.13) !important; }
+.ppg-motion-kit .journey-grid line { stroke: rgb(157 211 240 / 0.08) !important; }
+.ppg-motion-kit .journey-base,
+.ppg-motion-kit .journey-playhead { stroke: rgb(157 211 240 / 0.35) !important; }
+.ppg-motion-kit .journey-node--now .journey-marker { fill: #c8f4ff !important; }
+.ppg-motion-kit .journey-phase-track { background: rgb(157 211 240 / 0.09) !important; }
+.ppg-motion-kit .journey-node-core { stroke: #0e2438 !important; }
+.ppg-motion-kit .journey-readout span { background: linear-gradient(180deg, #c8f4ff, #4d9bd0) !important; filter: drop-shadow(0 0 18px rgb(77 155 208 / 0.32)) !important; }
+.ppg-motion-kit .journey-control:hover { background: rgb(120 190 230 / 0.12) !important; }
+.ppg-motion-kit .journey-entry:hover { background: rgb(157 211 240 / 0.07) !important; }
+.ppg-motion-kit .journey-stage--now .journey-entry { background: rgb(77 155 208 / 0.13) !important; }

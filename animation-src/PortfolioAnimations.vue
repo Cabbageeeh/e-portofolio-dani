@@ -4,7 +4,7 @@ import KavlingFilm from './components/KavlingFilm.vue';
 import MesinFilm from './components/MesinFilm.vue';
 import PapanFilm from './components/PapanFilm.vue';
 import ProsesSteps from './components/ProsesSteps.vue';
-import SangraiFilm from './components/SangraiFilm.vue';
+import PerjalananFilm from './components/PerjalananFilm.vue';
 
 const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'supporting' }>(), { mode: 'supporting' });
 
@@ -33,16 +33,6 @@ const readingSteps = [
   { name: 'Temukan refleksi', text: 'Ikuti catatan pengalaman dan arah pengembangan diri.', result: 'Refleksi profesional' },
 ];
 
-const journey = [
-  { year: 1, contributions: 1 },
-  { year: 2, contributions: 2 },
-];
-
-const milestones = [
-  { year: 1, roast: 'JurnalKita', text: 'Karya kelompok untuk artikel Semester 1 di SMA Negeri 15 Surabaya.' },
-  { year: 1.66, roast: 'SIGAP', text: 'Proyek kepemimpinan kelompok pada praktik Semester 2.' },
-  { year: 2, roast: 'Ruang Belajar', text: 'Inovasi pembelajaran Informatika yang dikembangkan secara pribadi.' },
-];
 </script>
 
 <template>
@@ -97,11 +87,11 @@ const milestones = [
 
       <section class="motion-panel" aria-labelledby="semester-journey-title">
         <div class="motion-panel-head">
-          <p class="eyebrow">GARIS WAKTU · DUA SEMESTER</p>
-          <h3 id="semester-journey-title">Tiga karya, satu perjalanan belajar.</h3>
-          <p>Urutan ini memakai informasi yang sudah kamu berikan. Pilih kartu karya untuk memutar ulang titik ceritanya. Garis kemajuan adalah ilustrasi visual, bukan skor penilaian.</p>
+          <p class="eyebrow">CERITA PERJALANAN · DARI TEKNIK KE PEDAGOGIK</p>
+          <h3 id="semester-journey-title">Dari Informatika murni menuju guru Informatika.</h3>
+          <p>Sebelum PPG, pedagogik adalah hal baru bagiku. Pilih satu tahap untuk menelusuri bagaimana kuliah, praktik di sekolah, dan karya memperluas cara pandangku tentang mengajar.</p>
         </div>
-        <SangraiFilm :years="journey" :entries="milestones" :total="3" />
+        <PerjalananFilm />
       </section>
     </div>
     </template>
@@ -172,7 +162,7 @@ const milestones = [
 .motion-panel-head > p:last-child { max-width: 440px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
 .process-panel .proses { margin-top: 8px; }
 .source-motion-list .film { margin-top: 0; }
-.source-motion-list .sangrai { margin-top: 0; }
+.source-motion-list .journey-film { margin-top: 0; }
 @media (max-width: 1050px) {
   .motion-panels { grid-template-columns: 1fr; }
 }
