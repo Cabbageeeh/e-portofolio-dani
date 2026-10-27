@@ -74,8 +74,29 @@ const tile = (id, title, subtitle, tag = '↗') => `<a class="tile" href="#${id}
 function semesterCards() {
   return P.semester.map((semester) => '<article class="semester-card mas-semester-card"><span class="semester-number">0' + semester.nomor + '</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ' + semester.nomor + '</h3><p class="mas-school">' + esc(semester.sekolah) + '</p><p class="mas-semester-note">' + semester.artefak.length + ' kategori artefak · ' + semester.mataKuliah.length + ' refleksi mata kuliah</p><div class="semester-links"><a href="#artefak-s' + semester.nomor + '">Telusuri artefak <span>↗</span></a><a href="#refleksi-s' + semester.nomor + '">Baca refleksi <span>↗</span></a></div></article>').join('');
 }
+function semesterArchive(semester) {
+  return semester.artefak.map((title) => {
+    const id = `s${semester.nomor}-${slug(title)}`;
+    const artefak = Array.isArray(P.isi?.[id]?.artefak) ? P.isi[id].artefak : [];
+    return { id, title, artefak };
+  });
+}
 function archiveCards() {
-  return P.semester.map((semester) => '<a class="archive-card" href="#artefak-s' + semester.nomor + '"><span class="archive-number">0' + semester.nomor + '</span><span class="archive-label">SEMESTER ' + semester.nomor + ' / ' + esc(semester.sekolah.toUpperCase()) + '</span><strong>' + semester.artefak.length + ' kategori artefak</strong><span>Perangkat ajar, media, praktik, dan dokumentasi</span><i aria-hidden="true">↗</i></a>').join('');
+  const categories = P.semester.flatMap(semesterArchive);
+  const available = categories.filter((category) => category.artefak.length > 0);
+  const actualCount = available.reduce((total, category) => total + category.artefak.length, 0);
+  const plannedCount = categories.length;
+  const cards = P.semester.map((semester) => {
+    const items = semesterArchive(semester).filter((category) => category.artefak.length > 0);
+    const count = items.reduce((total, category) => total + category.artefak.length, 0);
+    const content = items.length
+      ? `<p class="archive-content-label">KATEGORI DENGAN ARTEFAK</p><div class="archive-category-list">${items.map((category) => `<a href="#${category.id}"><span>${esc(category.title)}</span><b>${category.artefak.length} artefak</b><i aria-hidden="true">↗</i></a>`).join('')}</div>`
+      : `<div class="archive-empty"><span class="archive-empty-mark" aria-hidden="true">＋</span><div><strong>Arsip semester ini sedang disiapkan.</strong><p>Kategori akan muncul di sini setelah artefak pembelajaran ditambahkan.</p><a href="#refleksi-s${semester.nomor}">Lihat refleksi semester ${semester.nomor} <span aria-hidden="true">↗</span></a></div></div>`;
+    return `<details class="archive-semester archive-semester--s${semester.nomor}"><summary><span class="archive-semester-index">0${semester.nomor}</span><span class="archive-semester-main"><span class="archive-label">SEMESTER ${semester.nomor} / PRAKTIK PENGALAMAN LAPANGAN</span><strong>${esc(semester.sekolah)}</strong><span class="archive-semester-meta">${semester.artefak.length} kategori disiapkan <i>·</i> ${count ? `${count} artefak tersedia` : 'belum ada artefak diarsipkan'}</span></span><span class="archive-disclosure" aria-hidden="true">↗</span></summary><div class="archive-semester-content">${content}</div></details>`;
+  }).join('');
+  const semesterOne = P.semester.find((semester) => semester.nomor === 1);
+  const semesterTwo = P.semester.find((semester) => semester.nomor === 2);
+  return `<div class="archive-overview"><div class="archive-total"><span class="archive-label">CAKUPAN DOKUMENTASI PPG</span><div class="archive-total-number">${String(plannedCount).padStart(2, '0')}</div><h3>semester praktik</h3><div class="archive-segmented" role="img" aria-label="${esc(semesterOne?.artefak.length || 0)} kategori disiapkan untuk Semester 1 dan ${esc(semesterTwo?.artefak.length || 0)} kategori untuk Semester 2">${P.semester.map((semester) => `<span class="archive-segment archive-segment--s${semester.nomor}" style="--segment-count:${semester.artefak.length}" title="Semester ${semester.nomor}: ${semester.artefak.length} kategori"></span>`).join('')}</div><div class="archive-segment-labels"><span>Semester 1 <b>${semesterOne?.artefak.length || 0} kategori</b></span><span>Semester 2 <b>${semesterTwo?.artefak.length || 0} kategori</b></span></div><p>${plannedCount} ruang dokumentasi disiapkan; isi arsip bertambah mengikuti artefak yang kamu masukkan.</p></div><aside class="archive-receipt" aria-label="Ringkasan arsip"><p>Ringkasan arsip</p><div class="archive-receipt-rule"></div><span>Dua sekolah tempat praktik</span><strong>${P.semester.length}</strong><span>Kategori dokumentasi</span><strong>${plannedCount}</strong><span>Artefak tercatat</span><strong>${actualCount}</strong><small>${actualCount ? 'Jumlah dihitung dari artefak yang tersedia.' : 'Jumlah akan bertambah setelah artefak ditambahkan.'}</small></aside></div><div class="archive-semesters">${cards}</div>`;
 }
 function reflectionCards() {
   return finals.map((title) => tile(slug(title), title, 'Catatan dan arah pengembangan sebagai calon guru.')).join('');
@@ -114,7 +135,7 @@ function home() {
     </section>
 
     <section class="mas-section mas-archive" id="artefak" aria-labelledby="archive-title">
-      <div class="mas-section-head"><div><p class="eyebrow">04 / ARSIP PEMBELAJARAN</p><h2 id="archive-title">Dokumentasi untuk ditelusuri.</h2><p class="mas-lead">Kategori artefak dan analisisnya disusun berdasarkan semester. Materi dapat ditambahkan melalui data portofolio.</p></div><a class="mas-text-link" href="#artefak-s2">Buka arsip Semester 2 <span>↗</span></a></div>
+      <div class="mas-section-head"><div><p class="eyebrow">04 / ARSIP PEMBELAJARAN</p><h2 id="archive-title">Bukti praktik, disusun per semester.</h2><p class="mas-lead">Pilih semester untuk menelusuri artefak yang sudah ditambahkan. Kategori kosong akan muncul setelah ada karya yang diarsipkan.</p></div><a class="mas-text-link" href="#artefak-s2">Buka refleksi Semester 2 <span>↗</span></a></div>
       <div class="mas-archive-grid">${archiveCards()}</div>
     </section>
 
@@ -143,7 +164,10 @@ function render() {
     let body = '';
     if (page.kind.includes('index')) {
       const items = page.kind === 'index' ? page.semester.artefak : page.semester.mataKuliah;
-      body = '<div class="tiles">' + items.map((title) => { const key = (page.kind === 'index' ? 's' : 'refleksi-s') + page.semester.nomor + '-' + slug(title); const count = (P.isi[key]?.artefak || []).length; return tile(key, title, page.kind === 'index' ? count + ' artefak ditambahkan' : 'Refleksi pengalaman belajar'); }).join('') + '</div>';
+      const availableItems = page.kind === 'index' ? items.filter((title) => (P.isi[`s${page.semester.nomor}-${slug(title)}`]?.artefak || []).length > 0) : items;
+      body = availableItems.length
+        ? '<div class="tiles">' + availableItems.map((title) => { const key = (page.kind === 'index' ? 's' : 'refleksi-s') + page.semester.nomor + '-' + slug(title); const count = (P.isi[key]?.artefak || []).length; return tile(key, title, page.kind === 'index' ? count + ' artefak tersedia' : 'Refleksi pengalaman belajar'); }).join('') + '</div>'
+        : page.kind === 'index' ? empty('Arsip sedang disusun.', 'Kategori dengan artefak yang sudah ditambahkan akan tampil di sini.') : '<div class="tiles">' + items.map((title) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar')).join('') + '</div>';
     } else if (page.kind === 'artifact') {
       body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" target="_blank" rel="noopener noreferrer" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
     } else {
