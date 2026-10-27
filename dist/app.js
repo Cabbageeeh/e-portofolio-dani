@@ -307,6 +307,10 @@ main.addEventListener('click', (event) => {
     card.querySelector('[data-archive-select]')?.setAttribute('aria-expanded', String(active));
   });
   slot.innerHTML = archiveCategoryPanel(archiveCategories, selectedKey);
+  requestAnimationFrame(() => {
+    const panel = slot.querySelector('.archive-detail');
+    panel?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  });
 });
 window.addEventListener('hashchange', navigatePage);
 document.querySelector('#year').textContent = new Date().getFullYear();
