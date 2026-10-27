@@ -142,9 +142,9 @@ h1, h2, h3, .brand, .intro-copy h1, .editorial-copy h1,
 .navy-field,
 .white-field { z-index: 0; }
 .hero-kicker {
-  top: 30px;
-  left: 29%;
-  max-width: 27%;
+  top: 24px;
+  left: 5%;
+  max-width: 52%;
   overflow: hidden;
   color: var(--stage-text);
   font-size: 9px;
@@ -153,22 +153,47 @@ h1, h2, h3, .brand, .intro-copy h1, .editorial-copy h1,
   white-space: nowrap;
 }
 .editorial-copy {
-  top: 26%;
-  left: 29%;
-  width: 27%;
-  max-width: 460px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
   color: var(--stage-text);
   z-index: 5;
+  pointer-events: none;
+}
+.editorial-copy .eyebrow {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  margin: 0 0 14px;
 }
 .editorial-copy h1 {
+  position: absolute;
+  top: 14%;
+  left: 5%;
+  width: 52%;
+  max-width: none;
+  margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(50px, 5.5vw, 90px);
-  line-height: .93;
+  line-height: .9;
   letter-spacing: -.075em;
 }
 .editorial-copy > p:not(.eyebrow) {
+  position: absolute;
+  top: 56%;
+  left: 29%;
+  width: 27%;
+  max-width: 460px;
   font-size: clamp(12px, 1vw, 15px);
   line-height: 1.55;
+}
+.editorial-copy .hero-button {
+  position: absolute;
+  top: 68%;
+  left: 29%;
+  margin: 0;
+  pointer-events: auto;
 }
 .hero-portrait {
   left: 0;
@@ -226,24 +251,31 @@ h1, h2, h3, .brand, .intro-copy h1, .editorial-copy h1,
   }
   .editorial-copy {
     position: relative;
+    inset: auto;
     top: auto;
     left: auto;
     width: 100%;
+    height: auto;
     max-width: none;
     z-index: 5;
+    pointer-events: auto;
   }
-  .editorial-copy .eyebrow { font-size: 8px; }
+  .editorial-copy .eyebrow { position: static; margin: 0 0 14px; font-size: 8px; }
   .editorial-copy h1 {
+    position: static;
+    width: 100%;
     max-width: 10ch;
     margin-bottom: 14px;
     font-size: clamp(44px, 12vw, 68px);
     line-height: .9;
   }
   .editorial-copy > p:not(.eyebrow) {
+    position: static;
+    width: auto;
     max-width: 70%;
     font-size: 12px;
   }
-  .hero-button { margin-top: 10px; padding: 12px 15px; gap: 14px; font-size: 9px; }
+  .editorial-copy .hero-button { position: static; margin-top: 10px; padding: 12px 15px; gap: 14px; font-size: 9px; }
   .hero-portrait {
     position: relative;
     right: auto;
