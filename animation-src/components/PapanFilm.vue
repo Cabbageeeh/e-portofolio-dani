@@ -22,8 +22,8 @@ function hold(stop: boolean): void {
 <template>
   <figure ref="film" class="papan" aria-hidden="true" @pointerenter="hold(true)" @pointerleave="hold(false)">
     <div class="papan-head">
-      <span>Karya pilihan</span>
-      <span class="papan-count"><b>{{ pad(entry.number) }}</b> / {{ queue.length }}</span>
+      <span>Papan karya</span>
+      <span class="papan-count"><b>{{ pad(entry.number) }}</b> / {{ pad(queue.length) }}</span>
     </div>
     <div class="papan-queue">
       <i v-for="(fill, at) in frame.queue" :key="at" :class="{ 'is-current': at === frame.current && frame.status === 'diracik' }"><b :style="{ transform: `scaleX(${fill})` }" /></i>
@@ -36,7 +36,7 @@ function hold(stop: boolean): void {
     >
       <p class="papan-meta" :style="{ opacity: frame.featured.meta }">
         <span class="papan-field"><i :style="{ background: `var(--tone-${entry.field.id})` }" />{{ entry.field.name }}</span>
-        <span :class="['papan-lamp', `is-${frame.featured.status}`]">{{ frame.featured.status === 'tersaji' ? 'Pilihan' : 'Berikutnya' }}</span>
+        <span :class="['papan-lamp', `is-${frame.featured.status}`]">{{ frame.featured.status === 'tersaji' ? 'Tersaji' : 'Disusun' }}</span>
       </p>
       <p class="papan-brand">
         <template v-if="frame.featured.settled">{{ entry.work.brand }}</template>
@@ -62,7 +62,7 @@ function hold(stop: boolean): void {
       </p>
     </div>
 
-    <p class="papan-label">Karya lainnya</p>
+    <p class="papan-label">Sebelumnya</p>
     <ol class="papan-history">
       <li
         v-for="line in frame.history"

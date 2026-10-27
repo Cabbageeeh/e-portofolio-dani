@@ -84,13 +84,12 @@ function home() {
   const profile = P.profil;
   return `<div class="masrama-page">
     <section class="editorial-hero" id="portfolio-hero" aria-labelledby="hero-title">
-      <div class="navy-field"><span class="hero-kicker">PPG INFORMATIKA / 2026</span><span class="orb orb-one"></span><span class="orb orb-two"></span></div>
+      <div class="navy-field"><span class="hero-kicker">${esc(profile.nama)} / CALON GURU INFORMATIKA · 2026</span><span class="orb orb-one"></span><span class="orb orb-two"></span></div>
       <div class="white-field"><nav class="hero-nav" aria-label="Navigasi cepat"><a href="#karya">KARYA</a><a href="#semester">PERJALANAN</a><button class="hero-menu" type="button" aria-label="Buka semua menu" aria-expanded="false">☰</button></nav></div>
       <div class="editorial-copy"><p class="eyebrow">BELAJAR UNTUK MEMBERI MAKNA.</p><h1 id="hero-title">BELAJAR.<br>MENGAJAR.</h1><p>Merancang pembelajaran.<br>Menumbuhkan potensi.</p><a class="hero-button" href="#karya">JELAJAHI KARYA <span>↗</span></a></div>
       <img class="hero-portrait" src="${esc(safe(profile.foto))}" alt="Potret ${esc(profile.nama)}" fetchpriority="high">
-      <div class="hero-identity"><span class="status-label">CALON GURU INFORMATIKA <i></i></span><h2>${esc(profile.nama)}</h2><p>${esc(profile.program)}<br>${esc(profile.kampus)}</p></div>
+      <div id="hero-project-board" class="hero-project-board" data-portfolio-animations="hero" aria-label="Papan animasi karya pilihan"></div>
       <div class="hero-bottom-left"><span class="mini-index">01 — 02</span><p>Dua semester.<br>Satu perjalanan menjadi pendidik.</p></div>
-      <div class="hero-note"><span class="quote-mark">“</span><p>Belajar, mengajar,<br>dan terus bertumbuh.</p><span>PORTOFOLIO PENDIDIKAN</span><a href="#refleksi" aria-label="Jelajahi refleksi">↗</a></div>
       <span class="hero-caption">E-PORTOFOLIO / 2026</span>
     </section>
     <div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#tentang">LANJUTKAN PERJALANAN ↓</a></div>

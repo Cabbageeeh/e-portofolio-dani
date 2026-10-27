@@ -6,7 +6,7 @@ import PapanFilm from './components/PapanFilm.vue';
 import ProsesSteps from './components/ProsesSteps.vue';
 import SangraiFilm from './components/SangraiFilm.vue';
 
-const props = withDefaults(defineProps<{ mode?: 'featured' | 'supporting' }>(), { mode: 'supporting' });
+const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'supporting' }>(), { mode: 'supporting' });
 
 const projectQueue = [
   {
@@ -46,7 +46,7 @@ const milestones = [
 </script>
 
 <template>
-  <div class="ppg-motion-kit">
+  <div class="ppg-motion-kit" :class="{ 'ppg-motion-kit--hero': props.mode === 'hero' }">
     <section v-if="props.mode === 'featured'" class="schedule-feature" aria-labelledby="schedule-feature-title">
       <div class="schedule-copy">
         <p class="eyebrow">PREVIEW PROYEK · PENJADWALAN SEKOLAH</p>
@@ -60,17 +60,12 @@ const milestones = [
       <JadwalFilm />
     </section>
 
+    <section v-else-if="props.mode === 'hero'" class="hero-project-showcase" aria-label="Animasi karya PPG">
+      <PapanFilm :queue="projectQueue" />
+    </section>
+
     <template v-else>
     <div class="motion-panels">
-      <section class="motion-panel reel-panel" aria-labelledby="project-reel-title">
-        <div class="motion-panel-head">
-          <p class="eyebrow">PROJECT REEL · JUDUL BERGULIR</p>
-          <h3 id="project-reel-title">Tiga karya dari dua semester.</h3>
-          <p>Judul berganti satu per satu. Arahkan penunjuk ke panel untuk menjeda animasi.</p>
-        </div>
-        <PapanFilm :queue="projectQueue" />
-      </section>
-
       <section class="motion-panel process-panel" aria-labelledby="reading-path-title">
         <div class="motion-panel-head">
           <p class="eyebrow">ALUR PENELUSURAN · TAHAP BERURUTAN</p>
@@ -131,6 +126,17 @@ const milestones = [
   gap: 18px;
   color: var(--text);
 }
+.ppg-motion-kit--hero {
+  --tone-semester-1: #2187c5;
+  --tone-semester-2: #75bce5;
+  --tone-inovasi: #62b897;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero-project-showcase,
+.hero-project-showcase :deep(.papan) { width: 100%; }
+.hero-project-showcase { height: 100%; min-width: 0; }
 :root[data-theme="dark"] .ppg-motion-kit {
   --signal-ok: #7ce0b7;
   --heat-1: #d9edf9;
@@ -149,7 +155,7 @@ const milestones = [
 .schedule-copy > p:not(.eyebrow):not(.schedule-footnote):not(.schedule-problem-label):not(.schedule-built-label) { color: var(--muted); font-size: clamp(14px, 1.5vw, 19px); line-height: 1.75; }
 .schedule-feature > .film { min-width: 0; }
 .schedule-footnote { margin: 13px 0 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
-.motion-panels { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: 18px; }
+.motion-panels { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
 .source-motion-list { display: grid; gap: 18px; }
 .motion-panel {
   min-width: 0;
@@ -164,7 +170,6 @@ const milestones = [
 .motion-panel-head .eyebrow { margin: 0 0 10px; color: var(--accent); font-size: 9px; font-weight: 800; letter-spacing: .13em; }
 .motion-panel-head h3 { margin: 0 0 8px; font-size: clamp(20px, 2.1vw, 28px); font-weight: 700; letter-spacing: -.05em; line-height: 1.14; }
 .motion-panel-head > p:last-child { max-width: 440px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
-.reel-panel .papan { --tone-semester-1: #2187c5; --tone-semester-2: #75bce5; --tone-inovasi: #62b897; }
 .process-panel .proses { margin-top: 8px; }
 .source-motion-list .film { margin-top: 0; }
 .source-motion-list .sangrai { margin-top: 0; }
