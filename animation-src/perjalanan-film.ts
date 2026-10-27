@@ -81,7 +81,7 @@ interface Layout {
 }
 
 const layouts: Record<FilmFormat, Layout> = {
-  wide: { width: 960, height: 326, x0: 48, x1: 912, top: 48, base: 236 },
+  wide: { width: 960, height: 280, x0: 48, x1: 912, top: 40, base: 205 },
   tall: { width: 360, height: 402, x0: 25, x1: 335, top: 46, base: 336 },
 };
 

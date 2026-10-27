@@ -74,7 +74,7 @@ const controlLabel = computed(() => (
       <span v-if="frame.currentEntry.work" class="journey-work">{{ frame.currentEntry.work }}</span>
     </div>
 
-    <svg class="journey-chart" :viewBox="'0 0 ' + frame.width + ' ' + frame.height" role="img" aria-label="Lintasan refleksi dari Teknik Informatika murni melalui pembelajaran PPG dan praktik sekolah menuju guru Informatika">
+    <svg class="journey-chart" :viewBox="'0 0 ' + frame.width + ' ' + frame.height" role="img" aria-label="Lintasan refleksi dari Teknik Informatika murni melalui pembelajaran PPG dan praktik sekolah menuju guru Informatika. Empat fase: bekal Informatika, belajar pedagogik, praktik di sekolah, serta karya dan refleksi.">
       <defs>
         <linearGradient id="journey-line" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stop-color="#9dd3f0" />
@@ -226,23 +226,24 @@ const controlLabel = computed(() => (
 .journey-entry-copy small { display: block; color: var(--journey-muted); font-size: 10px; line-height: 1.45; }
 .journey-entry-arrow { justify-self: end; color: #68d7b0; font-size: 12px; }
 .journey-footnote { margin: 12px 0 0; color: #809bad; font-size: 9px; line-height: 1.5; }
-.journey-film--compact { padding: 17px; border-radius: 20px; }
-.journey-film--compact .journey-head { gap: 8px 12px; }
-.journey-film--compact .journey-name { gap: 10px; }
+.journey-film--compact { padding: 12px; border-radius: 20px; }
+.journey-film--compact .journey-head { align-items: center; gap: 4px 10px; }
+.journey-film--compact .journey-name { gap: 8px; }
 .journey-film--compact .journey-head strong { font-size: 1rem; }
-.journey-film--compact .journey-head small { max-width: 260px; font-size: 11px; }
-.journey-film--compact .journey-readout span { font-size: 2rem; }
+.journey-film--compact .journey-head small { max-width: 220px; font-size: 10px; line-height: 1.35; }
+.journey-film--compact .journey-readout span { font-size: 1.6rem; }
 .journey-film--compact .journey-readout small { font-size: 9px; }
 .journey-film--compact .journey-contexts { display: none; }
-.journey-film--compact .journey-focus { margin-top: 12px; padding: 12px 14px; }
-.journey-film--compact .journey-focus h4 { font-size: clamp(17px, 1.55vw, 20px); }
-.journey-film--compact .journey-focus p { font-size: 12px; line-height: 1.5; }
-.journey-film--compact .journey-chart { margin-top: 10px; }
-.journey-film--compact .journey-log { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-top: 12px; padding-top: 11px; }
+.journey-film--compact .journey-focus { margin-top: 8px; padding: 9px 12px; }
+.journey-film--compact .journey-focus h4 { font-size: 16px; line-height: 1.18; }
+.journey-film--compact .journey-focus p { font-size: 11px; line-height: 1.4; }
+.journey-film--compact .journey-chart { margin-top: 8px; }
+.journey-film--compact .journey-phase-list { display: none; }
+.journey-film--compact .journey-log { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-top: 8px; padding-top: 8px; }
 .journey-film--compact .journey-entry { display: flex; min-height: 34px; align-items: center; justify-content: center; padding: 6px; border-radius: 999px; }
 .journey-film--compact .journey-entry-copy { display: none; }
 .journey-film--compact .journey-entry-arrow { display: none; }
-.journey-film--compact .journey-footnote { margin-top: 9px; }
+.journey-film--compact .journey-footnote { margin-top: 6px; }
 @media (max-width: 900px) {
   .journey-log { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .journey-entry { padding: 9px 7px; gap: 2px 5px; }
