@@ -146,7 +146,7 @@ const readingSteps = [
 .schedule-feature > .film { min-width: 0; }
 .schedule-footnote { margin: 13px 0 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
 .motion-panels { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
-.source-motion-list { display: grid; gap: 18px; }
+.source-motion-list { display: grid; gap: clamp(68px, 7vw, 105px); }
 .motion-panel {
   min-width: 0;
   padding: clamp(18px, 2.6vw, 28px);
@@ -168,7 +168,13 @@ const readingSteps = [
   column-gap: clamp(28px, 4vw, 56px);
   width: 100%;
   max-width: 1320px;
+  padding: 0;
+  overflow: visible;
   margin-inline: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .source-motion-list > .motion-panel > .motion-panel-head {
   grid-column: 2;
@@ -183,8 +189,9 @@ const readingSteps = [
   width: min(100%, 560px);
   margin: 0;
 }
-.source-motion-list > .motion-panel > .motion-panel-head h3 { max-width: 18ch; }
-.source-motion-list > .motion-panel > .motion-panel-head > p:last-child { max-width: 46ch; font-size: 12px; }
+.source-motion-list > .motion-panel > .motion-panel-head .eyebrow { margin-bottom: 16px; font-size: 10px; }
+.source-motion-list > .motion-panel > .motion-panel-head h3 { max-width: 14ch; font-size: clamp(34px, 4vw, 54px); font-weight: 650; letter-spacing: -.065em; line-height: 1.02; }
+.source-motion-list > .motion-panel > .motion-panel-head > p:last-child { max-width: 55ch; font-size: clamp(14px, 1.2vw, 16px); line-height: 1.8; }
 @media (max-width: 1050px) {
   .motion-panels { grid-template-columns: 1fr; }
 }
@@ -202,11 +209,14 @@ const readingSteps = [
 }
 @media (max-width: 760px) {
   .motion-panels { gap: 12px; }
-  .source-motion-list { gap: 12px; }
+  .source-motion-list { gap: 52px; }
   .motion-panel { padding: 18px 15px; border-radius: 16px; }
   .motion-panel-head { margin-bottom: 18px; }
-  .source-motion-list > .motion-panel { row-gap: 18px; }
+  .source-motion-list > .motion-panel { row-gap: 18px; padding: 0; }
   .source-motion-list > .motion-panel > .motion-panel-head { margin: 0; }
+  .source-motion-list > .motion-panel > .motion-panel-head .eyebrow { margin-bottom: 10px; }
+  .source-motion-list > .motion-panel > .motion-panel-head h3 { max-width: 16ch; font-size: clamp(30px, 8vw, 42px); }
+  .source-motion-list > .motion-panel > .motion-panel-head > p:last-child { font-size: 14px; }
   .schedule-feature { padding: 19px 15px; }
   .schedule-feature h2 { max-width: 17ch; margin-bottom: 20px; font-size: clamp(34px, 10vw, 48px); }
   .schedule-problem { font-size: 18px; }

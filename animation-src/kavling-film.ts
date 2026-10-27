@@ -441,22 +441,38 @@ export function kavlingFrame(time: number, format: FilmFormat = 'wide', hero = k
           ...ppjbShown,
           chipWidth: body.chip,
           doc: { x: docX, w: docWidth, h: body.h, title: `Catatan analisis ${code}` },
-          clauses: ['Tujuan pembelajaran', 'Materi dan media', 'Asesmen', 'Refleksi'].map((label, index) => {
+          clauses: (() => {
+          const clauseData = [
+            { label: 'Tujuan pembelajaran', parts: ['Tujuan', 'pembelajaran'], lineParts: ['1. Tujuan', 'pembelajaran'] },
+            { label: 'Materi dan media', parts: ['Materi', 'dan media'], lineParts: ['2. Materi', 'dan media'] },
+            { label: 'Asesmen', parts: ['Asesmen'], lineParts: ['3. Asesmen'] },
+            { label: 'Refleksi', parts: ['Refleksi'], lineParts: ['4. Refleksi'] },
+          ];
+          let lineCursor = body.lineTop;
+          const lineStep = format === 'tall' ? 10 : 14;
+          const clauseGap = format === 'tall' ? 2 : 4;
+          return clauseData.map(({ label, parts, lineParts }, index) => {
             const start = at.clause + index * 0.24;
             const fly = spring(time - start, { stiffness: 150, damping: 19 });
-            const lineY = body.lineTop + index * body.lineGap;
+            const lineY = lineCursor;
+            lineCursor += lineParts.length * lineStep + clauseGap;
             const from = { x: 0, y: index * 28 };
             const to = { x: docX + 4, y: lineY - 15 };
             const place = lerp(from, to, fly);
             const flying = time >= start ? 1 - clamp01((time - start - 0.4) / 0.18) : 0;
             return {
               label,
+              parts,
               y: index * 28,
               glow: time >= start ? 1 - clamp01((time - start) / 0.5) : 0,
               copy: flying > 0 ? { x: round(place.x), y: round(place.y), opacity: flying, scale: round((1 - 0.18 * fly) * 1000) / 1000 } : null,
-              line: { text: `${index + 1}. ${label}`, y: lineY, opacity: clamp01((time - start - 0.32) / 0.2) },
+              line: {
+                parts: lineParts.map((text, lineIndex) => ({ text, y: lineY + lineIndex * lineStep })),
+                opacity: clamp01((time - start - 0.32) / 0.2),
+              },
             };
-          }),
+          });
+          })(),
           signature: { d: signature(body.h - 16), draw: interpolate(time, [at.sign, at.signed], [0, 1], easeInOut), lineY: body.h - 11 },
           stamp:
             time >= at.stamp

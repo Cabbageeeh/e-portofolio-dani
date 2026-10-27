@@ -208,16 +208,20 @@ function pick(index: number): void {
               <!-- Catatan analisis dan refleksi. -->
               <g v-if="frame.ppjb" :transform="`translate(0 ${frame.ppjb.y})`" :opacity="frame.ppjb.opacity">
                 <g v-for="clause in frame.ppjb.clauses" :key="clause.label" :transform="`translate(0 ${clause.y})`">
-                  <rect :width="frame.ppjb.chipWidth" height="22" rx="7" class="kav-clause" />
-                  <rect v-if="clause.glow > 0" :width="frame.ppjb.chipWidth" height="22" rx="7" class="kav-clause-glow" :opacity="clause.glow" />
-                  <text x="10" y="15" class="kav-clause-text">{{ clause.label }}</text>
+                  <rect :width="frame.ppjb.chipWidth" height="26" rx="7" class="kav-clause" />
+                  <rect v-if="clause.glow > 0" :width="frame.ppjb.chipWidth" height="26" rx="7" class="kav-clause-glow" :opacity="clause.glow" />
+                  <text x="10" :y="clause.parts.length > 1 ? 10 : 16" class="kav-clause-text">
+                    <tspan v-for="(part, index) in clause.parts" :key="part" x="10" :dy="index === 0 ? 0 : 10">{{ part }}</tspan>
+                  </text>
                 </g>
                 <g :transform="`translate(${frame.ppjb.doc.x} 0)`">
                   <rect :width="frame.ppjb.doc.w" :height="frame.ppjb.doc.h" rx="8" class="kav-doc" />
                   <text x="10" y="18" class="kav-doc-title">{{ frame.ppjb.doc.title }}</text>
                   <g v-for="clause in frame.ppjb.clauses" :key="`line-${clause.label}`" :opacity="clause.line.opacity">
-                    <text x="10" :y="clause.line.y" class="kav-doc-line">{{ clause.line.text }}</text>
-                    <rect x="92" :y="clause.line.y - 5" :width="Math.max(frame.ppjb.doc.w - 104, 0)" height="3" rx="1.5" class="kav-doc-text" />
+                    <template v-for="part in clause.line.parts" :key="part.text">
+                      <text x="10" :y="part.y" class="kav-doc-line">{{ part.text }}</text>
+                      <rect x="92" :y="part.y - 5" :width="Math.max(frame.ppjb.doc.w - 104, 0)" height="3" rx="1.5" class="kav-doc-text" />
+                    </template>
                   </g>
                   <line x1="10" :x2="Math.min(frame.ppjb.doc.w - 70, 110)" :y1="frame.ppjb.signature.lineY" :y2="frame.ppjb.signature.lineY" class="kav-sign-line" />
                   <path
@@ -238,8 +242,10 @@ function pick(index: number): void {
                 </g>
                 <template v-for="clause in frame.ppjb.clauses" :key="`copy-${clause.label}`">
                   <g v-if="clause.copy" :transform="`translate(${clause.copy.x} ${clause.copy.y}) scale(${clause.copy.scale})`" :opacity="clause.copy.opacity">
-                    <rect :width="frame.ppjb.chipWidth" height="22" rx="7" class="kav-clause kav-clause--copy" />
-                    <text x="10" y="15" class="kav-clause-text">{{ clause.label }}</text>
+                    <rect :width="frame.ppjb.chipWidth" height="26" rx="7" class="kav-clause kav-clause--copy" />
+                    <text x="10" :y="clause.parts.length > 1 ? 10 : 16" class="kav-clause-text">
+                      <tspan v-for="(part, index) in clause.parts" :key="part" x="10" :dy="index === 0 ? 0 : 10">{{ part }}</tspan>
+                    </text>
                   </g>
                 </template>
               </g>
