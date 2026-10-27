@@ -1,0 +1,323 @@
+/* MasRama-inspired tactile cards, recolored for the Navy & Sky PPG portfolio. */
+:root {
+  --mc-navy: #173e5d;
+  --mc-sky: #78bfdf;
+  --mc-mint: #a7d8cd;
+  --mc-ice: #dcecf5;
+  --mc-paper: #f5f9fb;
+  --mc-ink: #102d49;
+  --mc-on-dark: #f3f8fc;
+  --mc-muted-dark: #d1e2ec;
+  --mc-muted-light: #3d5c72;
+  --mc-shadow: rgba(12, 43, 67, .3);
+}
+
+:root[data-theme="dark"] {
+  --mc-navy: #17364f;
+  --mc-sky: #235f7e;
+  --mc-mint: #205650;
+  --mc-ice: #254357;
+  --mc-paper: #172e41;
+  --mc-ink: #eaf5fb;
+  --mc-on-dark: #eff7fc;
+  --mc-muted-dark: #c3d7e4;
+  --mc-muted-light: #bdd2df;
+  --mc-shadow: rgba(0, 0, 0, .42);
+}
+
+/* Shared finish: saturated body color, a fine top highlight, and a soft base shadow. */
+#main .mas-facts,
+#main .mas-semester-card,
+#main .archive-semester,
+#main .path-step,
+#main .tile,
+#main .project-card,
+#main .artifact,
+#main .page-head,
+#main .empty {
+  border: 1px solid color-mix(in srgb, var(--mc-card-ink, var(--mc-ink)) 12%, transparent);
+  background:
+    radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, white 19%, transparent), transparent 56%),
+    var(--mc-card-tone, var(--mc-paper));
+  color: var(--mc-card-ink, var(--mc-ink));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 30%, transparent),
+    inset 0 -3px 0 color-mix(in srgb, black 10%, transparent),
+    0 22px 34px -25px var(--mc-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+#main .mas-facts {
+  --mc-card-tone: var(--mc-paper);
+  --mc-card-ink: var(--text);
+  --mc-card-muted: var(--muted);
+  border-radius: 20px;
+}
+#main .mas-facts dt { color: var(--mc-card-muted); }
+#main .mas-facts dd { color: var(--mc-card-ink); }
+
+/* Semester cards share MasRama's bold, colored category-card treatment. */
+#main .mas-semester-card {
+  --mc-card-tone: var(--mc-navy);
+  --mc-card-ink: var(--mc-on-dark);
+  --mc-card-muted: var(--mc-muted-dark);
+  border-color: color-mix(in srgb, var(--mc-on-dark) 18%, transparent);
+  border-radius: 24px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.26),
+    inset 0 -3px 0 rgba(0,0,0,.15),
+    0 25px 38px -28px var(--mc-shadow);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
+}
+#main .mas-semester-card:nth-child(2) {
+  --mc-card-tone: var(--mc-sky);
+  --mc-card-ink: var(--mc-ink);
+  --mc-card-muted: #274d65;
+  border-color: color-mix(in srgb, var(--mc-ink) 12%, transparent);
+  background:
+    radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.35), transparent 56%),
+    var(--mc-card-tone);
+}
+:root[data-theme="dark"] #main .mas-semester-card:nth-child(2) { --mc-card-ink: var(--mc-on-dark); --mc-card-muted: var(--mc-muted-dark); }
+#main .mas-semester-card:hover { transform: translateY(-5px); box-shadow: inset 0 1px 0 rgba(255,255,255,.26), inset 0 -3px 0 rgba(0,0,0,.15), 0 30px 42px -27px var(--mc-shadow); }
+#main .mas-semester-card .eyebrow { color: var(--mc-card-muted); }
+#main .mas-semester-card h3,
+#main .mas-semester-card .mas-school { color: var(--mc-card-ink); }
+#main .mas-semester-card .mas-semester-note { color: var(--mc-card-muted); }
+#main .mas-semester-card .semester-number { color: color-mix(in srgb, var(--mc-card-ink) 16%, transparent); }
+#main .mas-semester-card .semester-links { border-color: color-mix(in srgb, var(--mc-card-ink) 25%, transparent); }
+#main .mas-semester-card .semester-links a {
+  border-color: color-mix(in srgb, var(--mc-card-ink) 28%, transparent);
+  background: color-mix(in srgb, var(--mc-card-ink) 10%, transparent);
+  color: var(--mc-card-ink);
+}
+#main .mas-semester-card .semester-links a:hover {
+  border-color: var(--mc-card-ink);
+  background: var(--mc-card-ink);
+  color: var(--mc-card-tone);
+}
+
+/* Expandable semester archive cards use the same colored surface and inset detail rows. */
+#main .archive-semester {
+  --mc-card-tone: var(--mc-navy);
+  --mc-card-ink: var(--mc-on-dark);
+  --mc-card-muted: var(--mc-muted-dark);
+  overflow: hidden;
+  border: 0;
+  border-radius: 24px;
+  background: var(--mc-card-tone);
+  transition: transform .24s cubic-bezier(.2,.8,.2,1), box-shadow .24s ease;
+}
+#main .archive-semester--s2 {
+  --mc-card-tone: var(--mc-sky);
+  --mc-card-ink: var(--mc-ink);
+  --mc-card-muted: #274d65;
+}
+:root[data-theme="dark"] #main .archive-semester--s2 { --mc-card-ink: var(--mc-on-dark); --mc-card-muted: var(--mc-muted-dark); }
+#main .archive-semester:hover { transform: translateY(-4px); border-color: transparent; box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -3px 0 rgba(0,0,0,.14), 0 28px 42px -28px var(--mc-shadow); }
+#main .archive-semester[open] { border-color: color-mix(in srgb, var(--mc-card-ink) 28%, transparent); }
+#main .archive-semester > summary,
+#main .archive-semester--s1 > summary,
+#main .archive-semester--s2 > summary {
+  background: radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, white 20%, transparent), transparent 56%), var(--mc-card-tone);
+  color: var(--mc-card-ink);
+}
+#main .archive-semester-index,
+#main .archive-semester--s2 .archive-semester-index {
+  background: color-mix(in srgb, var(--mc-card-ink) 14%, transparent);
+  color: var(--mc-card-ink);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 26%, transparent);
+}
+#main .archive-semester-main .archive-label,
+#main .archive-semester-main > strong,
+#main .archive-semester-meta { color: var(--mc-card-ink); }
+#main .archive-semester-main .archive-label,
+#main .archive-semester-meta { opacity: .78; }
+#main .archive-disclosure { border-color: color-mix(in srgb, var(--mc-card-ink) 34%, transparent); color: var(--mc-card-ink); }
+#main .archive-semester[open] .archive-disclosure { background: var(--mc-card-ink); color: var(--mc-card-tone); }
+#main .archive-semester-content { color: var(--mc-card-ink); }
+#main .archive-content-label { color: var(--mc-card-ink); opacity: .75; }
+#main .archive-category-list a {
+  border-color: color-mix(in srgb, var(--mc-card-ink) 24%, transparent);
+  color: var(--mc-card-ink);
+}
+#main .archive-category-list a:hover { color: var(--mc-card-ink); }
+#main .archive-category-list b { color: var(--mc-card-muted); }
+#main .archive-empty { border-color: color-mix(in srgb, var(--mc-card-ink) 24%, transparent); }
+#main .archive-empty-mark { background: color-mix(in srgb, var(--mc-card-ink) 14%, transparent); color: var(--mc-card-ink); }
+#main .archive-empty strong,
+#main .archive-empty p,
+#main .archive-empty a { color: var(--mc-card-ink); }
+#main .archive-empty p { opacity: .8; }
+#main .archive-empty a { font-weight: 800; }
+
+/* Steps and navigation tiles echo MasRama's alternating color fields. */
+#main .path-step,
+#main .tile {
+  --mc-card-tone: var(--mc-navy);
+  --mc-card-ink: var(--mc-on-dark);
+  --mc-card-muted: var(--mc-muted-dark);
+  border: 0;
+  border-radius: 23px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), inset 0 -3px 0 rgba(0,0,0,.12), 0 21px 32px -26px var(--mc-shadow);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
+}
+#main .path-step:nth-child(4n + 2),
+#main .tile:nth-child(4n + 2) {
+  --mc-card-tone: var(--mc-sky);
+  --mc-card-ink: var(--mc-ink);
+  --mc-card-muted: #294f65;
+  background: radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.32), transparent 56%), var(--mc-card-tone);
+}
+#main .path-step:nth-child(4n + 3),
+#main .tile:nth-child(4n + 3) {
+  --mc-card-tone: var(--mc-mint);
+  --mc-card-ink: #123b42;
+  --mc-card-muted: #315d61;
+  background: radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.32), transparent 56%), var(--mc-card-tone);
+}
+#main .path-step:nth-child(4n),
+#main .tile:nth-child(4n) {
+  --mc-card-tone: var(--mc-ice);
+  --mc-card-ink: var(--mc-ink);
+  --mc-card-muted: var(--mc-muted-light);
+  background: radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.48), transparent 56%), var(--mc-card-tone);
+}
+:root[data-theme="dark"] #main .path-step:nth-child(n),
+:root[data-theme="dark"] #main .tile:nth-child(n) { --mc-card-ink: var(--mc-on-dark); --mc-card-muted: var(--mc-muted-dark); }
+:root[data-theme="dark"] #main .path-step:nth-child(4n + 2),
+:root[data-theme="dark"] #main .tile:nth-child(4n + 2) { --mc-card-tone: var(--mc-sky); }
+:root[data-theme="dark"] #main .path-step:nth-child(4n + 3),
+:root[data-theme="dark"] #main .tile:nth-child(4n + 3) { --mc-card-tone: var(--mc-mint); }
+:root[data-theme="dark"] #main .path-step:nth-child(4n),
+:root[data-theme="dark"] #main .tile:nth-child(4n) { --mc-card-tone: var(--mc-ice); }
+#main .path-step:hover,
+#main .tile:hover { transform: translateY(-5px); box-shadow: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -3px 0 rgba(0,0,0,.12), 0 28px 40px -26px var(--mc-shadow); }
+#main .path-step .step-number,
+#main .path-step h3,
+#main .path-step p,
+#main .tile h3,
+#main .tile p,
+#main .tile .tile-bottom { color: var(--mc-card-ink); }
+#main .path-step p,
+#main .tile p { opacity: .82; }
+#main .path-step .step-number { font-weight: 800; }
+#main .path-step:not(:last-child):after { color: var(--accent); filter: drop-shadow(0 2px 3px rgba(0,0,0,.15)); }
+#main .tile:before { background: color-mix(in srgb, var(--mc-card-ink) 22%, transparent); opacity: .72; }
+#main .tile-icon {
+  border: 0;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--mc-card-ink) 14%, transparent);
+  color: var(--mc-card-ink);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 24%, transparent);
+}
+#main .tile-bottom { border-color: color-mix(in srgb, var(--mc-card-ink) 32%, transparent); }
+#main .tile-bottom > span { border-color: color-mix(in srgb, var(--mc-card-ink) 36%, transparent); background: color-mix(in srgb, var(--mc-card-ink) 11%, transparent); color: var(--mc-card-ink); }
+
+/* Project cards keep their portfolio tilt, now with MasRama's tactile color surfaces. */
+#main .project-card {
+  --mc-card-tone: var(--mc-navy);
+  --mc-card-ink: var(--mc-on-dark);
+  --mc-card-muted: var(--mc-muted-dark);
+  border: 0;
+  border-radius: 24px;
+  background: radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.2), transparent 56%), var(--mc-card-tone);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -3px 0 rgba(0,0,0,.14), 0 24px 36px -27px var(--mc-shadow);
+}
+#main .project-card:nth-child(3n + 2) {
+  --mc-card-tone: var(--mc-sky);
+  --mc-card-ink: var(--mc-ink);
+  --mc-card-muted: #294f65;
+}
+#main .project-card:nth-child(3n) {
+  --mc-card-tone: var(--mc-mint);
+  --mc-card-ink: #123b42;
+  --mc-card-muted: #315d61;
+}
+:root[data-theme="dark"] #main .project-card { --mc-card-ink: var(--mc-on-dark); --mc-card-muted: var(--mc-muted-dark); }
+:root[data-theme="dark"] #main .project-card:nth-child(3n + 2) { --mc-card-tone: var(--mc-sky); }
+:root[data-theme="dark"] #main .project-card:nth-child(3n) { --mc-card-tone: var(--mc-mint); }
+#main .project-card::after { background: color-mix(in srgb, var(--mc-card-ink) 17%, transparent); }
+#main .project-card:hover { border-color: transparent; box-shadow: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -3px 0 rgba(0,0,0,.14), 0 29px 42px -27px var(--mc-shadow); }
+#main .project-card .project-meta,
+#main .project-card .project-index,
+#main .project-card h3,
+#main .project-card .project-description,
+#main .project-card .project-link { color: var(--mc-card-ink); }
+#main .project-card .project-meta,
+#main .project-card .project-index,
+#main .project-card .project-description { opacity: .82; }
+#main .project-card .case-dot { background: var(--mc-card-ink); box-shadow: 0 0 0 5px color-mix(in srgb, var(--mc-card-ink) 14%, transparent); }
+#main .project-card .project-link { border-color: color-mix(in srgb, var(--mc-card-ink) 27%, transparent); }
+#main .project-card .project-link span { border-color: color-mix(in srgb, var(--mc-card-ink) 32%, transparent); color: var(--mc-card-ink); }
+#main .project-card .project-link:hover { color: var(--mc-card-ink); }
+
+/* Detail pages and analysis use quieter paper-blue versions of the same material. */
+#main .page-head {
+  --mc-card-tone: var(--mc-ice);
+  --mc-card-ink: var(--text);
+  --mc-card-muted: var(--muted);
+  border: 0;
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 38px);
+}
+:root[data-theme="dark"] #main .page-head { --mc-card-tone: var(--mc-paper); }
+#main .page-head .breadcrumb,
+#main .page-head > p:last-child { color: var(--mc-card-muted); }
+#main .page-head h1 { color: var(--mc-card-ink); }
+#main .artifact {
+  --mc-card-tone: var(--mc-paper);
+  --mc-card-ink: var(--text);
+  --mc-card-muted: var(--muted);
+  border: 0;
+  border-radius: 24px;
+  padding: clamp(22px, 3vw, 34px);
+}
+#main .artifact > p:not(.eyebrow) { color: var(--mc-card-muted); }
+#main .analysis { border-color: color-mix(in srgb, var(--mc-ink) 18%, transparent); }
+#main .analysis > div {
+  border: 1px solid color-mix(in srgb, var(--mc-ink) 10%, transparent);
+  border-radius: 17px;
+  background: color-mix(in srgb, var(--mc-ice) 58%, var(--surface));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 12px 22px -18px var(--mc-shadow);
+}
+:root[data-theme="dark"] #main .analysis > div { background: color-mix(in srgb, var(--mc-ice) 55%, var(--surface)); }
+#main .analysis h3 { color: var(--text); }
+#main .analysis p { color: var(--muted); }
+#main .empty {
+  --mc-card-tone: var(--mc-paper);
+  --mc-card-ink: var(--text);
+  --mc-card-muted: var(--muted);
+  border: 1px dashed color-mix(in srgb, var(--mc-ink) 22%, transparent);
+  border-radius: 23px;
+}
+#main .empty h2,
+#main .empty p { color: var(--mc-card-ink); }
+#main .empty p { opacity: .78; }
+#main .empty-icon { color: var(--accent); }
+
+/* The landing timeline is a standalone feature panel, with the same finish as MasRama's cards. */
+.intro-trajectory {
+  border: 1px solid rgba(220,240,252,.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.23), inset 0 -3px 0 rgba(0,0,0,.15), 0 24px 38px -26px rgba(5,30,48,.48);
+}
+
+@media (max-width: 760px) {
+  #main .mas-semester-card,
+  #main .archive-semester,
+  #main .tile,
+  #main .project-card,
+  #main .page-head,
+  #main .artifact,
+  #main .empty { border-radius: 18px; }
+  #main .archive-semester > summary { min-height: 160px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main .mas-semester-card,
+  #main .archive-semester,
+  #main .path-step,
+  #main .tile,
+  #main .project-card { transition: none !important; }
+}
