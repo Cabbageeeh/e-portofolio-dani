@@ -30,6 +30,14 @@ Website statis tanpa login. Isi diedit di `dist/content.js`; tampilan di `dist/s
 
 Pertahankan tanda kutip, koma, dan kurung JavaScript. Jangan masukkan pengalaman atau hasil penilaian yang belum ada. Lengkapi siklus 2–4 dan video praktik sesuai petunjuk tugas. Materi belum diisi ditampilkan sebagai belum ditambahkan.
 
+## Animasi dan sumber
+
+Enam pola animasi MasRama diadaptasi untuk portofolio pendidikan: film jadwal interaktif, gulungan judul karya, tahapan penelusuran, simulasi ketahanan sistem digital, peta karya, dan garis waktu dua semester. Kode sumbernya tersedia di `animation-src/`; lisensi MIT dan atribusinya tercantum di `THIRD-PARTY-NOTICES.md`. Paletnya disesuaikan ke Navy & Sky. Adegan yang bersifat konsep ditandai sebagai ilustrasi, bukan klaim tentang fitur atau status proyek.
+
+Setelah mengubah source animasi, jalankan `npm install` lalu `npm run build`. Berkas statis hasilnya dibuat di `dist/portfolio-animations.js` dan `dist/portfolio-animations.css`. `vercel.json` memakai `dist` sebagai output directory.
+
+Animasi menghormati pengaturan reduced motion perangkat. Film jadwal dan simulasi sistem dapat dijeda serta dilompati per bab, papan karya berhenti saat penunjuk diarahkan ke sana, kartu proses muncul bertahap, peta karya dapat dipilih, dan garis waktu dapat diputar ulang dari tiap karya. Kartu karya juga memiliki efek tilt ringan pada perangkat dengan pointer.
+
 ## Menjalankan lokal
 
 Dari folder `dist`, jalankan `python -m http.server 8080`, lalu buka http://localhost:8080. Alternatif: gunakan Live Server di editor.
@@ -42,4 +50,6 @@ Folder publik adalah `dist`, tanpa instalasi atau proses build. Dapat dipasang p
 
 Palet warna dan tipografi utama berada di `dist/theme-navy-sky.css`. Tema terang memakai Navy & Sky; tombol `Tema` mengaktifkan variasi gelap dari palet yang sama. Konten dan identitas portofolio tetap di `dist/content.js`.
 
-Daftar karya pilihan, ringkasan, dan tautan repositori berada di `dist/projects.js`. Visual jadwal pada bagian itu memakai mata pelajaran contoh dan diberi label ilustrasi, bukan data jadwal sekolah.
+Daftar karya pilihan, ringkasan, dan tautan repositori berada di `dist/projects.js`. Simulasi jadwal memakai data contoh dan diberi label ilustrasi, bukan jadwal aktual sekolah.
+
+Gerakan masuk yang halus untuk bagian halaman diatur oleh `dist/motion.css` dan `dist/motion.js`. Animasi mengikuti pengaturan reduced motion pada perangkat pengunjung.

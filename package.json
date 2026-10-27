@@ -1,0 +1,16 @@
+{
+  "name": "dani-ppg-portfolio",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "vite build --config animation-src/vite.config.mjs"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "vite": "^8.0.0",
+    "vue": "^3.5.0"
+  }
+}

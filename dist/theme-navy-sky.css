@@ -55,6 +55,12 @@
   --glow: rgba(67, 166, 216, .12);
 }
 
+/* Keep legacy dark-mode selectors from restoring the former green palette. */
+:root[data-theme=dark] .intro-visual,
+:root[data-theme=dark] .navy-field {
+  background: radial-gradient(ellipse at 66% 74%, var(--stage-highlight) 0%, var(--stage-mid) 48%, var(--stage-deep) 100%);
+}
+
 html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);

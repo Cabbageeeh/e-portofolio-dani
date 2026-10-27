@@ -1,0 +1,88 @@
+/* Palette fit the MasRama film and sequence components to the PPG portfolio's Navy & Sky theme. */
+.film-frame { background: #071a2b !important; }
+.film-title span { color: #9bb8cf !important; }
+.film-controls { color: #e8f4fc; }
+.film-play { border-color: var(--glass-line); background: var(--surface); color: var(--text); }
+.film-chapters button { color: var(--muted); }
+.film-chapters button[aria-current] { color: var(--text); }
+.film-chapter-bar { background: var(--border); }
+.film-chapter-bar span { background: var(--accent); }
+.papan { color: var(--text); }
+.papan-queue i { background: var(--border); }
+.papan-queue b { background: var(--accent); }
+.papan-lamp.is-diracik { color: var(--accent); }
+.papan-lamp.is-tersaji { color: #278766; }
+.papan-label, .papan-row { border-color: var(--border); }
+.papan-row-done { color: #278766; }
+:root[data-theme="dark"] .papan-lamp.is-tersaji,
+:root[data-theme="dark"] .papan-row-done { color: #7ce0b7; }
+.jad-world .jad-alarm-stop { stop-color: #ff876d; }
+
+/* Scene systems adapted to the same Navy & Sky palette. */
+.kav-world .kav-land { fill: #eaf6ff !important; }
+.kav-world .kav-contour,
+.kav-world .kav-boundary,
+.kav-world .kav-pin-stick,
+.kav-world .kav-pin-head,
+.kav-world .kav-pin-ring { stroke: #62b6e3 !important; }
+.kav-world .kav-pin-head { fill: #62b6e3 !important; }
+.kav-world .kav-road { fill: #eaf6ff !important; }
+.kav-world .kav-road-line { stroke: #eaf6ff !important; }
+.kav-world .kav-road-tag,
+.kav-world .kav-legal,
+.kav-world .kav-panel,
+.kav-world .kav-row,
+.kav-world .kav-bubble { fill: #102c45 !important; }
+.kav-world .kav-road-text,
+.kav-world .kav-small,
+.kav-world .kav-hint,
+.kav-world .kav-bubble-time { fill: #9bb6ca !important; }
+.kav-world .kav-survey-title,
+.kav-world .kav-panel-title,
+.kav-world .kav-name,
+.kav-world .kav-rail-label,
+.kav-world .kav-row-label,
+.kav-world .kav-row-amount,
+.kav-world .kav-clause-text,
+.kav-world .kav-bubble-title { fill: #eaf6ff !important; }
+.kav-world .kav-scan,
+.kav-world .kav-check,
+.kav-world .kav-rail-fill,
+.kav-world .kav-badge { stroke: #68d7b0 !important; fill: #68d7b0 !important; }
+.kav-world .kav-avatar { fill: #62b6e3 !important; stroke: #62b6e3 !important; }
+.kav-world .kav-avatar-text { fill: #c8f4ff !important; }
+.kav-world .kav-doc { fill: #eaf6ff !important; }
+.kav-world .kav-doc-title,
+.kav-world .kav-doc-line,
+.kav-world .kav-doc-text,
+.kav-world .kav-sign-line { fill: #102c45 !important; stroke: #102c45 !important; }
+.kav-world .kav-doc-title,
+.kav-world .kav-doc-line { fill: #102c45 !important; }
+.kav-world .kav-stamp,
+.kav-world .kav-stamp-text { stroke: #62b6e3 !important; fill: #62b6e3 !important; }
+.kav-world .kav-cell--due { fill: #ffd166 !important; stroke: #ffd166 !important; }
+.kav-world .kav-cell--paid { fill: #68d7b0 !important; stroke: #68d7b0 !important; }
+.kav-world .kav-cell-text--paid,
+.kav-world .kav-badge-text,
+.kav-world .kav-check-mark { fill: #102c45 !important; stroke: #102c45 !important; }
+.kav-world .kav-bubble-text { fill: #dcecf7 !important; }
+.kav-world .kav-ticks--read { stroke: #5fc7ff !important; }
+
+.ppg-motion-kit .sangrai {
+  --ink: #eaf6ff !important;
+  --ink-muted: #9bb6ca !important;
+  background:
+    radial-gradient(120% 90% at 85% 0%, rgb(77 155 208 / 0.18), transparent 60%),
+    radial-gradient(80% 60% at 0% 100%, rgb(63 196 178 / 0.1), transparent 60%),
+    #071a2b !important;
+}
+.ppg-motion-kit .sangrai-grid { stroke: rgb(157 211 240 / 0.08) !important; }
+.ppg-motion-kit .sangrai-base,
+.ppg-motion-kit .sangrai-playhead { stroke: rgb(157 211 240 / 0.35) !important; }
+.ppg-motion-kit .sangrai-year--now { fill: #c8f4ff !important; }
+.ppg-motion-kit .sangrai-phase { fill: rgb(157 211 240 / 0.09) !important; }
+.ppg-motion-kit .sangrai-point circle:last-child { stroke: #0e2438 !important; }
+.ppg-motion-kit .sangrai-readout span { background: linear-gradient(180deg, #c8f4ff, #4d9bd0) !important; filter: drop-shadow(0 0 18px rgb(77 155 208 / 0.32)) !important; }
+.ppg-motion-kit .sangrai-control:hover { background: rgb(120 190 230 / 0.12) !important; }
+.ppg-motion-kit .sangrai-entry:hover { background: rgb(157 211 240 / 0.07) !important; }
+.ppg-motion-kit .sangrai-stage--now .sangrai-entry { background: rgb(77 155 208 / 0.13) !important; }

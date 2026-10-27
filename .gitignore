@@ -3,3 +3,5 @@ redesign.mjs
 add-back.mjs
 menu-fix.mjs
 transition-fix.mjs
+.sites-checkout/
+site-update-*.tar.gz
