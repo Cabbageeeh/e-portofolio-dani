@@ -124,7 +124,7 @@ body.landing-active #portfolioShell{opacity:0;pointer-events:none;transition:opa
 .intro-trajectory-labels span, .intro-trajectory-labels span:nth-child(2), .intro-trajectory-labels span:last-child { display: flex; min-width: 0; align-items: center; justify-content: flex-start; gap: 6px; text-align: left; white-space: nowrap; }
 .intro-trajectory-labels b { color: #90dcfa; font: 700 12px/1 'Barlow Condensed', 'DM Sans', sans-serif; letter-spacing: .03em; }
 @media(max-width:760px) {
-  .landing-cover .intro-trajectory { left: 10px; bottom: 42px; width: min(300px, calc(100% - 20px)); padding: 11px 13px 10px; border-radius: 13px; }
+  .landing-cover .intro-trajectory { left: 10px; bottom: 8px; width: min(300px, calc(100% - 20px)); padding: 11px 13px 10px; border-radius: 13px; }
   .intro-trajectory-head { margin-bottom: 6px; }
   .intro-trajectory-head span { font-size: 7px; }
   .intro-trajectory-head b { padding: 3px 6px; font-size: 7px; }
