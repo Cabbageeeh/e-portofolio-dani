@@ -28,6 +28,11 @@ window.portfolioProjects = [
     </section>`;
     window.PortfolioMotion?.reveal(slot);
     slot.querySelectorAll('.project-card').forEach((card) => {
+      card.querySelector('.project-link')?.addEventListener('click', (event) => {
+        event.preventDefault();
+        const preview = slot.querySelector('#jadwal');
+        preview?.scrollIntoView({ behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+      });
       card.addEventListener('pointermove', (event) => {
         if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || event.pointerType === 'touch') return;
         const rect = card.getBoundingClientRect();
