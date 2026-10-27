@@ -17,6 +17,9 @@ try {
 
 export default defineConfig({
   root,
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   plugins: [vueModule.default()],
   resolve: {
     alias: {
