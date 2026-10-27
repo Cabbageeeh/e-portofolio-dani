@@ -140,3 +140,101 @@ body.landing-active #portfolioShell{opacity:0;pointer-events:none;transition:opa
   .intro-trajectory-labels { font-size: 8px; }
   .intro-trajectory-labels b { font-size: 10px; }
 }
+
+/* Keep the learning timeline in its own row so the portrait stays unobstructed. */
+.landing-cover {
+  height: auto;
+  min-height: max(780px, 100dvh);
+  grid-template-rows: minmax(560px, 1fr) auto;
+  overflow: visible;
+  padding: 8px 0 18px;
+}
+.landing-cover > .intro-copy { grid-row: 1; grid-column: 1; }
+.landing-cover > .intro-visual {
+  grid-row: 1;
+  grid-column: 2;
+  min-height: 560px;
+}
+.landing-cover > .intro-trajectory {
+  position: relative;
+  z-index: 3;
+  inset: auto;
+  grid-row: 2;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 1.1fr);
+  align-items: center;
+  gap: 28px;
+  width: min(1120px, calc(100% - 56px));
+  margin: 0 auto 8px;
+}
+.intro-trajectory-story, .intro-trajectory-steps { min-width: 0; }
+.landing-cover .intro-trajectory-title { max-width: 34ch; }
+.landing-cover .intro-trajectory-copy { max-width: 54ch; }
+.landing-cover .intro-trajectory-steps { width: 100%; }
+.landing-cover .intro-footnote { display: none; }
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .landing-cover > .intro-trajectory {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: calc(100% - 40px);
+    padding: 14px 18px;
+  }
+  .landing-cover .intro-trajectory-head { margin-bottom: 4px; }
+  .landing-cover .intro-trajectory-track { margin-top: 4px; }
+}
+
+@media (max-width: 760px) {
+  .landing-cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-content: start;
+    gap: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100dvh;
+    padding: 0 0 18px;
+  }
+  .landing-cover > .intro-copy {
+    grid-row: 1;
+    grid-column: 1;
+    padding: 27px 22px 20px;
+  }
+  .landing-cover .intro-eyebrow { margin-bottom: 25px; }
+  .landing-cover .intro-meta { max-width: none; }
+  .landing-cover > .intro-visual {
+    position: relative;
+    inset: auto;
+    grid-row: 2;
+    grid-column: 1;
+    width: calc(100% - 24px);
+    height: clamp(300px, 47svh, 410px);
+    min-height: 0;
+    margin: 0 12px;
+    border-radius: 16px;
+  }
+  .landing-cover .intro-portrait { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+  .landing-cover > .intro-trajectory {
+    position: relative;
+    inset: auto;
+    grid-row: 3;
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    width: calc(100% - 24px);
+    margin: 14px 12px 0;
+    padding: 14px 15px 13px;
+    border-radius: 14px;
+  }
+  .landing-cover .intro-trajectory-head { margin-bottom: 5px; }
+  .landing-cover .intro-trajectory-head span { font-size: 8px; }
+  .landing-cover .intro-trajectory-head b { padding: 3px 6px; font-size: 7px; }
+  .landing-cover .intro-trajectory-title { font-size: clamp(15px, 4.2vw, 18px); }
+  .landing-cover .intro-trajectory-copy { margin-top: 4px; font-size: 10px; line-height: 1.45; }
+  .landing-cover .intro-trajectory-track { height: 13px; margin-top: 2px; }
+  .landing-cover .intro-trajectory-labels { gap: 4px; font-size: 8px; }
+  .landing-cover .intro-trajectory-labels span { gap: 4px; }
+  .landing-cover .intro-trajectory-labels b { font-size: 10px; }
+}
