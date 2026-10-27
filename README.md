@@ -37,3 +37,7 @@ Dari folder `dist`, jalankan `python -m http.server 8080`, lalu buka http://loca
 ## Publikasi
 
 Folder publik adalah `dist`, tanpa instalasi atau proses build. Dapat dipasang pada Vercel sebagai proyek statis baru (Output Directory: dist). Setiap perubahan isi harus diterbitkan ulang agar terlihat oleh dosen. Font daring memiliki fallback jika koneksi tidak tersedia.
+
+## Mengubah tema
+
+Palet warna dan tipografi utama berada di `dist/theme-navy-sky.css`. Tema terang memakai Navy & Sky; tombol `Tema` mengaktifkan variasi gelap dari palet yang sama. Konten dan identitas portofolio tetap di `dist/content.js`.
