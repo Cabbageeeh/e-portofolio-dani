@@ -1,7 +1,7 @@
 const P = window.portfolio;
 const slug = (value) => String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
-const safe = (value) => { try { const url = new URL(value, location.href); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; } catch { return ''; } };
+const safe = (value) => { try { const url = new URL(value, location.href); const localFile = location.protocol === 'file:' && url.protocol === 'file:' && url.pathname.startsWith(new URL('.', location.href).pathname); return ['http:', 'https:'].includes(url.protocol) || localFile ? url.href : ''; } catch { return ''; } };
 const pages = new Map();
 const main = document.querySelector('#main');
 const landingScreen = document.querySelector('#landingScreen');
@@ -83,11 +83,21 @@ function reflectionCards() {
 function home() {
   const profile = P.profil;
   return `<div class="masrama-page">
-    <div id="jadwal" class="masrama-schedule-root" data-portfolio-animations="featured"></div>
+    <section class="editorial-hero" id="portfolio-hero" aria-labelledby="hero-title">
+      <div class="navy-field"><span class="hero-kicker">PPG INFORMATIKA / 2026</span><span class="orb orb-one"></span><span class="orb orb-two"></span></div>
+      <div class="white-field"><nav class="hero-nav" aria-label="Navigasi cepat"><a href="#karya">KARYA</a><a href="#semester">PERJALANAN</a><button class="hero-menu" type="button" aria-label="Buka semua menu" aria-expanded="false">☰</button></nav></div>
+      <div class="editorial-copy"><p class="eyebrow">BELAJAR UNTUK MEMBERI MAKNA.</p><h1 id="hero-title">BELAJAR.<br>MENGAJAR.</h1><p>Merancang pembelajaran.<br>Menumbuhkan potensi.</p><a class="hero-button" href="#karya">JELAJAHI KARYA <span>↗</span></a></div>
+      <img class="hero-portrait" src="${esc(safe(profile.foto))}" alt="Potret ${esc(profile.nama)}" fetchpriority="high">
+      <div class="hero-identity"><span class="status-label">CALON GURU INFORMATIKA <i></i></span><h2>${esc(profile.nama)}</h2><p>${esc(profile.program)}<br>${esc(profile.kampus)}</p></div>
+      <div class="hero-bottom-left"><span class="mini-index">01 — 02</span><p>Dua semester.<br>Satu perjalanan menjadi pendidik.</p></div>
+      <div class="hero-note"><span class="quote-mark">“</span><p>Belajar, mengajar,<br>dan terus bertumbuh.</p><span>PORTOFOLIO PENDIDIKAN</span><a href="#refleksi" aria-label="Jelajahi refleksi">↗</a></div>
+      <span class="hero-caption">E-PORTOFOLIO / 2026</span>
+    </section>
+    <div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#tentang">LANJUTKAN PERJALANAN ↓</a></div>
 
     <section class="mas-section mas-about" id="tentang" aria-labelledby="about-title">
       <div class="mas-section-head"><div><p class="eyebrow">01 / TENTANG SAYA</p><h2 id="about-title">Menjadi guru, dimulai dari terus belajar.</h2></div><span class="mas-index">PPG · 2026</span></div>
-      <div class="mas-about-grid"><div class="mas-about-story"><div class="mas-profile-card"><img src="${esc(safe(profile.foto))}" alt="Potret ${esc(profile.nama)}" loading="lazy"><div><p class="eyebrow">CALON GURU INFORMATIKA</p><h3>${esc(profile.nama)}</h3><p>${esc(profile.program)}<br>${esc(profile.kampus)}</p></div></div><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester <span>↗</span></a></div></div>
+      <div class="mas-about-grid"><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester <span>↗</span></a></div>
         <dl class="mas-facts"><div><dt>NAMA</dt><dd>${esc(profile.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(profile.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div><div><dt>PERGURUAN TINGGI</dt><dd>${esc(profile.kampus)}</dd></div></dl>
       </div>
     </section>
@@ -148,7 +158,7 @@ function render() {
   document.title = (page && id !== 'beranda' ? `${page.title} — ` : '') + 'Muhammad Abduramadani | Portofolio';
   document.body.classList.remove('menu-open');
   document.querySelector('#menuToggle').setAttribute('aria-expanded', 'false');
-  if (anchorTarget) requestAnimationFrame(() => document.getElementById(anchorTarget)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' }));
+  if (anchorTarget) requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(anchorTarget)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' })));
   else window.scrollTo(0, 0);
 }
 

@@ -49,12 +49,12 @@ const milestones = [
   <div class="ppg-motion-kit">
     <section v-if="props.mode === 'featured'" class="schedule-feature" aria-labelledby="schedule-feature-title">
       <div class="schedule-copy">
-        <p class="eyebrow">UNTUK SEKOLAH · INFORMATIKA</p>
+        <p class="eyebrow">PREVIEW PROYEK · PENJADWALAN SEKOLAH</p>
         <h2 id="schedule-feature-title">Jadwal mengajar yang menyusun dirinya sendiri.</h2>
         <p class="schedule-problem-label">Masalahnya</p>
         <p class="schedule-problem">Menyusun jadwal guru dengan tangan berarti berhari-hari menghindari bentrok, jam kosong guru, dan mapel yang harus dua jam berurutan.</p>
-        <p class="schedule-built-label">Alur solusinya</p>
-        <p>Simulasi ini menunjukkan bagaimana sistem menempatkan setiap mapel tanpa guru atau kelas yang bentrok, menghormati jam guru yang tidak tersedia, dan menjelaskan jika aturan membuat jadwal tidak mungkin disusun.</p>
+        <p class="schedule-built-label">Alur yang divisualisasikan</p>
+        <p>Preview interaktif ini menunjukkan bagaimana penjadwalan membaca aturan, menempatkan setiap mapel, menghindari bentrok, dan menjelaskan jika jadwal tidak mungkin disusun.</p>
         <p class="schedule-footnote">Jadwal dan nama guru di animasi ini adalah ilustrasi, bukan data aktual sekolah.</p>
       </div>
       <JadwalFilm />
