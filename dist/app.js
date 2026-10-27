@@ -1,67 +1,245 @@
-const P=window.portfolio;
-const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const safe=u=>{try{const v=new URL(u,location.href);return ['http:','https:'].includes(v.protocol)?v.href:''}catch{return ''}};
-const pages=new Map();
-const main=document.querySelector('main');
-const landingScreen=document.querySelector('#landingScreen');
-const portfolioShell=document.querySelector('#portfolioShell');
-function landing(){const p=P.profil;return `<section class="intro-cover landing-cover" aria-labelledby="intro-title"><div class="intro-copy"><p class="intro-eyebrow">PORTOFOLIO PPG <span>·</span> 2026</p><p class="intro-overline">PENDIDIKAN PROFESI GURU / INFORMATIKA</p><h1 id="intro-title">Muhammad<br><span>Abduramadani.</span></h1><p class="intro-role">Calon Guru Informatika<br><span>Universitas Negeri Surabaya</span></p><p class="intro-summary">Dokumentasi praktik, karya, dan refleksi dari dua semester perjalanan PPL.</p><div class="intro-actions"><button id="enterPortfolio" type="button">JELAJAHI PORTOFOLIO <span aria-hidden="true">↘</span></button><a id="landingArtifacts" href="#artefak-s2">LIHAT ARTEFAK <span aria-hidden="true">↗</span></a></div><div class="intro-meta"><div><span>SEMESTER 01</span><b>SMA Negeri 15 Surabaya</b></div><div><span>SEMESTER 02</span><b>SMP Negeri 60 Surabaya</b></div></div></div><div class="intro-visual" role="group" aria-label="Potret Muhammad Abduramadani"><span class="intro-year" aria-hidden="true">26</span><span class="intro-vertical">UNIVERSITAS NEGERI SURABAYA</span><div class="intro-seal"><span>PPG</span><small>INFORMATIKA</small></div><img class="intro-portrait" src="${esc(safe(p.foto))}" alt="${esc(p.nama)}" fetchpriority="high"><span class="intro-count">01 <i>—</i> 02</span></div><span class="intro-footnote">BELAJAR · MENGAJAR · BERTUMBUH</span></section>`}
-function enterPortfolio(){if(document.body.classList.contains('landing-closing'))return;const finish=()=>{landingScreen.hidden=true;landingScreen.classList.remove('is-leaving');document.body.classList.remove('landing-active','landing-pending','landing-closing');portfolioShell.inert=false;portfolioShell.removeAttribute('aria-hidden');if(!location.hash)history.replaceState(null,'','#beranda');window.scrollTo(0,0);main.focus({preventScroll:true})};if(matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return}document.body.classList.add('landing-closing');landingScreen.classList.add('is-leaving');let done=false;const reveal=()=>{if(done)return;done=true;finish()};landingScreen.addEventListener('transitionend',e=>{if(e.target===landingScreen)reveal()},{once:true});window.setTimeout(reveal,500)}
-function initLanding(){landingScreen.innerHTML=landing();portfolioShell.inert=true;portfolioShell.setAttribute('aria-hidden','true');document.body.classList.add('landing-active');landingScreen.querySelector('#enterPortfolio').addEventListener('click',enterPortfolio);landingScreen.querySelector('#landingArtifacts').addEventListener('click',enterPortfolio)}
-const add=(id,title,kind,sem)=>pages.set(id,{id,title,kind,sem});
-const finals=['Model Guru','Refleksi Akhir Praktik','Filosofi Mengajar','Rencana Tindak Lanjut','Harapan Pendidikan Indonesia','Upaya Menjadi Guru yang Profesional'];
-function navLink(id,label){return `<a href="#${id}" data-page="${id}">${esc(label)}</a>`}
-let nav=navLink('beranda','⌂  Beranda');
-for(const s of P.semester){
- add(`artefak-s${s.nomor}`,`Artefak Semester ${s.nomor}`,'index',s);
- add(`refleksi-s${s.nomor}`,`Refleksi Mata Kuliah S${s.nomor}`,'reflection-index',s);
- nav+=`<div class="nav-label">SEMESTER ${s.nomor}</div><details><summary>Artefak Semester ${s.nomor}</summary>${navLink(`artefak-s${s.nomor}`,'Semua artefak')}`;
- for(const t of s.artefak){const id=`s${s.nomor}-${slug(t)}`;add(id,t,'artifact',s);nav+=navLink(id,t)}
- nav+=`</details><details><summary>Refleksi Mata Kuliah S${s.nomor}</summary>${navLink(`refleksi-s${s.nomor}`,'Semua refleksi')}`;
- for(const t of s.mataKuliah){const id=`refleksi-s${s.nomor}-${slug(t)}`;add(id,t,'reflection',s);nav+=navLink(id,t)}nav+='</details>';
+const P = window.portfolio;
+const slug = (value) => String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+const safe = (value) => { try { const url = new URL(value, location.href); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; } catch { return ''; } };
+const pages = new Map();
+const main = document.querySelector('#main');
+const landingScreen = document.querySelector('#landingScreen');
+const portfolioShell = document.querySelector('#portfolioShell');
+const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'proses', 'artefak', 'refleksi', 'portfolio-animation-root']);
+const finals = ['Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
+const add = (id, title, kind, semester) => pages.set(id, { id, title, kind, semester });
+const navLink = (id, label) => `<a href="#${id}" data-page="${id}">${esc(label)}</a>`;
+
+function landing() {
+  const profile = P.profil;
+  return `<section class="intro-cover landing-cover" aria-labelledby="intro-title">
+    <div class="intro-copy">
+      <p class="intro-eyebrow">PORTOFOLIO PPG <span>·</span> 2026</p>
+      <p class="intro-overline">PENDIDIKAN PROFESI GURU / INFORMATIKA</p>
+      <h1 id="intro-title">Muhammad<br><span>Abduramadani.</span></h1>
+      <p class="intro-role">Calon Guru Informatika<br><span>Universitas Negeri Surabaya</span></p>
+      <p class="intro-summary">Dokumentasi praktik, karya, dan refleksi dari dua semester perjalanan PPL.</p>
+      <div class="intro-actions"><button id="enterPortfolio" type="button">JELAJAHI PORTOFOLIO <span aria-hidden="true">↘</span></button><a id="landingArtifacts" href="#artefak-s2">LIHAT ARTEFAK <span aria-hidden="true">↗</span></a></div>
+      <div class="intro-meta"><div><span>SEMESTER 01</span><b>SMA Negeri 15 Surabaya</b></div><div><span>SEMESTER 02</span><b>SMP Negeri 60 Surabaya</b></div></div>
+    </div>
+    <div class="intro-visual" role="group" aria-label="Potret Muhammad Abduramadani"><span class="intro-year" aria-hidden="true">26</span><span class="intro-vertical">UNIVERSITAS NEGERI SURABAYA</span><div class="intro-seal"><span>PPG</span><small>INFORMATIKA</small></div><img class="intro-portrait" src="${esc(safe(profile.foto))}" alt="${esc(profile.nama)}" fetchpriority="high"><span class="intro-count">01 <i>—</i> 02</span></div>
+    <span class="intro-footnote">BELAJAR · MENGAJAR · BERTUMBUH</span>
+  </section>`;
 }
-nav+='<div class="nav-label">REFLEKSI & ARAH DIRI</div>';
-for(const t of finals){add(slug(t),t,'reflection');nav+=navLink(slug(t),t)}
-document.querySelector('#navigation').innerHTML=nav;
-const tile=(id,title,sub,tag='↗')=>`<a class="tile" href="#${id}"><span class="tile-icon">${tag}</span><h3>${esc(title)}</h3><p>${esc(sub)}</p><span class="tile-bottom">JELAJAHI <span>↗</span></span></a>`;
-function home(){const p=P.profil;return `<section class="editorial-hero" id="portfolio-hero"><div class="navy-field"><span class="hero-kicker">DANI / CALON GURU INFORMATIKA</span><span class="orb orb-one"></span><span class="orb orb-two"></span></div><div class="white-field"><nav class="hero-nav" aria-label="Navigasi utama"><a href="#artefak-s2">ARTEFAK</a><a href="#refleksi-s2">REFLEKSI</a><button class="hero-menu" aria-label="Buka semua menu">☰</button></nav></div><div class="editorial-copy"><p class="eyebrow">BELAJAR UNTUK MEMBERI MAKNA.</p><h1>BELAJAR.<br>MENGAJAR.</h1><p>Merancang pembelajaran.<br>Menumbuhkan potensi.</p><a class="hero-button" href="#artefak-s2">LIHAT ARTEFAK <span>↗</span></a></div><img class="hero-portrait" src="${esc(safe(p.foto))}" alt="${esc(p.nama)}" fetchpriority="high"><div class="hero-identity"><span class="status-label">PORTOFOLIO PPG <i></i></span><h2>${esc(p.nama)}</h2><p>Informatika<br>${esc(p.kampus)}</p></div><div class="hero-bottom-left"><span class="mini-index">01 — 02</span><p>Dua semester.<br>Satu perjalanan menjadi pendidik.</p></div><div class="hero-note"><span class="quote-mark">“</span><p>Belajar, mengajar,<br>dan terus bertumbuh.</p><span>${esc(p.program)}</span><a href="#artefak-s1" aria-label="Jelajahi Semester 1">↗</a></div><span class="hero-caption">E-PORTOFOLIO / 2026</span></section><div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#artefak-s2">JELAJAHI PERJALANAN ↓</a></div><section class="section"><div class="section-head"><div><p class="eyebrow">01 / PROFIL MAHASISWA</p><h2>Kenali perjalanan saya.</h2></div></div><div class="profile"><div><p>${esc(p.bio)}</p>${p.email&&safe('mailto:'+p.email)?'':''}${p.email?`<p>Kontak: ${esc(p.email)}</p>`:'<p class="muted">Kontak belum ditambahkan.</p>'}</div><dl><div><dt>NAMA</dt><dd>${esc(p.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(p.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div></dl>${p.foto&&safe(p.foto)?`<img class="profile-photo" src="${esc(safe(p.foto))}" alt="${esc(p.nama)}">`:''}</div></section><section class="section"><div class="section-head"><div><p class="eyebrow">02 / PRAKTIK & PEMBELAJARAN</p><h2>Dua semester, satu perjalanan.</h2></div><span class="pill">PORTOFOLIO 1 & 2</span></div><div class="semester-grid">${P.semester.map(s=>`<article class="semester-card"><span class="semester-number">0${s.nomor}</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ${s.nomor}</h3><p>${esc(s.sekolah)}</p><div class="semester-links"><a href="#artefak-s${s.nomor}">Artefak pembelajaran ↗</a><a href="#refleksi-s${s.nomor}">Refleksi mata kuliah ↗</a></div></article>`).join('')}</div></section><section class="section"><div class="section-head"><div><p class="eyebrow">03 / PANDUAN PENELUSURAN</p><h2>Ikuti proses di balik pembelajaran.</h2></div></div><div class="learning-path"><div class="path-step"><span class="step-number">01</span><h3>Kenali konteks</h3><p>Mulai dari profil dan sekolah tempat pelaksanaan PPL.</p></div><div class="path-step"><span class="step-number">02</span><h3>Telusuri artefak</h3><p>Buka perangkat, media, dan dokumentasi tiap semester.</p></div><div class="path-step"><span class="step-number">03</span><h3>Baca analisis</h3><p>Pelajari tujuan, kelebihan, tantangan, dan kaitan dengan teori.</p></div><div class="path-step"><span class="step-number">04</span><h3>Temukan refleksi</h3><p>Ikuti catatan pengalaman dan rencana pengembangan diri.</p></div></div><p class="path-note">Dokumen dan catatan ditampilkan pada kategori masing-masing setelah ditambahkan.</p></section><section class="section"><div class="section-head"><div><p class="eyebrow">04 / PENGEMBANGAN DIRI</p><h2>Refleksi yang memberi arah.</h2></div></div><div class="tiles">${finals.map(t=>tile(slug(t),t,'Catatan dan arah pengembangan sebagai calon guru.','↗')).join('')}</div></section>`}
-function render(){const id=decodeURIComponent(location.hash.slice(1))||'beranda';const page=pages.get(id);document.querySelectorAll('[data-page]').forEach(a=>{a.classList.toggle('active',a.dataset.page===id);a.removeAttribute('aria-current');if(a.dataset.page===id){a.setAttribute('aria-current','page');if(a.closest('details'))a.closest('details').open=true}});
-if(id==='beranda')main.innerHTML=home();else if(!page)main.innerHTML='<section class="section"><h1>Halaman tidak ditemukan</h1><a class="button" href="#beranda">Kembali ke beranda</a></section>';else{const c=P.isi[id]||{};let body='';if(page.kind.includes('index')){const items=page.kind==='index'?page.sem.artefak:page.sem.mataKuliah;body=`<div class="tiles">${items.map(t=>{const key=page.kind==='index'?`s${page.sem.nomor}-${slug(t)}`:`refleksi-s${page.sem.nomor}-${slug(t)}`;const n=(P.isi[key]?.artefak||[]).length;return tile(key,t,page.kind==='index'?`${n} artefak ditambahkan`:'Refleksi pengalaman belajar')}).join('')}</div>`}else if(page.kind==='artifact'){body=`<div class="artifact-list">${(c.artefak||[]).map(a=>`<article class="artifact"><p class="eyebrow">${esc(a.jenis||'DOKUMEN')}${a.siklus?' / SIKLUS '+esc(a.siklus):''}</p><h2>${esc(a.judul)}</h2><p>${esc(a.deskripsi||'')}</p>${a.url&&safe(a.url)?`<a class="button" target="_blank" rel="noopener noreferrer" href="${esc(safe(a.url))}">Lihat artefak ↗</a>`:'<span class="pill">Berkas belum ditambahkan</span>'}<div class="analysis">${[['konteks','Konteks pembelajaran'],['tujuan','Tujuan'],['kelebihan','Kelebihan'],['kekurangan','Kekurangan & perbaikan'],['teori','Keterkaitan teori mata kuliah']].map(([k,l])=>`<div><h3>${l}</h3><p>${esc(a[k]||'Analisis belum ditambahkan.')}</p></div>`).join('')}</div></article>`).join('')||empty('Artefak belum ditambahkan.','Dokumen, foto, dan tautan video akan ditampilkan di sini beserta analisisnya.')}</div>`}else{body=`<article class="reading">${(c.paragraf||[]).map(t=>`<p>${esc(t)}</p>`).join('')||empty('Refleksi belum ditambahkan.','Catatan pengalaman, kekuatan, tantangan, dan rencana perbaikan akan ditampilkan di sini.')}${(c.bagian||[]).map(b=>`<h2>${esc(b.judul)}</h2><p>${esc(b.teks)}</p>`).join('')}</article>`}const backId=page.sem?(page.kind==='artifact'?`artefak-s${page.sem.nomor}`:page.kind==='reflection'?`refleksi-s${page.sem.nomor}`:'beranda'):'beranda';main.innerHTML=`<a class="back-button" href="#${backId}"><span aria-hidden="true">←</span> Kembali<span class="back-context"> ke ${esc(pages.get(backId)?.title||'Beranda')}</span></a><section class="page-head"><a href="#beranda" class="breadcrumb">Beranda / ${page.sem?'Semester '+page.sem.nomor:'Pengembangan diri'}</a><p class="eyebrow">${page.sem?esc(page.sem.sekolah):'REFLEKSI PROFESIONAL'}</p><h1>${esc(page.title)}</h1><p>${page.kind==='artifact'?'Bukti pembelajaran dan analisis pengalaman praktik.':'Dokumentasi perjalanan belajar menuju guru profesional.'}</p></section><section class="section">${body}</section>`}
-window.PortfolioMotion?.reveal(main);document.body.classList.toggle('is-home',id==='beranda');document.querySelector('.hero-menu')?.addEventListener('click',e=>toggleMenu(e.currentTarget));document.title=(page?page.title+' — ':'')+'Dani | Portofolio PPG';document.body.classList.remove('menu-open');document.querySelector('#menuToggle').setAttribute('aria-expanded','false');window.scrollTo(0,0)}
-function empty(title,text){return `<div class="empty"><span class="empty-icon">▤</span><h2>${title}</h2><p>${text}</p><span class="pill">MENUNGGU MATERI</span></div>`}
-let preference;try{preference=localStorage.getItem('dani-theme')}catch{}
-function theme(v){document.documentElement.dataset.theme=v;document.querySelector('#themeToggle').setAttribute('aria-label',v==='dark'?'Aktifkan mode terang':'Aktifkan mode gelap')}
-theme(preference|| (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
-document.querySelector('#themeToggle').onclick=()=>{const v=document.documentElement.dataset.theme==='dark'?'light':'dark';theme(v);try{localStorage.setItem('dani-theme',v)}catch{}};
+function enterPortfolio() {
+  if (document.body.classList.contains('landing-closing')) return;
+  const finish = () => {
+    landingScreen.hidden = true;
+    landingScreen.classList.remove('is-leaving');
+    document.body.classList.remove('landing-active', 'landing-pending', 'landing-closing');
+    portfolioShell.inert = false;
+    portfolioShell.removeAttribute('aria-hidden');
+    if (!location.hash) history.replaceState(null, '', '#beranda');
+    window.scrollTo(0, 0);
+    main.focus({ preventScroll: true });
+  };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return finish();
+  document.body.classList.add('landing-closing');
+  landingScreen.classList.add('is-leaving');
+  let done = false;
+  const reveal = () => { if (done) return; done = true; finish(); };
+  landingScreen.addEventListener('transitionend', (event) => { if (event.target === landingScreen) reveal(); }, { once: true });
+  window.setTimeout(reveal, 500);
+}
+function initLanding() {
+  landingScreen.innerHTML = landing();
+  portfolioShell.inert = true;
+  portfolioShell.setAttribute('aria-hidden', 'true');
+  document.body.classList.add('landing-active');
+  landingScreen.querySelector('#enterPortfolio').addEventListener('click', enterPortfolio);
+  landingScreen.querySelector('#landingArtifacts').addEventListener('click', enterPortfolio);
+}
+
+let nav = navLink('beranda', '⌂  Beranda');
+for (const semester of P.semester) {
+  add(`artefak-s${semester.nomor}`, `Artefak Semester ${semester.nomor}`, 'index', semester);
+  add(`refleksi-s${semester.nomor}`, `Refleksi Mata Kuliah S${semester.nomor}`, 'reflection-index', semester);
+  nav += `<div class="nav-label">SEMESTER ${semester.nomor}</div><details><summary>Artefak Semester ${semester.nomor}</summary>${navLink(`artefak-s${semester.nomor}`, 'Semua artefak')}`;
+  for (const title of semester.artefak) { const id = `s${semester.nomor}-${slug(title)}`; add(id, title, 'artifact', semester); nav += navLink(id, title); }
+  nav += `</details><details><summary>Refleksi Mata Kuliah S${semester.nomor}</summary>${navLink(`refleksi-s${semester.nomor}`, 'Semua refleksi')}`;
+  for (const title of semester.mataKuliah) { const id = `refleksi-s${semester.nomor}-${slug(title)}`; add(id, title, 'reflection', semester); nav += navLink(id, title); }
+  nav += '</details>';
+}
+nav += '<div class="nav-label">REFLEKSI & ARAH DIRI</div>';
+for (const title of finals) { const id = slug(title); add(id, title, 'reflection'); nav += navLink(id, title); }
+document.querySelector('#navigation').innerHTML = nav;
+
+const tile = (id, title, subtitle, tag = '↗') => `<a class="tile" href="#${id}"><span class="tile-icon">${tag}</span><h3>${esc(title)}</h3><p>${esc(subtitle)}</p><span class="tile-bottom">JELAJAHI <span>↗</span></span></a>`;
+function semesterCards() {
+  return P.semester.map((semester) => '<article class="semester-card mas-semester-card"><span class="semester-number">0' + semester.nomor + '</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ' + semester.nomor + '</h3><p class="mas-school">' + esc(semester.sekolah) + '</p><p class="mas-semester-note">' + semester.artefak.length + ' kategori artefak · ' + semester.mataKuliah.length + ' refleksi mata kuliah</p><div class="semester-links"><a href="#artefak-s' + semester.nomor + '">Telusuri artefak <span>↗</span></a><a href="#refleksi-s' + semester.nomor + '">Baca refleksi <span>↗</span></a></div></article>').join('');
+}
+function archiveCards() {
+  return P.semester.map((semester) => '<a class="archive-card" href="#artefak-s' + semester.nomor + '"><span class="archive-number">0' + semester.nomor + '</span><span class="archive-label">SEMESTER ' + semester.nomor + ' / ' + esc(semester.sekolah.toUpperCase()) + '</span><strong>' + semester.artefak.length + ' kategori artefak</strong><span>Perangkat ajar, media, praktik, dan dokumentasi</span><i aria-hidden="true">↗</i></a>').join('');
+}
+function reflectionCards() {
+  return finals.map((title) => tile(slug(title), title, 'Catatan dan arah pengembangan sebagai calon guru.')).join('');
+}
+function home() {
+  const profile = P.profil;
+  const artifactCount = (semester) => semester.artefak.length;
+  return `<div class="masrama-page">
+    <section class="editorial-hero" id="portfolio-hero" aria-labelledby="hero-title">
+      <div class="navy-field"><span class="hero-kicker">PPG INFORMATIKA / 2026</span><span class="orb orb-one"></span><span class="orb orb-two"></span></div>
+      <div class="white-field"><nav class="hero-nav" aria-label="Navigasi cepat"><a href="#karya">KARYA</a><a href="#semester">PERJALANAN</a><button class="hero-menu" type="button" aria-label="Buka semua menu" aria-expanded="false">☰</button></nav></div>
+      <div class="editorial-copy"><p class="eyebrow">BELAJAR UNTUK MEMBERI MAKNA.</p><h1 id="hero-title">BELAJAR.<br>MENGAJAR.</h1><p>Merancang pembelajaran.<br>Menumbuhkan potensi.</p><a class="hero-button" href="#karya">JELAJAHI KARYA <span>↗</span></a></div>
+      <img class="hero-portrait" src="${esc(safe(profile.foto))}" alt="Potret ${esc(profile.nama)}" fetchpriority="high">
+      <div class="hero-identity"><span class="status-label">CALON GURU INFORMATIKA <i></i></span><h2>${esc(profile.nama)}</h2><p>${esc(profile.program)}<br>${esc(profile.kampus)}</p></div>
+      <div class="hero-bottom-left"><span class="mini-index">01 — 02</span><p>Dua semester.<br>Satu perjalanan menjadi pendidik.</p></div>
+      <div class="hero-note"><span class="quote-mark">“</span><p>Belajar, mengajar,<br>dan terus bertumbuh.</p><span>PORTOFOLIO PENDIDIKAN</span><a href="#refleksi" aria-label="Jelajahi refleksi">↗</a></div>
+      <span class="hero-caption">E-PORTOFOLIO / 2026</span>
+    </section>
+    <div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#tentang">LANJUTKAN PERJALANAN ↓</a></div>
+
+    <div id="jadwal" class="masrama-schedule-root" data-portfolio-animations="featured"></div>
+
+    <section class="mas-section mas-about" id="tentang" aria-labelledby="about-title">
+      <div class="mas-section-head"><div><p class="eyebrow">01 / TENTANG SAYA</p><h2 id="about-title">Menjadi guru, dimulai dari terus belajar.</h2></div><span class="mas-index">PPG · 2026</span></div>
+      <div class="mas-about-grid"><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester <span>↗</span></a></div>
+        <dl class="mas-facts"><div><dt>NAMA</dt><dd>${esc(profile.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(profile.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div><div><dt>PERGURUAN TINGGI</dt><dd>${esc(profile.kampus)}</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="mas-section mas-journey" id="semester" aria-labelledby="semester-title">
+      <div class="mas-section-head"><div><p class="eyebrow">02 / JEJAK PPL</p><h2 id="semester-title">Dua semester, dua konteks belajar.</h2><p class="mas-lead">Perjalanan praktik berlangsung di lingkungan sekolah yang berbeda. Pilih semester untuk menelusuri artefak dan refleksinya.</p></div><span class="mas-index">01 / 02</span></div>
+      <div class="semester-grid mas-semester-grid">${semesterCards()}</div>
+    </section>
+
+    <div id="karya"></div>
+
+    <section class="mas-section mas-process" id="proses" aria-labelledby="process-title">
+      <div class="mas-section-head"><div><p class="eyebrow">03 / CARA MENELUSURI</p><h2 id="process-title">Bukti, analisis, lalu refleksi.</h2><p class="mas-lead">Susunan portofolio membantu pembaca melihat konteks lebih dulu sebelum menilai hasil pembelajaran.</p></div></div>
+      <div class="learning-path mas-reading-path"><div class="path-step"><span class="step-number">01</span><h3>Kenali konteks</h3><p>Mulai dari profil dan sekolah tempat praktik berlangsung.</p></div><div class="path-step"><span class="step-number">02</span><h3>Telusuri artefak</h3><p>Buka perangkat, media, dan dokumentasi pada tiap kategori.</p></div><div class="path-step"><span class="step-number">03</span><h3>Baca analisis</h3><p>Tinjau tujuan, kelebihan, tantangan, dan kaitan dengan teori.</p></div><div class="path-step"><span class="step-number">04</span><h3>Temukan refleksi</h3><p>Ikuti catatan pengalaman dan rencana pengembangan diri.</p></div></div>
+    </section>
+
+    <section class="mas-section mas-archive" id="artefak" aria-labelledby="archive-title">
+      <div class="mas-section-head"><div><p class="eyebrow">04 / ARSIP PEMBELAJARAN</p><h2 id="archive-title">Dokumentasi untuk ditelusuri.</h2><p class="mas-lead">Kategori artefak dan analisisnya disusun berdasarkan semester. Materi dapat ditambahkan melalui data portofolio.</p></div><a class="mas-text-link" href="#artefak-s2">Buka arsip Semester 2 <span>↗</span></a></div>
+      <div class="mas-archive-grid">${archiveCards()}</div>
+    </section>
+
+    <section class="mas-section mas-reflection" id="refleksi" aria-labelledby="reflection-title">
+      <div class="mas-section-head"><div><p class="eyebrow">05 / REFLEKSI PROFESIONAL</p><h2 id="reflection-title">Pengalaman menjadi arah bertumbuh.</h2><p class="mas-lead">Catatan tentang filosofi, praktik, dan rencana pengembangan diri.</p></div><span class="mas-index">REFLEKSI</span></div>
+      <div class="tiles mas-reflection-grid">${reflectionCards()}</div>
+    </section>
+  </div>`;
+}
+function empty(title, description) { return `<div class="empty"><span class="empty-icon">▤</span><h2>${title}</h2><p>${description}</p><span class="pill">MENUNGGU MATERI</span></div>`; }
+function render() {
+  const requested = decodeURIComponent(location.hash.slice(1)) || 'beranda';
+  const anchorTarget = homeAnchorIds.has(requested) ? requested : null;
+  const id = anchorTarget ? 'beranda' : requested;
+  const page = pages.get(id);
+  document.querySelectorAll('[data-page]').forEach((link) => {
+    const active = link.dataset.page === id;
+    link.classList.toggle('active', active);
+    link.removeAttribute('aria-current');
+    if (active) { link.setAttribute('aria-current', 'page'); if (link.closest('details')) link.closest('details').open = true; }
+  });
+  if (id === 'beranda') main.innerHTML = home();
+  else if (!page) main.innerHTML = '<section class="section"><h1>Halaman tidak ditemukan</h1><a class="button" href="#beranda">Kembali ke beranda</a></section>';
+  else {
+    const content = P.isi[id] || {};
+    let body = '';
+    if (page.kind.includes('index')) {
+      const items = page.kind === 'index' ? page.semester.artefak : page.semester.mataKuliah;
+      body = '<div class="tiles">' + items.map((title) => { const key = (page.kind === 'index' ? 's' : 'refleksi-s') + page.semester.nomor + '-' + slug(title); const count = (P.isi[key]?.artefak || []).length; return tile(key, title, page.kind === 'index' ? count + ' artefak ditambahkan' : 'Refleksi pengalaman belajar'); }).join('') + '</div>';
+    } else if (page.kind === 'artifact') {
+      body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" target="_blank" rel="noopener noreferrer" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
+    } else {
+      body = '<article class="reading">' + ((content.paragraf || []).map((paragraph) => '<p>' + esc(paragraph) + '</p>').join('') || empty('Refleksi belum ditambahkan.', 'Catatan pengalaman, kekuatan, tantangan, dan rencana perbaikan dapat ditampilkan di sini.')) + (content.bagian || []).map((section) => '<h2>' + esc(section.judul) + '</h2><p>' + esc(section.teks) + '</p>').join('') + '</article>';
+    }
+    const backId = page.semester ? (page.kind === 'artifact' ? `artefak-s${page.semester.nomor}` : page.kind === 'reflection' ? `refleksi-s${page.semester.nomor}` : 'beranda') : 'beranda';
+    main.innerHTML = '<a class="back-button" href="#' + backId + '"><span aria-hidden="true">←</span> Kembali<span class="back-context"> ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="page-head"><a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + (page.kind === 'artifact' ? 'Bukti pembelajaran dan analisis pengalaman praktik.' : 'Dokumentasi perjalanan belajar menuju guru profesional.') + '</p></section><section class="section">' + body + '</section>';
+  }
+  document.body.classList.toggle('is-home', id === 'beranda');
+  window.PortfolioMotion?.reveal(main);
+  document.title = (page && id !== 'beranda' ? `${page.title} — ` : '') + 'Muhammad Abduramadani | Portofolio';
+  document.body.classList.remove('menu-open');
+  document.querySelector('#menuToggle').setAttribute('aria-expanded', 'false');
+  if (anchorTarget) requestAnimationFrame(() => document.getElementById(anchorTarget)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' }));
+  else window.scrollTo(0, 0);
+}
+
+let preference;
+try { preference = localStorage.getItem('dani-theme'); } catch {}
+function setTheme(value) {
+  document.documentElement.dataset.theme = value;
+  document.querySelector('#themeToggle').setAttribute('aria-label', value === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+  document.querySelector('#themeToggle').setAttribute('aria-pressed', String(value === 'dark'));
+}
+setTheme(preference || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+document.querySelector('#themeToggle').onclick = () => {
+  const value = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  setTheme(value);
+  try { localStorage.setItem('dani-theme', value); } catch {}
+};
+
 let menuTrigger;
-const menuPanel=document.querySelector('#sidebar');
-menuPanel.setAttribute('aria-label','Menu portofolio');
-document.querySelector('#menuToggle').setAttribute('aria-controls','sidebar');
-function positionMenu(trigger){const r=trigger.getBoundingClientRect();const vw=document.documentElement.clientWidth;const w=Math.min(350,vw-24);menuPanel.style.width=w+'px';menuPanel.style.right=Math.max(12,Math.min(vw-r.right,vw-w-12))+'px';const top=Math.max(12,Math.min(r.bottom+12,innerHeight-180));menuPanel.style.top=top+'px';menuPanel.style.maxHeight=(innerHeight-top-12)+'px'}
-function closeMenu(restore=false){document.body.classList.remove('menu-open');document.querySelectorAll('#menuToggle,.hero-menu').forEach(b=>b.setAttribute('aria-expanded','false'));menuPanel.inert=true;if(restore)menuTrigger?.focus()}
-function toggleMenu(trigger){if(document.body.classList.contains('menu-open'))return closeMenu();menuTrigger=trigger;positionMenu(trigger);menuPanel.inert=false;document.body.classList.add('menu-open');document.querySelectorAll('#menuToggle,.hero-menu').forEach(b=>b.setAttribute('aria-expanded','true'))}
-menuPanel.inert=true;
-document.querySelector('#menuToggle').onclick=e=>toggleMenu(e.currentTarget);
-document.addEventListener('click',e=>{if(document.body.classList.contains('menu-open')&&!menuPanel.contains(e.target)&&!e.target.closest('#menuToggle,.hero-menu'))closeMenu()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu(true)});
-menuPanel.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
-window.addEventListener('resize',()=>{if(document.body.classList.contains('menu-open'))positionMenu(menuTrigger)});
-window.addEventListener('scroll',()=>{if(document.body.classList.contains('menu-open'))closeMenu()},{passive:true});
-document.querySelector('.skip').onclick=e=>{e.preventDefault();main.focus()};
+const menuPanel = document.querySelector('#sidebar');
+menuPanel.setAttribute('aria-label', 'Menu portofolio');
+document.querySelector('#menuToggle').setAttribute('aria-controls', 'sidebar');
+function positionMenu(trigger) {
+  const rect = trigger.getBoundingClientRect();
+  const viewportWidth = document.documentElement.clientWidth;
+  const width = Math.min(350, viewportWidth - 24);
+  menuPanel.style.width = `${width}px`;
+  menuPanel.style.right = `${Math.max(12, Math.min(viewportWidth - rect.right, viewportWidth - width - 12))}px`;
+  const top = Math.max(12, Math.min(rect.bottom + 12, innerHeight - 180));
+  menuPanel.style.top = `${top}px`;
+  menuPanel.style.maxHeight = `${innerHeight - top - 12}px`;
+}
+function closeMenu(restoreFocus = false) {
+  document.body.classList.remove('menu-open');
+  document.querySelectorAll('#menuToggle, .hero-menu').forEach((button) => button.setAttribute('aria-expanded', 'false'));
+  menuPanel.inert = true;
+  if (restoreFocus) menuTrigger?.focus();
+}
+function toggleMenu(trigger) {
+  if (document.body.classList.contains('menu-open')) return closeMenu();
+  menuTrigger = trigger;
+  positionMenu(trigger);
+  menuPanel.inert = false;
+  document.body.classList.add('menu-open');
+  document.querySelectorAll('#menuToggle, .hero-menu').forEach((button) => button.setAttribute('aria-expanded', 'true'));
+}
+menuPanel.inert = true;
+document.querySelector('#menuToggle').onclick = (event) => toggleMenu(event.currentTarget);
+document.addEventListener('click', (event) => {
+  if (document.body.classList.contains('menu-open') && !menuPanel.contains(event.target) && !event.target.closest('#menuToggle, .hero-menu')) closeMenu();
+});
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(true); });
+menuPanel.addEventListener('click', (event) => { if (event.target.closest('a')) closeMenu(); });
+document.addEventListener('click', (event) => { const trigger = event.target.closest('.hero-menu'); if (trigger) toggleMenu(trigger); });
+window.addEventListener('resize', () => { if (document.body.classList.contains('menu-open')) positionMenu(menuTrigger); });
+window.addEventListener('scroll', () => { if (document.body.classList.contains('menu-open')) closeMenu(); }, { passive: true });
+document.querySelector('.skip').onclick = (event) => { event.preventDefault(); main.focus(); };
 let routeTransition;
-function navigatePage(){
+function navigatePage() {
   closeMenu();
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){render();main.focus({preventScroll:true});return}
-  if(document.startViewTransition){
+  const requested = decodeURIComponent(location.hash.slice(1)) || 'beranda';
+  if (homeAnchorIds.has(requested) && !document.body.classList.contains('landing-active')) {
+    render();
+    main.focus({ preventScroll: true });
+    return;
+  }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { render(); main.focus({ preventScroll: true }); return; }
+  if (document.startViewTransition) {
     routeTransition?.skipTransition();
-    routeTransition=document.startViewTransition(()=>{render();main.focus({preventScroll:true})});
-    routeTransition.finished.catch(()=>{});
-  }else{
-    main.getAnimations().forEach(a=>a.cancel());render();main.focus({preventScroll:true});
-    main.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:240,easing:'cubic-bezier(.22,1,.36,1)'});
+    routeTransition = document.startViewTransition(() => { render(); main.focus({ preventScroll: true }); });
+    routeTransition.finished.catch(() => {});
+  } else {
+    main.getAnimations().forEach((animation) => animation.cancel());
+    render();
+    main.focus({ preventScroll: true });
+    main.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 260, easing: 'cubic-bezier(.22,1,.36,1)' });
   }
 }
-window.addEventListener('hashchange',navigatePage);document.querySelector('#year').textContent=new Date().getFullYear();initLanding();render();
-
-
+window.addEventListener('hashchange', navigatePage);
+document.querySelector('#year').textContent = new Date().getFullYear();
+initLanding();
+render();

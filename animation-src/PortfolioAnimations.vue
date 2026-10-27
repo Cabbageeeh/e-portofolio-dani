@@ -6,6 +6,8 @@ import PapanFilm from './components/PapanFilm.vue';
 import ProsesSteps from './components/ProsesSteps.vue';
 import SangraiFilm from './components/SangraiFilm.vue';
 
+const props = withDefaults(defineProps<{ mode?: 'featured' | 'supporting' }>(), { mode: 'supporting' });
+
 const projectQueue = [
   {
     field: { id: 'semester-1', name: 'Semester 1 · Kelompok' },
@@ -45,16 +47,20 @@ const milestones = [
 
 <template>
   <div class="ppg-motion-kit">
-    <section class="schedule-feature" aria-labelledby="schedule-feature-title">
+    <section v-if="props.mode === 'featured'" class="schedule-feature" aria-labelledby="schedule-feature-title">
       <div class="schedule-copy">
-        <p class="eyebrow">FILM INTERAKTIF · ILUSTRASI</p>
-        <h3 id="schedule-feature-title">Dari aturan menuju jadwal yang rapi.</h3>
-        <p>Simulasi ini memperlihatkan proses menyusun jadwal: membaca batasan, menempatkan pelajaran, menemukan bentrok, lalu mencari slot yang sesuai.</p>
-        <p class="schedule-footnote">Jadwal dan nama guru bersifat contoh, bukan data aktual sekolah. Pilih bab pada bilah di bawah layar untuk menelusuri adegannya.</p>
+        <p class="eyebrow">UNTUK SEKOLAH · INFORMATIKA</p>
+        <h2 id="schedule-feature-title">Jadwal mengajar yang menyusun dirinya sendiri.</h2>
+        <p class="schedule-problem-label">Masalahnya</p>
+        <p class="schedule-problem">Menyusun jadwal guru dengan tangan berarti berhari-hari menghindari bentrok, jam kosong guru, dan mapel yang harus dua jam berurutan.</p>
+        <p class="schedule-built-label">Yang saya bangun</p>
+        <p>Simulasi penjadwalan otomatis yang membaca batasan, mengunci jadwal manual, menghindari bentrok, lalu menjelaskan ketika aturan tidak memungkinkan jadwal tersusun.</p>
+        <p class="schedule-footnote">Jadwal dan nama guru di animasi ini adalah ilustrasi, bukan data aktual sekolah.</p>
       </div>
       <JadwalFilm />
     </section>
 
+    <template v-else>
     <div class="motion-panels">
       <section class="motion-panel reel-panel" aria-labelledby="project-reel-title">
         <div class="motion-panel-head">
@@ -103,6 +109,7 @@ const milestones = [
         <SangraiFilm :years="journey" :entries="milestones" :total="3" />
       </section>
     </div>
+    </template>
   </div>
 </template>
 
@@ -135,6 +142,12 @@ const milestones = [
   --card-shadow: rgba(0, 0, 0, .38);
 }
 .schedule-feature { margin-top: 0; }
+.schedule-feature h2 { max-width: 11ch; margin: 0 0 34px; font-size: clamp(36px, 4.6vw, 64px); font-weight: 750; line-height: .99; letter-spacing: -.065em; }
+.schedule-problem-label, .schedule-built-label { display: flex; align-items: center; gap: 14px; margin: 24px 0 8px; color: var(--text); font-size: 13px; font-weight: 750; }
+.schedule-problem-label::after, .schedule-built-label::after { width: 72px; height: 1px; background: var(--border); content: ''; }
+.schedule-problem { margin: 0; color: var(--text); font-size: clamp(18px, 2vw, 26px); font-weight: 550; line-height: 1.5; letter-spacing: -.025em; }
+.schedule-copy > p:not(.eyebrow):not(.schedule-footnote):not(.schedule-problem-label):not(.schedule-built-label) { color: var(--muted); font-size: clamp(14px, 1.5vw, 19px); line-height: 1.75; }
+.schedule-feature > .film { min-width: 0; }
 .schedule-footnote { margin: 13px 0 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
 .motion-panels { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: 18px; }
 .source-motion-list { display: grid; gap: 18px; }
@@ -164,5 +177,7 @@ const milestones = [
   .motion-panel { padding: 18px 15px; border-radius: 16px; }
   .motion-panel-head { margin-bottom: 18px; }
   .schedule-feature { padding: 19px 15px; }
+  .schedule-feature h2 { max-width: 17ch; margin-bottom: 20px; font-size: clamp(34px, 10vw, 48px); }
+  .schedule-problem { font-size: 18px; }
 }
 </style>
