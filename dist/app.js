@@ -126,7 +126,7 @@ function archiveCards() {
     category.entries.push(entry);
     if (!category.icon) Object.assign(category, { icon: '▦', motif: '⌘', description: 'Dokumentasi dan bukti pengalaman belajar selama praktik PPG.' });
   });
-  const categories = [...byTitle.values()].map((category, index) => ({ ...category, tone: `tone-${index % 5}`, count: category.entries.reduce((sum, entry) => sum + entry.artefak.length, 0) }));
+  const categories = [...byTitle.values()].map((category, index) => ({ ...category, tone: `tone-${index % 10}`, count: category.entries.reduce((sum, entry) => sum + entry.artefak.length, 0) }));
   archiveCategories = categories;
   const selected = categories[0]?.key || '';
   const cards = categories.map((category, index) => `<article class="archive-index-card archive-index-card--${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${category.icon}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span aria-hidden="true">↘</span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-number">${String(index + 1).padStart(2, '0')}</span></article>`).join('');
