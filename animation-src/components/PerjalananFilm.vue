@@ -36,7 +36,7 @@ const controlLabel = computed(() => (
 </script>
 
 <template>
-  <figure ref="film" :class="['journey-film', 'journey-film--' + frame.format]" :data-state="frame.complete ? 'complete' : 'learning'">
+  <figure ref="film" :class="['journey-film', 'journey-film--compact', 'journey-film--' + frame.format]" :data-state="frame.complete ? 'complete' : 'learning'">
     <figcaption class="journey-head">
       <span class="journey-name">
         <button v-if="!reduced" type="button" class="journey-control" :aria-label="controlLabel" @click="control">
@@ -122,7 +122,7 @@ const controlLabel = computed(() => (
 
     <ol class="journey-log" aria-label="Pilih tahap perjalanan untuk membaca ulang">
       <li v-for="(node, index) in frame.nodes" :key="node.marker" :class="'journey-stage--' + node.state">
-        <button type="button" class="journey-entry" :aria-current="node.active ? 'step' : undefined" @click="replayFrom(index)">
+        <button type="button" class="journey-entry" :aria-label="'Tahap ' + String(index + 1).padStart(2, '0') + ': ' + node.context + '. ' + node.teaser" :aria-current="node.active ? 'step' : undefined" @click="replayFrom(index)">
           <span class="journey-entry-number">{{ String(index + 1).padStart(2, '0') }}</span>
           <span class="journey-entry-copy">
             <strong>{{ node.context }}</strong>
@@ -226,6 +226,23 @@ const controlLabel = computed(() => (
 .journey-entry-copy small { display: block; color: var(--journey-muted); font-size: 10px; line-height: 1.45; }
 .journey-entry-arrow { justify-self: end; color: #68d7b0; font-size: 12px; }
 .journey-footnote { margin: 12px 0 0; color: #809bad; font-size: 9px; line-height: 1.5; }
+.journey-film--compact { padding: 17px; border-radius: 20px; }
+.journey-film--compact .journey-head { gap: 8px 12px; }
+.journey-film--compact .journey-name { gap: 10px; }
+.journey-film--compact .journey-head strong { font-size: 1rem; }
+.journey-film--compact .journey-head small { max-width: 260px; font-size: 11px; }
+.journey-film--compact .journey-readout span { font-size: 2rem; }
+.journey-film--compact .journey-readout small { font-size: 9px; }
+.journey-film--compact .journey-contexts { display: none; }
+.journey-film--compact .journey-focus { margin-top: 12px; padding: 12px 14px; }
+.journey-film--compact .journey-focus h4 { font-size: clamp(17px, 1.55vw, 20px); }
+.journey-film--compact .journey-focus p { font-size: 12px; line-height: 1.5; }
+.journey-film--compact .journey-chart { margin-top: 10px; }
+.journey-film--compact .journey-log { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-top: 12px; padding-top: 11px; }
+.journey-film--compact .journey-entry { display: flex; min-height: 34px; align-items: center; justify-content: center; padding: 6px; border-radius: 999px; }
+.journey-film--compact .journey-entry-copy { display: none; }
+.journey-film--compact .journey-entry-arrow { display: none; }
+.journey-film--compact .journey-footnote { margin-top: 9px; }
 @media (max-width: 900px) {
   .journey-log { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .journey-entry { padding: 9px 7px; gap: 2px 5px; }

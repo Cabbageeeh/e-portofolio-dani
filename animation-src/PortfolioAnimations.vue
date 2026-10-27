@@ -161,16 +161,52 @@ const readingSteps = [
 .motion-panel-head h3 { margin: 0 0 8px; font-size: clamp(20px, 2.1vw, 28px); font-weight: 700; letter-spacing: -.05em; line-height: 1.14; }
 .motion-panel-head > p:last-child { max-width: 440px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
 .process-panel .proses { margin-top: 8px; }
-.source-motion-list .film { margin-top: 0; }
-.source-motion-list .journey-film { margin-top: 0; }
+.source-motion-list > .motion-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(28px, 4vw, 56px);
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+}
+.source-motion-list > .motion-panel > .motion-panel-head {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+}
+.source-motion-list > .motion-panel > .film,
+.source-motion-list > .motion-panel > .journey-film {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  width: min(100%, 560px);
+  margin: 0;
+}
+.source-motion-list > .motion-panel > .motion-panel-head h3 { max-width: 18ch; }
+.source-motion-list > .motion-panel > .motion-panel-head > p:last-child { max-width: 46ch; font-size: 12px; }
 @media (max-width: 1050px) {
   .motion-panels { grid-template-columns: 1fr; }
+}
+@media (max-width: 1100px) {
+  .source-motion-list > .motion-panel {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 20px;
+  }
+  .source-motion-list > .motion-panel > .motion-panel-head,
+  .source-motion-list > .motion-panel > .film,
+  .source-motion-list > .motion-panel > .journey-film {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 @media (max-width: 760px) {
   .motion-panels { gap: 12px; }
   .source-motion-list { gap: 12px; }
   .motion-panel { padding: 18px 15px; border-radius: 16px; }
   .motion-panel-head { margin-bottom: 18px; }
+  .source-motion-list > .motion-panel { row-gap: 18px; }
+  .source-motion-list > .motion-panel > .motion-panel-head { margin: 0; }
   .schedule-feature { padding: 19px 15px; }
   .schedule-feature h2 { max-width: 17ch; margin-bottom: 20px; font-size: clamp(34px, 10vw, 48px); }
   .schedule-problem { font-size: 18px; }
