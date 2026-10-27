@@ -79,25 +79,58 @@ function semesterArchive(semester) {
   return semester.artefak.map((title) => {
     const id = `s${semester.nomor}-${slug(title)}`;
     const artefak = Array.isArray(P.isi?.[id]?.artefak) ? P.isi[id].artefak : [];
-    return { id, title, artefak };
+    return { id, title, artefak, semester };
   });
 }
-function archiveCards() {
-  const categories = P.semester.flatMap(semesterArchive);
-  const available = categories.filter((category) => category.artefak.length > 0);
-  const actualCount = available.reduce((total, category) => total + category.artefak.length, 0);
-  const plannedCount = categories.length;
-  const cards = P.semester.map((semester) => {
-    const items = semesterArchive(semester).filter((category) => category.artefak.length > 0);
-    const count = items.reduce((total, category) => total + category.artefak.length, 0);
-    const content = items.length
-      ? `<p class="archive-content-label">KATEGORI DENGAN ARTEFAK</p><div class="archive-category-list">${items.map((category) => `<a href="#${category.id}"><span>${esc(category.title)}</span><b>${category.artefak.length} artefak</b><i aria-hidden="true">↗</i></a>`).join('')}</div>`
-      : `<div class="archive-empty"><span class="archive-empty-mark" aria-hidden="true">＋</span><div><strong>Arsip semester ini sedang disiapkan.</strong><p>Kategori akan muncul di sini setelah artefak pembelajaran ditambahkan.</p><a href="#refleksi-s${semester.nomor}">Lihat refleksi semester ${semester.nomor} <span aria-hidden="true">↗</span></a></div></div>`;
-    return `<details class="archive-semester archive-semester--s${semester.nomor}"><summary><span class="archive-semester-index">0${semester.nomor}</span><span class="archive-semester-main"><span class="archive-label">SEMESTER ${semester.nomor} / PRAKTIK PENGALAMAN LAPANGAN</span><strong>${esc(semester.sekolah)}</strong><span class="archive-semester-meta">${semester.artefak.length} kategori disiapkan <i>·</i> ${count ? `${count} artefak tersedia` : 'belum ada artefak diarsipkan'}</span></span><span class="archive-disclosure" aria-hidden="true">↗</span></summary><div class="archive-semester-content">${content}</div></details>`;
+const archiveCategoryInfo = {
+  'lkpd': { icon: '▤', motif: '▧', description: 'Lembar kerja untuk memandu peserta didik mengeksplorasi konsep dan menyelesaikan aktivitas belajar.' },
+  'media-pembelajaran': { icon: '▣', motif: '◉', description: 'Media digital dan alat bantu yang dirancang agar konsep Informatika lebih mudah dipahami.' },
+  'video-pembelajaran': { icon: '▶', motif: '▰', description: 'Dokumentasi pembelajaran dalam format video beserta konteks dan analisis praktiknya.' },
+  'modul-ajar': { icon: '▥', motif: '▤', description: 'Perencanaan pembelajaran yang memuat tujuan, langkah kegiatan, dan asesmen.' },
+  'penilaian-praktik-mengajar': { icon: '✓', motif: '⌁', description: 'Bukti dan catatan penilaian selama praktik mengajar di kelas.' },
+  'penilaian-penyusunan-perangkat': { icon: '⌘', motif: '▦', description: 'Dokumentasi proses menyusun dan meninjau perangkat pembelajaran.' },
+  'video-ppl-terbimbing': { icon: '▷', motif: '▰', description: 'Rekaman praktik mengajar dengan pendampingan dan masukan dari guru pamong.' },
+  'video-ppl-mandiri': { icon: '▷', motif: '◫', description: 'Rekaman praktik mengajar mandiri sebagai bagian dari pengalaman PPL.' },
+  'kegiatan-non-mengajar': { icon: '⌂', motif: '⌗', description: 'Pengalaman berkontribusi dalam kegiatan sekolah di luar pembelajaran kelas.' },
+  'instrumen-penilaian': { icon: '☷', motif: '✓', description: 'Instrumen untuk mengumpulkan bukti belajar dan menilai ketercapaian tujuan.' },
+  'materi-pembelajaran': { icon: '▧', motif: '▤', description: 'Bahan ajar yang digunakan untuk mendukung proses belajar Informatika.' }
+};
+let archiveCategories = [];
+function archiveArtifactCard(artifact, category) {
+  const details = [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan pembelajaran'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Tantangan & perbaikan'], ['teori', 'Keterkaitan teori']]
+    .filter(([key]) => artifact[key])
+    .map(([key, label]) => `<div><h4>${label}</h4><p>${esc(artifact[key])}</p></div>`).join('');
+  const link = artifact.url && safe(artifact.url)
+    ? `<a class="archive-work-link" href="${esc(safe(artifact.url))}" target="_blank" rel="noopener noreferrer">Buka artefak <span aria-hidden="true">↗</span></a>`
+    : '<span class="archive-work-pending">Berkas belum ditambahkan</span>';
+  return `<article class="archive-work"><div class="archive-work-head"><div><p class="archive-work-kicker">${esc(artifact.jenis || 'ARTEFAK PEMBELAJARAN')}${artifact.siklus ? ` · SIKLUS ${esc(artifact.siklus)}` : ''}</p><h4>${esc(artifact.judul || category.title)}</h4></div>${link}</div>${artifact.deskripsi ? `<p class="archive-work-description">${esc(artifact.deskripsi)}</p>` : ''}${details ? `<details class="archive-work-analysis"><summary>Lihat analisis artefak <span aria-hidden="true">＋</span></summary><div>${details}</div></details>` : ''}</article>`;
+}
+function archiveCategoryPanel(categories, activeKey) {
+  const active = categories.find((category) => category.key === activeKey) || categories[0];
+  if (!active) return '';
+  const total = active.entries.reduce((sum, entry) => sum + entry.artefak.length, 0);
+  const semesterSections = active.entries.map((entry) => {
+    const content = entry.artefak.length
+      ? entry.artefak.map((artifact) => archiveArtifactCard(artifact, active)).join('')
+      : `<div class="archive-work-empty"><span aria-hidden="true">＋</span><div><strong>Artefak Semester ${entry.semester.nomor} belum ditambahkan.</strong><p>Bagian ini siap diisi saat kamu mengunggah hasil praktik.</p></div></div>`;
+    return `<section class="archive-semester-group archive-semester-group--s${entry.semester.nomor}"><div class="archive-semester-heading"><span>SEMESTER 0${entry.semester.nomor}</span><strong>${esc(entry.semester.sekolah)}</strong></div>${content}</section>`;
   }).join('');
-  const semesterOne = P.semester.find((semester) => semester.nomor === 1);
-  const semesterTwo = P.semester.find((semester) => semester.nomor === 2);
-  return `<div class="archive-overview"><div class="archive-total"><span class="archive-label">CAKUPAN DOKUMENTASI PPG</span><div class="archive-total-number">${String(P.semester.length).padStart(2, '0')}</div><h3>semester praktik</h3><div class="archive-segmented" role="img" aria-label="${esc(semesterOne?.artefak.length || 0)} kategori disiapkan untuk Semester 1 dan ${esc(semesterTwo?.artefak.length || 0)} kategori untuk Semester 2">${P.semester.map((semester) => `<span class="archive-segment archive-segment--s${semester.nomor}" style="--segment-count:${semester.artefak.length}" title="Semester ${semester.nomor}: ${semester.artefak.length} kategori"></span>`).join('')}</div><div class="archive-segment-labels"><span>Semester 1 <b>${semesterOne?.artefak.length || 0} kategori</b></span><span>Semester 2 <b>${semesterTwo?.artefak.length || 0} kategori</b></span></div><p>${plannedCount} ruang dokumentasi disiapkan; isi arsip bertambah mengikuti artefak yang kamu masukkan.</p></div><div class="archive-receipt" role="group" aria-label="Ringkasan arsip"><p>Ringkasan arsip</p><div class="archive-receipt-rule"></div><span>Dua sekolah tempat praktik</span><strong>${P.semester.length}</strong><span>Kategori dokumentasi</span><strong>${plannedCount}</strong><span>Artefak tercatat</span><strong>${actualCount}</strong><small>${actualCount ? 'Jumlah dihitung dari artefak yang tersedia.' : 'Jumlah akan bertambah setelah artefak ditambahkan.'}</small></div></div><div class="archive-semesters">${cards}</div>`;
+  return `<div class="archive-detail ${active.tone}" data-archive-detail="${active.key}" aria-live="polite"><div class="archive-detail-intro"><span class="archive-detail-icon" aria-hidden="true">${active.icon}</span><p class="archive-content-label">RUANG PEMBELAJARAN · ${active.entries.length} SEMESTER</p><h3>${esc(active.title)}</h3><p>${esc(active.description)}</p><div class="archive-detail-count"><strong>${total}</strong><span>artefak tersedia</span></div></div><div class="archive-detail-work">${semesterSections}</div><span class="archive-detail-watermark" aria-hidden="true">${active.motif}</span></div>`;
+}
+function archiveCards() {
+  const byTitle = new Map();
+  P.semester.flatMap(semesterArchive).forEach((entry) => {
+    const key = slug(entry.title);
+    if (!byTitle.has(key)) byTitle.set(key, { key, title: entry.title, entries: [], ...archiveCategoryInfo[key] });
+    const category = byTitle.get(key);
+    category.entries.push(entry);
+    if (!category.icon) Object.assign(category, { icon: '▦', motif: '⌘', description: 'Dokumentasi dan bukti pengalaman belajar selama praktik PPG.' });
+  });
+  const categories = [...byTitle.values()].map((category, index) => ({ ...category, tone: `tone-${index % 5}`, count: category.entries.reduce((sum, entry) => sum + entry.artefak.length, 0) }));
+  archiveCategories = categories;
+  const selected = categories[0]?.key || '';
+  const cards = categories.map((category, index) => `<article class="archive-index-card archive-index-card--${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${category.icon}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span aria-hidden="true">↘</span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-number">${String(index + 1).padStart(2, '0')}</span></article>`).join('');
+  return `<div class="archive-index-summary"><span class="archive-summary-mark" aria-hidden="true">⌘</span><p><strong>${categories.length} kategori pembelajaran</strong><span>Artefak dari ${P.semester.length} semester praktik · isi menyusul saat kamu mengunggahnya</span></p></div><div class="archive-index-grid">${cards}</div><div class="archive-detail-slot">${archiveCategoryPanel(categories, selected)}</div>`;
 }
 function reflectionCards() {
   return finals.map((title) => tile(slug(title), title, 'Catatan dan arah pengembangan sebagai calon guru.')).join('');
@@ -136,7 +169,7 @@ function home() {
     </section>
 
     <section class="mas-section mas-archive" id="artefak" aria-labelledby="archive-title">
-      <div class="mas-section-head"><div><p class="eyebrow">04 / ARSIP PEMBELAJARAN</p><h2 id="archive-title">Bukti praktik, disusun per semester.</h2><p class="mas-lead">Pilih semester untuk menelusuri artefak yang sudah ditambahkan. Kategori kosong akan muncul setelah ada karya yang diarsipkan.</p></div><a class="mas-text-link" href="#artefak-s2">Buka refleksi Semester 2 <span>↗</span></a></div>
+      <div class="mas-section-head"><div><p class="eyebrow">04 / ARSIP PEMBELAJARAN</p><h2 id="archive-title">Ruang untuk setiap bukti belajar.</h2><p class="mas-lead">Pilih panah pada kategori untuk melihat arsip per semester. Konten dapat bertambah saat artefakmu diunggah.</p></div><span class="mas-index">PPG · INFORMATIKA</span></div>
       <div class="mas-archive-grid">${archiveCards()}</div>
     </section>
 
@@ -260,6 +293,21 @@ function navigatePage() {
     main.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 260, easing: 'cubic-bezier(.22,1,.36,1)' });
   }
 }
+main.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-archive-select]');
+  if (!button) return;
+  const selectedKey = button.dataset.archiveSelect;
+  const category = archiveCategories.find((item) => item.key === selectedKey);
+  const grid = button.closest('.mas-archive-grid');
+  const slot = grid?.querySelector('.archive-detail-slot');
+  if (!category || !slot) return;
+  grid.querySelectorAll('[data-archive-card]').forEach((card) => {
+    const active = card.dataset.archiveCard === selectedKey;
+    card.classList.toggle('is-selected', active);
+    card.querySelector('[data-archive-select]')?.setAttribute('aria-expanded', String(active));
+  });
+  slot.innerHTML = archiveCategoryPanel(archiveCategories, selectedKey);
+});
 window.addEventListener('hashchange', navigatePage);
 document.querySelector('#year').textContent = new Date().getFullYear();
 initLanding();
