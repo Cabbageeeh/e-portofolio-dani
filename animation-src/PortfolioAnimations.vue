@@ -53,8 +53,8 @@ const milestones = [
         <h2 id="schedule-feature-title">Jadwal mengajar yang menyusun dirinya sendiri.</h2>
         <p class="schedule-problem-label">Masalahnya</p>
         <p class="schedule-problem">Menyusun jadwal guru dengan tangan berarti berhari-hari menghindari bentrok, jam kosong guru, dan mapel yang harus dua jam berurutan.</p>
-        <p class="schedule-built-label">Yang saya bangun</p>
-        <p>Simulasi penjadwalan otomatis yang membaca batasan, mengunci jadwal manual, menghindari bentrok, lalu menjelaskan ketika aturan tidak memungkinkan jadwal tersusun.</p>
+        <p class="schedule-built-label">Alur solusinya</p>
+        <p>Simulasi ini menunjukkan bagaimana sistem menempatkan setiap mapel tanpa guru atau kelas yang bentrok, menghormati jam guru yang tidak tersedia, dan menjelaskan jika aturan membuat jadwal tidak mungkin disusun.</p>
         <p class="schedule-footnote">Jadwal dan nama guru di animasi ini adalah ilustrasi, bukan data aktual sekolah.</p>
       </div>
       <JadwalFilm />

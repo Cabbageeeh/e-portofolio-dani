@@ -16,7 +16,7 @@
   margin-top: var(--mas-gap);
   scroll-margin-top: 105px;
 }
-.masrama-schedule-root { margin-top: clamp(42px, 6vw, 82px); scroll-margin-top: 100px; }
+.masrama-schedule-root { margin-top: 0; padding-top: clamp(8px, 1.2vw, 16px); scroll-margin-top: 100px; }
 .masrama-schedule-root .schedule-feature {
   grid-template-columns: minmax(320px, .82fr) minmax(0, 1.18fr);
   gap: clamp(24px, 4vw, 62px);
@@ -71,6 +71,29 @@
   padding: 32px 0 0;
   border-top: 1px solid var(--border);
 }
+.mas-about-story { min-width: 0; }
+.mas-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  max-width: 660px;
+  margin: 0 0 25px;
+  padding: 0 0 23px;
+  border-bottom: 1px solid var(--border);
+}
+.mas-profile-card img {
+  display: block;
+  width: 132px;
+  height: 164px;
+  flex: none;
+  object-fit: contain;
+  object-position: center bottom;
+  border-radius: 18px;
+  background: linear-gradient(145deg, var(--surface), var(--soft));
+}
+.mas-profile-card .eyebrow { margin-bottom: 7px; }
+.mas-profile-card h3 { max-width: 14ch; margin: 0 0 8px; font-size: clamp(22px, 2.6vw, 34px); font-weight: 650; line-height: 1.08; letter-spacing: -.055em; }
+.mas-profile-card div > p:last-child { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .mas-about-copy { max-width: 680px; }
 .mas-about-copy > p {
   max-width: 62ch;
@@ -463,7 +486,7 @@
 }
 @media (max-width: 760px) {
   .masrama-page { width: 100%; }
-  .masrama-schedule-root { margin-top: 46px; }
+  .masrama-schedule-root { margin-top: 0; padding-top: 8px; }
   .masrama-schedule-root .schedule-feature { grid-template-columns: 1fr; gap: 20px; padding: 0; }
   .masrama-page .mas-section { margin-top: 54px; scroll-margin-top: 86px; }
   .mas-section-head { align-items: flex-start; margin-bottom: 23px; }
@@ -471,6 +494,10 @@
   .mas-section-head > .mas-index { display: none; }
   .mas-lead { font-size: 13px; }
   .mas-about-grid { gap: 19px; padding-top: 22px; }
+  .mas-profile-card { gap: 15px; margin-bottom: 20px; padding-bottom: 18px; }
+  .mas-profile-card img { width: 108px; height: 138px; border-radius: 14px; }
+  .mas-profile-card h3 { font-size: clamp(20px, 6vw, 28px); }
+  .mas-profile-card div > p:last-child { font-size: 10px; }
   .mas-about-copy > p { font-size: 14px; }
   .mas-about-copy > .mas-lead { font-size: 18px; }
   .mas-facts { grid-template-columns: 1fr 1fr; padding: 17px; gap: 18px 12px; border-radius: 15px; }
