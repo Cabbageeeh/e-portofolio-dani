@@ -600,6 +600,11 @@
 .archive-receipt {
   position: relative;
   display: grid;
+  top: auto;
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  margin: 0;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
   gap: 14px 18px;
