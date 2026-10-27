@@ -41,3 +41,5 @@ Folder publik adalah `dist`, tanpa instalasi atau proses build. Dapat dipasang p
 ## Mengubah tema
 
 Palet warna dan tipografi utama berada di `dist/theme-navy-sky.css`. Tema terang memakai Navy & Sky; tombol `Tema` mengaktifkan variasi gelap dari palet yang sama. Konten dan identitas portofolio tetap di `dist/content.js`.
+
+Daftar karya pilihan, ringkasan, dan tautan repositori berada di `dist/projects.js`. Visual jadwal pada bagian itu memakai mata pelajaran contoh dan diberi label ilustrasi, bukan data jadwal sekolah.
