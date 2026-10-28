@@ -79,6 +79,7 @@ function reflectionIconFor(title) {
   if (value.includes('growth')) return 'spark';
   if (value.includes('inklusi')) return 'people';
   if (value.includes('kepemimpinan')) return 'flag';
+  if (value.includes('seminar')) return 'school';
   if (value.includes('ppp') || value.includes('pmad') || value.includes('pmal')) return 'bookCode';
   if (value.includes('ppkpt')) return 'shield';
   if (value.includes('sppg')) return 'school';
@@ -311,7 +312,14 @@ function render() {
     }
     const backId = page.semester ? (page.kind === 'artifact' ? `artefak-s${page.semester.nomor}` : page.kind === 'reflection' ? `refleksi-s${page.semester.nomor}` : 'beranda') : 'beranda';
     const isSemesterIndex = Boolean(page.semester && (page.kind === 'index' || page.kind === 'reflection-index'));
-    const pageHeadClass = isSemesterIndex ? `page-head page-head--semester page-head--s${page.semester.nomor}` : 'page-head';
+    const isCourseReflection = Boolean(page.kind === 'reflection' && page.semester);
+    const courseReflectionIndex = isCourseReflection ? page.semester.mataKuliah.indexOf(page.title) : -1;
+    const courseReflectionTone = reflectionTonePalette[(courseReflectionIndex < 0 ? 0 : courseReflectionIndex) % reflectionTonePalette.length];
+    const pageHeadClass = isSemesterIndex
+      ? `page-head page-head--semester page-head--s${page.semester.nomor}`
+      : isCourseReflection
+        ? `page-head page-head--course reflection-tone-${courseReflectionTone}`
+        : 'page-head';
     const pageContentClass = isSemesterIndex ? `section page-content--semester-${page.kind === 'index' ? 'artifacts' : 'reflections'} page-content--s${page.semester.nomor}` : 'section';
     const pageDescription = page.kind === 'artifact'
       ? 'Bukti pembelajaran dan analisis pengalaman praktik.'
@@ -320,7 +328,12 @@ function render() {
       : page.kind === 'reflection-index'
         ? 'Refleksi mata kuliah yang mendukung perjalanan menjadi guru Informatika.'
         : 'Dokumentasi perjalanan belajar menuju guru profesional.';
-    main.innerHTML = '<a class="back-button" href="#' + backId + '"><span aria-hidden="true">←</span> Kembali<span class="back-context"> ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="' + pageHeadClass + '"><a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + pageDescription + '</p></section><section class="' + pageContentClass + '">' + body + '</section>';
+    const courseReflectionIcon = isCourseReflection ? archiveIcon(reflectionIconFor(page.title), 'archive-svg-icon') : '';
+    const courseReflectionTop = isCourseReflection
+      ? '<div class="page-head-course-top"><span class="page-head-course-icon" aria-hidden="true">' + courseReflectionIcon + '</span><span class="page-head-course-label">REFLEKSI MATA KULIAH · SEMESTER 0' + page.semester.nomor + '</span><span class="page-head-course-arrow" aria-hidden="true">↘</span></div>'
+      : '';
+    const courseReflectionWatermark = isCourseReflection ? '<span class="page-head-course-watermark" aria-hidden="true">' + courseReflectionIcon + '</span>' : '';
+    main.innerHTML = '<a class="back-button" href="#' + backId + '"><span aria-hidden="true">←</span> Kembali<span class="back-context"> ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="' + pageHeadClass + '">' + courseReflectionTop + courseReflectionWatermark + '<a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + pageDescription + '</p></section><section class="' + pageContentClass + '">' + body + '</section>';
   }
   document.body.classList.toggle('is-home', id === 'beranda');
   window.PortfolioMotion?.reveal(main);

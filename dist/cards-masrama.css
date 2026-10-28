@@ -266,6 +266,39 @@
 #main .page-head .breadcrumb,
 #main .page-head > p:last-child { color: var(--mc-card-muted); }
 #main .page-head h1 { color: var(--mc-card-ink); }
+#main .page-head.page-head--course {
+  --mc-card-tone: var(--reflection-tone);
+  --mc-card-ink: var(--reflection-ink);
+  --mc-card-muted: color-mix(in srgb, var(--reflection-ink) 82%, var(--reflection-tone));
+  position: relative;
+  isolation: isolate;
+  min-height: 300px;
+  overflow: hidden;
+  margin-bottom: 0;
+  padding: clamp(25px, 4vw, 40px);
+  border: 1px solid color-mix(in srgb, var(--reflection-ink) 17%, transparent);
+  border-radius: 27px;
+  background: radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, white 23%, transparent), transparent 56%), var(--reflection-tone);
+  color: var(--reflection-ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.27), inset 0 -3px 0 rgba(0,0,0,.13), 0 23px 36px -26px var(--mc-shadow);
+}
+#main .page-head.page-head--course.reflection-tone-green { --reflection-tone: #4f6b45; --reflection-ink: #f4efe4; }
+#main .page-head.page-head--course.reflection-tone-mustard { --reflection-tone: #e0b257; --reflection-ink: #2a1d15; }
+#main .page-head.page-head--course.reflection-tone-teal { --reflection-tone: #3e6c78; --reflection-ink: #f4efe4; }
+#main .page-head.page-head--course.reflection-tone-sand { --reflection-tone: #e8d3b6; --reflection-ink: #2a1d15; }
+#main .page-head.page-head--course.reflection-tone-rust { --reflection-tone: #b4553f; --reflection-ink: #fff6ee; }
+#main .page-head.page-head--course.reflection-tone-orange { --reflection-tone: #c98a4b; --reflection-ink: #2a1d15; }
+#main .page-head-course-top { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+#main .page-head-course-icon { display: grid; width: 48px; height: 48px; flex: none; place-items: center; border-radius: 15px; background: color-mix(in srgb, var(--reflection-ink) 16%, transparent); color: var(--reflection-ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+#main .page-head-course-icon .archive-svg-icon { width: 25px; height: 25px; }
+#main .page-head-course-label { color: color-mix(in srgb, var(--reflection-ink) 82%, var(--reflection-tone)); font-size: 9px; font-weight: 800; letter-spacing: .15em; }
+#main .page-head-course-arrow { display: grid; width: 37px; height: 37px; flex: none; place-items: center; margin-left: auto; border: 1px solid color-mix(in srgb, var(--reflection-ink) 43%, transparent); border-radius: 50%; color: var(--reflection-ink); font-size: 17px; }
+#main .page-head-course-watermark { position: absolute; z-index: 0; right: 12px; bottom: -52px; width: clamp(170px, 22vw, 245px); height: clamp(170px, 22vw, 245px); color: var(--reflection-ink); opacity: .12; transform: rotate(-11deg); pointer-events: none; }
+#main .page-head-course-watermark .archive-svg-icon { width: 100%; height: 100%; stroke-width: 1.1; }
+#main .page-head.page-head--course .breadcrumb { position: relative; z-index: 1; display: block; margin: 0 0 26px; color: var(--mc-card-muted); font-size: 11px; font-weight: 650; }
+#main .page-head.page-head--course .eyebrow { position: relative; z-index: 1; margin: 0 0 12px; color: color-mix(in srgb, var(--reflection-ink) 82%, var(--reflection-tone)); font-size: 9px; font-weight: 800; letter-spacing: .15em; }
+#main .page-head.page-head--course h1 { position: relative; z-index: 1; max-width: 18ch; margin: 0 0 15px; color: var(--reflection-ink); font-size: clamp(39px, 5.5vw, 64px); font-weight: 750; letter-spacing: -.065em; line-height: 1; }
+#main .page-head.page-head--course > p:last-child { position: relative; z-index: 1; max-width: 58ch; margin: 0; color: var(--mc-card-muted); font-size: 13px; line-height: 1.65; }
 #main .artifact {
   --mc-card-tone: var(--mc-paper);
   --mc-card-ink: var(--text);
@@ -311,6 +344,13 @@
   #main .page-head,
   #main .artifact,
   #main .empty { border-radius: 18px; }
+  #main .page-head.page-head--course { min-height: 0; padding: 22px 20px; border-radius: 22px; }
+  #main .page-head-course-top { margin-bottom: 21px; }
+  #main .page-head-course-icon { width: 43px; height: 43px; border-radius: 13px; }
+  #main .page-head-course-label { font-size: 8px; }
+  #main .page-head.page-head--course .breadcrumb { margin-bottom: 23px; }
+  #main .page-head.page-head--course h1 { max-width: 16ch; font-size: clamp(35px, 10vw, 49px); }
+  #main .page-head-course-watermark { right: -20px; bottom: -34px; width: 160px; height: 160px; }
   #main .archive-semester > summary { min-height: 160px; }
 }
 
