@@ -167,9 +167,78 @@ function archiveArtifactCard(artifact, category) {
     .filter(([key]) => artifact[key])
     .map(([key, label]) => `<div><h4>${label}</h4><p>${esc(artifact[key])}</p></div>`).join('');
   const link = artifact.url && safe(artifact.url)
-    ? `<a class="archive-work-link" href="${esc(safe(artifact.url))}" target="_blank" rel="noopener noreferrer">Buka artefak <span aria-hidden="true">↗</span></a>`
+    ? `<a class="archive-work-link" href="${esc(safe(artifact.url))}" data-preview-artifact data-artifact-title="${esc(artifact.judul || category.title)}">Buka artefak <span aria-hidden="true">↗</span></a>`
     : '<span class="archive-work-pending">Berkas belum ditambahkan</span>';
   return `<article class="archive-work"><div class="archive-work-head"><div><p class="archive-work-kicker">${esc(artifact.jenis || 'ARTEFAK PEMBELAJARAN')}${artifact.siklus ? ` · SIKLUS ${esc(artifact.siklus)}` : ''}</p><h4>${esc(artifact.judul || category.title)}</h4></div>${link}</div>${artifact.deskripsi ? `<p class="archive-work-description">${esc(artifact.deskripsi)}</p>` : ''}${details ? `<details class="archive-work-analysis"><summary>Lihat analisis artefak <span aria-hidden="true">＋</span></summary><div>${details}</div></details>` : ''}</article>`;
+}
+const artifactPreviewOrigin = 'https://e-portofolio-dani.vercel.app/';
+let artifactPreviewReturnFocus = null;
+function artifactPreviewModal() {
+  let modal = document.querySelector('#artifactPreview');
+  if (modal) return modal;
+  modal = document.createElement('div');
+  modal.id = 'artifactPreview';
+  modal.className = 'artifact-preview';
+  modal.hidden = true;
+  modal.innerHTML = '<div class="artifact-preview-scrim" data-preview-close aria-hidden="true"></div><section class="artifact-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="artifactPreviewTitle"><header class="artifact-preview-header"><div><p class="artifact-preview-kicker">PRATINJAU ARTEFAK</p><h2 id="artifactPreviewTitle"></h2></div><div class="artifact-preview-actions"><a class="artifact-preview-download" data-preview-download target="_blank" rel="noopener noreferrer">Unduh berkas asli <span aria-hidden="true">↗</span></a><button class="artifact-preview-close" type="button" data-preview-close aria-label="Tutup pratinjau">×</button></div></header><div class="artifact-preview-stage" data-preview-stage></div><p class="artifact-preview-note" data-preview-note></p></section>';
+  document.body.append(modal);
+  return modal;
+}
+function artifactPreviewSource(fileUrl, extension) {
+  const url = new URL(fileUrl, location.href);
+  if (['pptx', 'docx'].includes(extension)) {
+    const isLocal = url.protocol === 'file:' || ['localhost', '127.0.0.1'].includes(url.hostname);
+    if (isLocal) {
+      const appPath = new URL('.', location.href).pathname;
+      const relativePath = url.pathname.startsWith(appPath) ? url.pathname.slice(appPath.length) : url.pathname.replace(/^\/+/, '');
+      return new URL(relativePath, artifactPreviewOrigin).href;
+    }
+  }
+  return url.href;
+}
+function openArtifactPreview(link) {
+  const fileUrl = safe(link.href);
+  if (!fileUrl) return;
+  const url = new URL(fileUrl, location.href);
+  const extension = url.pathname.split('.').pop().toLowerCase();
+  const title = link.dataset.artifactTitle || link.closest('.archive-work, .artifact')?.querySelector('h2, h4')?.textContent?.trim() || 'Artefak pembelajaran';
+  const modal = artifactPreviewModal();
+  const stage = modal.querySelector('[data-preview-stage]');
+  const note = modal.querySelector('[data-preview-note]');
+  const source = artifactPreviewSource(fileUrl, extension);
+  const officeFile = ['pptx', 'docx'].includes(extension);
+  const officeUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(source)}`;
+  modal.querySelector('#artifactPreviewTitle').textContent = title;
+  modal.querySelector('[data-preview-download]').href = fileUrl;
+  if (extension === 'pdf') {
+    stage.innerHTML = `<iframe class="artifact-preview-frame" title="Pratinjau ${esc(title)}" src="${esc(url.href)}#toolbar=1&view=FitH"></iframe>`;
+    note.textContent = 'Dokumen PDF ditampilkan langsung. Gunakan tombol unduh untuk menyimpan salinan berkas.';
+  } else if (officeFile) {
+    stage.innerHTML = `<iframe class="artifact-preview-frame" title="Pratinjau ${esc(title)}" src="${esc(officeUrl)}" allowfullscreen></iframe>`;
+    note.textContent = 'Pratinjau PowerPoint atau Word dimuat melalui Microsoft Office Online. Jika belum muncul, gunakan tombol unduh berkas asli.';
+  } else if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(extension)) {
+    stage.innerHTML = `<img class="artifact-preview-image" src="${esc(url.href)}" alt="Pratinjau ${esc(title)}">`;
+    note.textContent = 'Gambar ditampilkan pada ukuran yang menyesuaikan layar.';
+  } else if (['mp4', 'webm', 'ogg'].includes(extension)) {
+    stage.innerHTML = `<video class="artifact-preview-video" src="${esc(url.href)}" controls playsinline></video>`;
+    note.textContent = 'Video pembelajaran. Gunakan kontrol pemutar untuk melihat isinya.';
+  } else {
+    stage.innerHTML = '<div class="artifact-preview-fallback"><span aria-hidden="true">↗</span><h3>Pratinjau belum tersedia untuk jenis berkas ini.</h3><p>Kamu tetap bisa membuka atau menyimpan berkas aslinya.</p></div>';
+    note.textContent = '';
+  }
+  artifactPreviewReturnFocus = link;
+  modal.hidden = false;
+  document.body.classList.add('artifact-preview-open');
+  modal.querySelector('.artifact-preview-close').focus();
+}
+function closeArtifactPreview() {
+  const modal = document.querySelector('#artifactPreview');
+  if (!modal || modal.hidden) return;
+  modal.querySelectorAll('iframe, video').forEach((media) => { if (media.tagName === 'VIDEO') media.pause(); });
+  modal.hidden = true;
+  modal.querySelector('[data-preview-stage]').replaceChildren();
+  document.body.classList.remove('artifact-preview-open');
+  artifactPreviewReturnFocus?.focus();
 }
 function archiveCategoryPanel(categories, activeKey) {
   const active = categories.find((category) => category.key === activeKey) || categories[0];
@@ -311,7 +380,7 @@ function render() {
       const items = page.semester.mataKuliah;
       body = '<div class="tiles">' + items.map((title, index) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind)).join('') + '</div>';
     } else if (page.kind === 'artifact') {
-      body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" target="_blank" rel="noopener noreferrer" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
+      body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" data-preview-artifact data-artifact-title="' + esc(artifact.judul) + '" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
     } else {
       body = '<article class="reading">' + ((content.paragraf || []).map((paragraph) => '<p>' + esc(paragraph) + '</p>').join('') || empty('Refleksi belum ditambahkan.', 'Catatan pengalaman, kekuatan, tantangan, dan rencana perbaikan dapat ditampilkan di sini.')) + (content.bagian || []).map((section) => '<h2>' + esc(section.judul) + '</h2><p>' + esc(section.teks) + '</p>').join('') + '</article>';
     }
@@ -424,6 +493,12 @@ function navigatePage() {
   }
 }
 main.addEventListener('click', (event) => {
+  const previewLink = event.target.closest('[data-preview-artifact]');
+  if (previewLink) {
+    event.preventDefault();
+    openArtifactPreview(previewLink);
+    return;
+  }
   const button = event.target.closest('[data-archive-select]');
   if (!button) return;
   const selectedKey = button.dataset.archiveSelect;
@@ -441,6 +516,26 @@ main.addEventListener('click', (event) => {
     const panel = slot.querySelector('.archive-detail');
     panel?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
   });
+});
+document.addEventListener('click', (event) => {
+  if (event.target.closest('[data-preview-close]')) closeArtifactPreview();
+});
+document.addEventListener('keydown', (event) => {
+  const modal = document.querySelector('#artifactPreview');
+  if (!modal || modal.hidden) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    closeArtifactPreview();
+    return;
+  }
+  if (event.key === 'Tab') {
+    const focusable = [...modal.querySelectorAll('a[href], button:not([disabled]), iframe')];
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  }
 });
 window.addEventListener('hashchange', navigatePage);
 document.querySelector('#year').textContent = new Date().getFullYear();

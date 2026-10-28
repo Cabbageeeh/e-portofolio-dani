@@ -117,6 +117,44 @@
   #main .archive-detail { animation: none; }
 }
 
+/* In-page artifact preview for PDFs, Office files, images, and video. */
+.artifact-preview[hidden] { display: none !important; }
+.artifact-preview { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: clamp(10px, 3vw, 32px); }
+.artifact-preview-scrim { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: rgba(5, 19, 33, .78); backdrop-filter: blur(8px); }
+.artifact-preview-dialog { position: relative; display: grid; width: min(1180px, 100%); height: min(900px, 90dvh); grid-template-rows: auto minmax(0, 1fr) auto; overflow: hidden; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); color: var(--text); box-shadow: 0 35px 100px rgba(0, 0, 0, .4); animation: artifact-preview-in .28s cubic-bezier(.22, 1, .36, 1) both; }
+.artifact-preview-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 20px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.artifact-preview-header > div:first-child { min-width: 0; }
+.artifact-preview-kicker { margin: 0 0 3px; color: var(--accent); font: 800 9px/1.4 'DM Sans', sans-serif; letter-spacing: .15em; }
+.artifact-preview-header h2 { overflow: hidden; margin: 0; color: var(--text); font: 700 clamp(16px, 2vw, 21px)/1.3 'Space Grotesk', sans-serif; letter-spacing: -.035em; text-overflow: ellipsis; white-space: nowrap; }
+.artifact-preview-actions { display: flex; flex: none; align-items: center; gap: 10px; }
+.artifact-preview-download, .artifact-preview-close { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text); font: 700 11px/1 'DM Sans', sans-serif; text-decoration: none; transition: background .2s ease, color .2s ease, transform .2s ease; }
+.artifact-preview-download { padding: 0 15px; }
+.artifact-preview-close { width: 40px; padding: 0; font-size: 23px; }
+.artifact-preview-download:hover, .artifact-preview-close:hover { transform: translateY(-1px); border-color: var(--accent); background: var(--accent); color: var(--buttonText); }
+.artifact-preview-stage { display: grid; min-height: 0; place-items: center; overflow: auto; background: #071b2c; }
+.artifact-preview-frame { display: block; width: 100%; height: 100%; min-height: 360px; border: 0; background: white; }
+.artifact-preview-image { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+.artifact-preview-video { display: block; width: min(100%, 1000px); max-height: 100%; background: #000; }
+.artifact-preview-fallback { max-width: 450px; padding: 32px; color: #e9f4fc; text-align: center; }
+.artifact-preview-fallback > span { display: grid; width: 54px; height: 54px; place-items: center; margin: 0 auto 18px; border: 1px solid rgba(255,255,255,.25); border-radius: 18px; color: #7bd3f5; font-size: 28px; }
+.artifact-preview-fallback h3 { margin: 0 0 8px; font: 700 20px/1.25 'Space Grotesk', sans-serif; }
+.artifact-preview-fallback p { margin: 0; color: #a8bfd0; font-size: 13px; }
+.artifact-preview-note { min-height: 42px; margin: 0; padding: 12px 18px; border-top: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 11px; line-height: 1.5; }
+body.artifact-preview-open { overflow: hidden; }
+@keyframes artifact-preview-in { from { opacity: 0; transform: translateY(10px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (max-width: 620px) {
+  .artifact-preview { padding: 0; }
+  .artifact-preview-dialog { width: 100%; height: 100dvh; border: 0; border-radius: 0; }
+  .artifact-preview-header { align-items: flex-start; padding: 13px 14px; }
+  .artifact-preview-header h2 { max-width: 48vw; font-size: 16px; }
+  .artifact-preview-actions { gap: 7px; }
+  .artifact-preview-download { min-height: 36px; padding: 0 11px; font-size: 10px; }
+  .artifact-preview-close { width: 36px; min-height: 36px; }
+  .artifact-preview-frame { min-height: 240px; }
+  .artifact-preview-note { padding: 10px 13px; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .artifact-preview-dialog, .artifact-preview-download, .artifact-preview-close { animation: none; transition: none; } }
+
 /* Reflection cards take MasRama's colorful service-card and paper-ticket composition. */
 #main .reflection-menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 18px; }
 #main .reflection-menu-card {
