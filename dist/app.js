@@ -89,8 +89,7 @@ const archiveCategoryInfo = {
   'modul-ajar': { icon: 'bookCode', description: 'Perencanaan pembelajaran yang memuat tujuan, langkah kegiatan, dan asesmen.' },
   'penilaian-praktik-mengajar': { icon: 'clipboardCheck', description: 'Bukti dan catatan penilaian selama praktik mengajar di kelas.' },
   'penilaian-penyusunan-perangkat': { icon: 'layoutCheck', description: 'Dokumentasi proses menyusun dan meninjau perangkat pembelajaran.' },
-  'video-ppl-terbimbing': { icon: 'camera', description: 'Rekaman praktik mengajar dengan pendampingan dan masukan dari guru pamong.' },
-  'video-ppl-mandiri': { icon: 'camera', description: 'Rekaman praktik mengajar mandiri sebagai bagian dari pengalaman PPL.' },
+  'video-ppl': { icon: 'camera', description: 'Dokumentasi praktik mengajar terbimbing dan mandiri selama PPL.' },
   'kegiatan-non-mengajar': { icon: 'school', description: 'Pengalaman berkontribusi dalam kegiatan sekolah di luar pembelajaran kelas.' },
   'instrumen-penilaian': { icon: 'checklist', description: 'Instrumen untuk mengumpulkan bukti belajar dan menilai ketercapaian tujuan.' },
   'materi-pembelajaran': { icon: 'bookCode', description: 'Bahan ajar yang digunakan untuk mendukung proses belajar Informatika.' }
@@ -107,6 +106,7 @@ const archiveIconPaths = {
   checklist: '<path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/>',
   chip: '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4M10 10h4v4h-4z"/>'
 };
+const archiveCategoryAliases = { 'video-ppl-terbimbing': 'video-ppl', 'video-ppl-mandiri': 'video-ppl' };
 function archiveIcon(name, className) {
   return `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${archiveIconPaths[name] || archiveIconPaths.chip}</svg>`;
 }
@@ -135,16 +135,20 @@ function archiveCategoryPanel(categories, activeKey) {
 function archiveCards() {
   const byTitle = new Map();
   P.semester.flatMap(semesterArchive).forEach((entry) => {
-    const key = slug(entry.title);
-    if (!byTitle.has(key)) byTitle.set(key, { key, title: entry.title, entries: [], ...archiveCategoryInfo[key] });
+    const originalKey = slug(entry.title);
+    const key = archiveCategoryAliases[originalKey] || originalKey;
+    const title = key === 'video-ppl' ? 'Video PPL' : entry.title;
+    if (!byTitle.has(key)) byTitle.set(key, { key, title, entries: [], ...archiveCategoryInfo[key] });
     const category = byTitle.get(key);
-    category.entries.push(entry);
+    const sameSemester = category.entries.find((item) => item.semester.nomor === entry.semester.nomor);
+    if (sameSemester) sameSemester.artefak.push(...entry.artefak);
+    else category.entries.push({ ...entry });
     if (!category.icon) Object.assign(category, { icon: 'chip', description: 'Dokumentasi dan bukti pengalaman belajar selama praktik PPG.' });
   });
   const categories = [...byTitle.values()].map((category, index) => ({ ...category, tone: `tone-${index % 10}`, count: category.entries.reduce((sum, entry) => sum + entry.artefak.length, 0) }));
   archiveCategories = categories;
   const selected = categories[0]?.key || '';
-  const cards = categories.map((category, index) => `<article class="archive-index-card ${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${archiveIcon(category.icon, 'archive-svg-icon')}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span aria-hidden="true">↘</span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-number">${String(index + 1).padStart(2, '0')}</span></article>`).join('');
+  const cards = categories.map((category) => `<article class="archive-index-card ${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${archiveIcon(category.icon, 'archive-svg-icon')}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span aria-hidden="true">↘</span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-watermark" aria-hidden="true">${archiveIcon(category.icon, 'archive-watermark-svg')}</span></article>`).join('');
   return `<div class="archive-index-summary"><span class="archive-summary-mark" aria-hidden="true">${archiveIcon('chip', 'archive-svg-icon')}</span><p><strong>${categories.length} kategori pembelajaran</strong><span>Artefak dari ${P.semester.length} semester praktik · isi menyusul saat kamu mengunggahnya</span></p></div><div class="archive-index-grid">${cards}</div><div class="archive-detail-slot">${archiveCategoryPanel(categories, selected)}</div>`;
 }
 function reflectionCards() {
