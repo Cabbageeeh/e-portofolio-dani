@@ -1,0 +1,293 @@
+/* Stage 2: one calm, raised card language across the portfolio. */
+:root {
+  --portfolio-card-radius: 24px;
+  --portfolio-card-shadow: 0 4px 0 rgba(10, 43, 68, .17), 0 18px 30px -22px rgba(10, 43, 68, .42);
+  --portfolio-card-shadow-hover: 0 5px 0 rgba(10, 43, 68, .17), 0 24px 34px -22px rgba(10, 43, 68, .34);
+}
+
+:root[data-theme="dark"] {
+  --portfolio-card-shadow: 0 4px 0 rgba(0, 0, 0, .3), 0 18px 30px -22px rgba(0, 0, 0, .58);
+  --portfolio-card-shadow-hover: 0 5px 0 rgba(0, 0, 0, .3), 0 24px 34px -22px rgba(0, 0, 0, .5);
+}
+
+#main :is(
+  .mas-facts,
+  .mas-semester-card,
+  .archive-semester,
+  .path-step,
+  .tile,
+  .project-card,
+  .artifact,
+  .page-head,
+  .empty,
+  .course-reflection-card,
+  .reflection-menu-card,
+  .identity-direction-card,
+  .archive-index-card,
+  .archive-detail,
+  .archive-work,
+  .innovation-case
+) {
+  border-radius: var(--portfolio-card-radius);
+  background-image: none !important;
+  box-shadow: var(--portfolio-card-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: transform .24s cubic-bezier(.2,.8,.2,1), box-shadow .24s ease, border-color .24s ease;
+}
+
+#main :is(.mas-semester-card, .archive-semester, .path-step, .tile, .project-card, .course-reflection-card, .reflection-menu-card, .archive-index-card, .archive-detail, .identity-direction-card, .innovation-case) {
+  border: 1px solid color-mix(in srgb, var(--mc-card-ink, var(--text)) 15%, transparent);
+}
+
+#main :is(.mas-semester-card, .archive-semester, .path-step, .tile, .project-card, .course-reflection-card, .archive-index-card):hover {
+  transform: translateY(-4px);
+  box-shadow: var(--portfolio-card-shadow-hover);
+}
+
+/* Semester cards and page headers use the two primary blue surfaces. */
+#main .mas-semester-card:first-child,
+#main .page-head.page-head--s1,
+#main .archive-semester--s1 {
+  --mc-card-tone: var(--card-tone-0);
+  --mc-card-ink: var(--card-ink-0);
+  --mc-card-muted: color-mix(in srgb, var(--card-ink-0) 77%, var(--card-tone-0));
+  --semester-tone: var(--card-tone-0);
+  --semester-ink: var(--card-ink-0);
+  background-color: var(--card-tone-0);
+  color: var(--card-ink-0);
+}
+
+#main .mas-semester-card:nth-child(2),
+#main .page-head.page-head--s2,
+#main .archive-semester--s2 {
+  --mc-card-tone: var(--card-tone-1);
+  --mc-card-ink: var(--card-ink-1);
+  --mc-card-muted: color-mix(in srgb, var(--card-ink-1) 77%, var(--card-tone-1));
+  --semester-tone: var(--card-tone-1);
+  --semester-ink: var(--card-ink-1);
+  background-color: var(--card-tone-1);
+  color: var(--card-ink-1);
+}
+
+#main .page-head:not(.page-head--semester):not(.page-head--course),
+#main .mas-facts,
+#main .artifact,
+#main .empty {
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* All archive, reflection, and journey tiles draw from the blue palette. */
+#main .tile,
+#main .path-step,
+#main .archive-index-card {
+  background-color: var(--card-tone-0);
+  color: var(--card-ink-0);
+}
+
+#main .tile:nth-child(10n + 2), #main .path-step:nth-child(10n + 2), #main .archive-index-card.tone-1 { background-color: var(--card-tone-1); color: var(--card-ink-1); }
+#main .tile:nth-child(10n + 3), #main .path-step:nth-child(10n + 3), #main .archive-index-card.tone-2 { background-color: var(--card-tone-2); color: var(--card-ink-2); }
+#main .tile:nth-child(10n + 4), #main .path-step:nth-child(10n + 4), #main .archive-index-card.tone-3 { background-color: var(--card-tone-3); color: var(--card-ink-3); }
+#main .tile:nth-child(10n + 5), #main .path-step:nth-child(10n + 5), #main .archive-index-card.tone-4 { background-color: var(--card-tone-4); color: var(--card-ink-4); }
+#main .tile:nth-child(10n + 6), #main .path-step:nth-child(10n + 6), #main .archive-index-card.tone-5 { background-color: var(--card-tone-5); color: var(--card-ink-5); }
+#main .tile:nth-child(10n + 7), #main .path-step:nth-child(10n + 7), #main .archive-index-card.tone-6 { background-color: var(--card-tone-6); color: var(--card-ink-6); }
+#main .tile:nth-child(10n + 8), #main .path-step:nth-child(10n + 8), #main .archive-index-card.tone-7 { background-color: var(--card-tone-7); color: var(--card-ink-7); }
+#main .tile:nth-child(10n + 9), #main .path-step:nth-child(10n + 9), #main .archive-index-card.tone-8 { background-color: var(--card-tone-8); color: var(--card-ink-8); }
+#main .tile:nth-child(10n), #main .path-step:nth-child(10n), #main .archive-index-card.tone-9 { background-color: var(--card-tone-9); color: var(--card-ink-9); }
+
+#main .tile :is(h3, p, .tile-bottom),
+#main .path-step :is(.step-number, h3, p),
+#main .archive-index-card :is(h3, p, strong, .archive-index-meta) {
+  color: inherit;
+}
+
+#main .tile p,
+#main .path-step p,
+#main .archive-index-card > p { opacity: .8; }
+
+#main .tile-icon,
+#main .archive-index-icon,
+#main .archive-index-toggle,
+#main .archive-detail-icon,
+#main .reflection-menu-icon,
+#main .project-icon,
+#main .innovation-case-icon {
+  box-shadow: none;
+  background: color-mix(in srgb, currentColor 13%, transparent);
+}
+
+#main .tile::before,
+#main .project-card::after,
+#main .archive-index-card::before { opacity: .1; }
+#main .project-card::after { content: none; }
+
+/* Three featured works use the same measured blue sequence. */
+#main .project-card,
+#main .project-card.project-text-card,
+#main .reflection-menu-card {
+  --project-tone: var(--card-tone-0);
+  --project-ink: var(--card-ink-0);
+  --reflection-tone: var(--card-tone-0);
+  --reflection-ink: var(--card-ink-0);
+  background-color: var(--card-tone-0);
+  color: var(--card-ink-0);
+}
+#main .project-card:nth-child(3n + 2),
+#main .project-card.project-tone-1,
+#main .reflection-menu-card:nth-child(3n + 2),
+#main .reflection-menu-card.reflection-tone-1,
+#main .course-reflection-card--s2 {
+  --project-tone: var(--card-tone-1);
+  --project-ink: var(--card-ink-1);
+  --reflection-tone: var(--card-tone-1);
+  --reflection-ink: var(--card-ink-1);
+  --course-tone: var(--card-tone-1);
+  --course-ink: var(--card-ink-1);
+  background-color: var(--card-tone-1);
+  color: var(--card-ink-1);
+}
+#main .project-card:nth-child(3n),
+#main .project-card.project-tone-2,
+#main .reflection-menu-card:nth-child(3n),
+#main .reflection-menu-card.reflection-tone-2 {
+  --project-tone: var(--card-tone-2);
+  --project-ink: var(--card-ink-2);
+  --reflection-tone: var(--card-tone-2);
+  --reflection-ink: var(--card-ink-2);
+  background-color: var(--card-tone-2);
+  color: var(--card-ink-2);
+}
+
+#main .project-card.project-text-card:hover,
+#main .project-card:hover { transform: translateY(-4px); box-shadow: var(--portfolio-card-shadow-hover); }
+#main .project-card.project-text-card .project-ticket,
+#main .reflection-menu-paper,
+#main .innovation-principles {
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 94%, var(--soft));
+  color: var(--text);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--text) 10%, transparent);
+  transform: none;
+}
+#main .project-card.project-text-card:nth-child(even) .project-ticket,
+#main .reflection-menu-card:nth-child(even) .reflection-menu-paper { transform: none; }
+#main .project-ticket > p,
+#main .reflection-menu-paper > p,
+#main .innovation-principles > p,
+#main .project-ticket li,
+#main .reflection-menu-paper li,
+#main .innovation-principles li { color: var(--text); }
+#main .project-ticket li::before,
+#main .reflection-menu-paper li::before,
+#main .innovation-principles li::before { background: var(--accent); border-color: var(--surface); box-shadow: none; }
+#main .project-card.project-text-card .project-link,
+#main .reflection-menu-link { box-shadow: 0 3px 0 color-mix(in srgb, var(--project-ink, var(--reflection-ink)) 18%, transparent); }
+
+/* Course reflections and course headers share the same school-blue surfaces. */
+#main .course-reflection-card--s1,
+#main .reflection-menu-card.reflection-tone-0,
+#main .page-head.page-head--course.reflection-tone-0,
+#main .reflection-menu-card.reflection-tone-green,
+#main .page-head.page-head--course.reflection-tone-green {
+  --course-tone: var(--card-tone-0); --course-ink: var(--card-ink-0);
+  --reflection-tone: var(--card-tone-0); --reflection-ink: var(--card-ink-0);
+  background-color: var(--card-tone-0); color: var(--card-ink-0);
+}
+#main .course-reflection-card--s2,
+#main .reflection-menu-card.reflection-tone-1,
+#main .page-head.page-head--course.reflection-tone-1,
+#main .reflection-menu-card.reflection-tone-mustard,
+#main .page-head.page-head--course.reflection-tone-mustard {
+  --course-tone: var(--card-tone-1); --course-ink: var(--card-ink-1);
+  --reflection-tone: var(--card-tone-1); --reflection-ink: var(--card-ink-1);
+  background-color: var(--card-tone-1); color: var(--card-ink-1);
+}
+#main .reflection-menu-card.reflection-tone-2,
+#main .page-head.page-head--course.reflection-tone-2,
+#main .reflection-menu-card.reflection-tone-teal,
+#main .page-head.page-head--course.reflection-tone-teal {
+  --reflection-tone: var(--card-tone-2); --reflection-ink: var(--card-ink-2);
+  background-color: var(--card-tone-2); color: var(--card-ink-2);
+}
+#main .reflection-menu-card.reflection-tone-3,
+#main .page-head.page-head--course.reflection-tone-3,
+#main .reflection-menu-card.reflection-tone-sand,
+#main .page-head.page-head--course.reflection-tone-sand {
+  --reflection-tone: var(--card-tone-3); --reflection-ink: var(--card-ink-3);
+  background-color: var(--card-tone-3); color: var(--card-ink-3);
+}
+#main .reflection-menu-card.reflection-tone-4,
+#main .page-head.page-head--course.reflection-tone-4,
+#main .reflection-menu-card.reflection-tone-rust,
+#main .page-head.page-head--course.reflection-tone-rust {
+  --reflection-tone: var(--card-tone-4); --reflection-ink: var(--card-ink-4);
+  background-color: var(--card-tone-4); color: var(--card-ink-4);
+}
+#main .reflection-menu-card.reflection-tone-5,
+#main .page-head.page-head--course.reflection-tone-5,
+#main .reflection-menu-card.reflection-tone-orange,
+#main .page-head.page-head--course.reflection-tone-orange {
+  --reflection-tone: var(--card-tone-5); --reflection-ink: var(--card-ink-5);
+  background-color: var(--card-tone-5); color: var(--card-ink-5);
+}
+#main .course-reflection-card { background-color: var(--course-tone, var(--card-tone-0)); color: var(--course-ink, var(--card-ink-0)); }
+#main .course-reflection-card :is(h3, p, .eyebrow, .course-reflection-link) { color: inherit; }
+#main .course-reflection-card:hover { transform: translateY(-4px); box-shadow: var(--portfolio-card-shadow-hover); }
+#main .page-head.page-head--course { background-color: var(--reflection-tone, var(--card-tone-0)); color: var(--reflection-ink, var(--card-ink-0)); }
+
+/* Expandable archive detail panels stay blue and use restrained inset rows. */
+#main .archive-detail.tone-0 { --detail-tone: var(--card-tone-0); --detail-ink: var(--card-ink-0); }
+#main .archive-detail.tone-1 { --detail-tone: var(--card-tone-1); --detail-ink: var(--card-ink-1); }
+#main .archive-detail.tone-2 { --detail-tone: var(--card-tone-2); --detail-ink: var(--card-ink-2); }
+#main .archive-detail.tone-3 { --detail-tone: var(--card-tone-3); --detail-ink: var(--card-ink-3); }
+#main .archive-detail.tone-4 { --detail-tone: var(--card-tone-4); --detail-ink: var(--card-ink-4); }
+#main .archive-detail.tone-5 { --detail-tone: var(--card-tone-5); --detail-ink: var(--card-ink-5); }
+#main .archive-detail.tone-6 { --detail-tone: var(--card-tone-6); --detail-ink: var(--card-ink-6); }
+#main .archive-detail.tone-7 { --detail-tone: var(--card-tone-7); --detail-ink: var(--card-ink-7); }
+#main .archive-detail.tone-8 { --detail-tone: var(--card-tone-8); --detail-ink: var(--card-ink-8); }
+#main .archive-detail.tone-9 { --detail-tone: var(--card-tone-9); --detail-ink: var(--card-ink-9); }
+#main .archive-detail { background-color: var(--detail-tone); color: var(--detail-ink); }
+#main .archive-work,
+#main .archive-work-empty,
+#main .archive-work-analysis > div > div,
+#main .analysis > div {
+  border-radius: 15px;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--detail-ink, var(--text)) 11%, transparent);
+  background-image: none;
+}
+#main .archive-work { background-color: color-mix(in srgb, var(--detail-ink) 10%, transparent); }
+#main .archive-work-empty { background-color: color-mix(in srgb, var(--detail-ink, var(--text)) 8%, transparent); }
+
+/* Identity and innovation panels now use the same blue, raised material. */
+#main .identity-direction-card--vision { --identity-tone: var(--card-tone-0); --identity-ink: var(--card-ink-0); background-color: var(--identity-tone); color: var(--identity-ink); }
+#main .identity-direction-card--mission { --identity-tone: var(--card-tone-1); --identity-ink: var(--card-ink-1); background-color: var(--identity-tone); color: var(--identity-ink); }
+#main .identity-direction-card :is(h3, p, li) { color: var(--identity-ink, inherit); }
+#main .identity-direction-card--mission li::before { border-color: color-mix(in srgb, var(--identity-ink) 24%, transparent); background: color-mix(in srgb, var(--identity-ink) 12%, transparent); }
+#main .innovation-case { background-color: var(--card-tone-6); color: var(--card-ink-6); }
+#main .innovation-case :is(h3, h4, p, span, .eyebrow, li) { color: inherit; }
+#main .innovation-case-design,
+#main .innovation-role,
+#main .innovation-stage,
+#main .innovation-principles { border-color: color-mix(in srgb, var(--card-ink-6) 18%, transparent); background-color: color-mix(in srgb, var(--card-tone-4) 34%, var(--card-tone-6)); }
+#main .innovation-principles { color: var(--card-ink-6); }
+#main .innovation-stage > span { background: var(--card-tone-1); color: var(--card-ink-1); }
+
+/* The semester summary accordion inherits the same semester colors as its page. */
+#main .archive-semester > summary,
+#main .archive-semester--s1 > summary { background: var(--card-tone-0); color: var(--card-ink-0); }
+#main .archive-semester--s2 > summary { background: var(--card-tone-1); color: var(--card-ink-1); }
+#main .archive-semester-index,
+#main .archive-disclosure { box-shadow: none; }
+
+@media (max-width: 760px) {
+  #main :is(.mas-facts, .mas-semester-card, .archive-semester, .path-step, .tile, .project-card, .artifact, .page-head, .empty, .course-reflection-card, .reflection-menu-card, .identity-direction-card, .archive-index-card, .archive-detail, .innovation-case) {
+    border-radius: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main :is(.mas-semester-card, .archive-semester, .path-step, .tile, .project-card, .course-reflection-card, .archive-index-card, .reflection-menu-card) { transition: none; }
+}
