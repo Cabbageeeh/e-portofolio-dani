@@ -136,6 +136,120 @@ window.portfolio = {
         { judul: "Change", teks: "Saya akan menyiapkan pemaparan dengan menyertakan konteks, tujuan, bukti proses, analisis, dan refleksi. Saya ingin menggunakan pertanyaan serta masukan dari dosen dan rekan sebagai bahan untuk memperbaiki karya dan rancangan pembelajaran, bukan sekadar sebagai penilaian atas hasil akhir." }
       ]
     },
+    "s1-modul-ajar": {
+      artefak: [{
+        judul: "Modul Ajar Pemrograman C Dasar — Kelas 10",
+        deskripsi: "Modul ajar Informatika Fase E tentang variabel, input-output, operator, percabangan, dan perulangan.",
+        url: "files/artefak/semester-1/pemrograman-c-kelas-10/Modul_Ajar_Pemrograman_C_Dasar_Kelas10.docx",
+        jenis: "Modul Ajar",
+        konteks: "Perangkat pembelajaran untuk kelas X di SMA Negeri 15 Surabaya pada praktik PPG Semester 1.",
+        tujuan: "Memandu pembelajaran pemrograman C dari konsep dasar sampai proyek pengolah nilai kelas, melalui lima pertemuan dan praktik berpasangan.",
+        kelebihan: "Urutan materi bertahap, proyek akhir kontekstual, dan tersedia alternatif desk-checking saat perangkat atau kompiler tidak tersedia.",
+        kekurangan: "Pelaksanaan praktik langsung bergantung pada kesiapan komputer dan kompiler; waktu uji program perlu dijaga agar cukup untuk semua pasangan.",
+        teori: "Kurikulum Merdeka Fase E, Project Based Learning, pembelajaran berdiferensiasi, pair programming, asesmen formatif dan sumatif."
+      }]
+    },
+    "s1-lkpd": {
+      artefak: [{
+        judul: "LKPD Pemrograman C Dasar — Kelas 10",
+        deskripsi: "Lembar kerja bertahap untuk latihan struktur program, variabel, input-output, operator, percabangan, perulangan, debugging, dan proyek pengolah nilai.",
+        url: "files/artefak/semester-1/pemrograman-c-kelas-10/LKPD_Pemrograman_C_Dasar_Kelas10.pdf",
+        jenis: "LKPD",
+        konteks: "Digunakan peserta didik kelas X SMA Negeri 15 Surabaya sebagai pendamping praktik pemrograman C.",
+        tujuan: "Membantu peserta didik menulis dan menelusuri program, menguji kasus, bekerja berpasangan, serta merefleksikan proses debugging.",
+        kelebihan: "Latihan disusun dari konsep dasar menuju proyek autentik, dilengkapi kasus uji dan refleksi individu.",
+        kekurangan: "Sebagian kegiatan memerlukan komputer dan kompiler; untuk pengerjaan di kertas, beberapa tugas perlu difasilitasi dengan desk-checking.",
+        teori: "Algoritma dan pemrograman Fase E, Project Based Learning, pair programming, latihan bertahap, serta asesmen proses dan produk."
+      }]
+    },
+    "s1-media-pembelajaran": {
+      artefak: [{
+        judul: "Media Pemrograman C Dasar — Kelas 10",
+        deskripsi: "Presentasi visual tentang alur kerja program C, tipe data, input-output, operator, percabangan, perulangan, debugging, dan proyek pengolah nilai.",
+        url: "files/artefak/semester-1/pemrograman-c-kelas-10/Media_Pemrograman_C_Dasar_Kelas10.pptx",
+        jenis: "Media Pembelajaran",
+        konteks: "Media presentasi untuk mendampingi pembelajaran Informatika kelas X di SMA Negeri 15 Surabaya.",
+        tujuan: "Menjelaskan konsep pemrograman C melalui contoh kode, prediksi keluaran, dan demonstrasi kasus yang dekat dengan peserta didik.",
+        kelebihan: "Contoh kode singkat dan visualisasi alur program mendukung demonstrasi langsung serta pembahasan kesalahan umum.",
+        kekurangan: "Media memerlukan penjelasan dan demonstrasi guru; pemahaman sintaks tetap perlu diperkuat lewat praktik pada LKPD.",
+        teori: "Pembelajaran berbasis contoh, demonstrasi atau live coding, scaffolding, dan Project Based Learning."
+      }]
+    },
+    "s2-modul-ajar": {
+      artefak: [
+        {
+          judul: "Modul Ajar Berpikir Komputasional — Kelas 7",
+          deskripsi: "Modul Informatika Fase D yang mengajak peserta didik memecah masalah, menemukan pola, melakukan abstraksi, dan menyusun algoritma.",
+          url: "files/artefak/semester-2/berpikir-komputasional-kelas-7/Modul_Ajar_Berpikir_Komputasional_Kelas7.docx",
+          jenis: "Modul Ajar",
+          konteks: "Perangkat kelas VII SMP Negeri 60 Surabaya untuk praktik PPG Semester 2. Label Semester 1 pada dokumen mengikuti kalender akademik sekolah 2026/2027.",
+          tujuan: "Mengarahkan pembelajaran tiga pertemuan berbasis masalah, termasuk rancangan sistem antrean kantin dengan empat pilar berpikir komputasional.",
+          kelebihan: "Kegiatan unplugged, pembagian peran, diferensiasi, asesmen, pengayaan, dan remedial disusun dalam satu alur pembelajaran.",
+          kekurangan: "Keberhasilan proyek bergantung pada kejelasan instruksi dan pengelolaan waktu diskusi serta presentasi kelompok.",
+          teori: "Capaian Informatika Fase D, Problem Based Learning, berpikir komputasional, pembelajaran berdiferensiasi, dan asesmen formatif."
+        },
+        {
+          judul: "Modul Ajar Analisis Data — Kelas 8",
+          deskripsi: "Modul Informatika Fase D tentang mengumpulkan, membersihkan, mengolah, memvisualisasikan, dan menafsirkan data.",
+          url: "files/artefak/semester-2/analisis-data-kelas-8/Modul_Ajar_Analisis_Data_Kelas8.docx",
+          jenis: "Modul Ajar",
+          konteks: "Perangkat kelas VIII SMP Negeri 60 Surabaya untuk praktik PPG Semester 2. Label Semester 1 pada dokumen mengikuti kalender akademik sekolah 2026/2027.",
+          tujuan: "Memandu peserta didik menggunakan data untuk menjawab pertanyaan, menyajikan temuan, dan menyusun kesimpulan yang didukung bukti.",
+          kelebihan: "Tahapan analisis data tersusun berurutan dan menekankan etika, kerja kelompok, serta penyampaian kesimpulan.",
+          kekurangan: "Kualitas hasil bergantung pada dataset yang jelas dan waktu cukup untuk memeriksa serta menafsirkan data.",
+          teori: "Literasi data, penyelidikan berbasis bukti, pembelajaran kontekstual, dan asesmen autentik."
+        }
+      ]
+    },
+    "s2-lkpd": {
+      artefak: [{
+        judul: "LKPD Berpikir Komputasional — Kelas 7",
+        deskripsi: "Lembar kerja kelas VII tentang dekomposisi, pengenalan pola, abstraksi, algoritma, flowchart, dan proyek sistem antrean kantin.",
+        url: "files/artefak/semester-2/berpikir-komputasional-kelas-7/LKPD_Berpikir_Komputasional_Kelas7.pdf",
+        jenis: "LKPD",
+        konteks: "LKPD praktik PPG Semester 2 di SMP Negeri 60 Surabaya; label Semester 1 pada berkas merujuk kalender akademik sekolah 2026/2027.",
+        tujuan: "Mengajak peserta didik menerapkan empat pilar berpikir komputasional untuk memecahkan masalah sehari-hari dan merancang solusi antrean kantin.",
+        kelebihan: "Memadukan latihan individu dan kelompok, diagram, flowchart, daftar periksa, penilaian diri, serta refleksi.",
+        kekurangan: "Beberapa kegiatan membutuhkan alat tulis dan kertas plano; diskusi kelompok perlu diarahkan agar semua anggota berkontribusi.",
+        teori: "Berpikir komputasional, pembelajaran berbasis masalah, kolaborasi, dan asesmen autentik."
+      }, {
+        judul: "LKPD Analisis Data — Kelas 8",
+        deskripsi: "Lembar kerja untuk berlatih mengumpulkan dan membersihkan data, menghitung ukuran pemusatan, membuat visualisasi, dan menyusun kesimpulan.",
+        url: "files/artefak/semester-2/analisis-data-kelas-8/LKPD_Analisis_Data_Kelas8.pdf",
+        jenis: "LKPD",
+        konteks: "LKPD kelas VIII SMP Negeri 60 Surabaya untuk praktik PPG Semester 2; lembar mengingatkan peserta didik agar tidak mencantumkan nama teman pada data survei.",
+        tujuan: "Melatih peserta didik mengolah data secara runtut, memilih bentuk penyajian, menafsirkan hasil, dan menjaga etika data.",
+        kelebihan: "Aktivitas meliputi proses lengkap dari pertanyaan dan pengumpulan hingga interpretasi, disertai perhatian pada privasi responden.",
+        kekurangan: "Ketepatan kesimpulan bergantung pada kualitas dan jumlah data; guru perlu membantu peserta didik memeriksa bias dan kesalahan input.",
+        teori: "Siklus analisis data, statistika deskriptif, literasi data, dan etika penelitian sederhana."
+      }]
+    },
+    "s2-media-pembelajaran": {
+      artefak: [
+        {
+          judul: "Media Berpikir Komputasional — Kelas 7",
+          deskripsi: "Presentasi Informatika kelas VII tentang dekomposisi, pengenalan pola, abstraksi, algoritma, flowchart, dan rancangan sistem antrean kantin.",
+          url: "files/artefak/semester-2/berpikir-komputasional-kelas-7/Media_Berpikir_Komputasional_Kelas7.pptx",
+          jenis: "Media Pembelajaran",
+          konteks: "Media kelas VII SMP Negeri 60 Surabaya untuk praktik PPG Semester 2; label kalender sekolah pada berkas adalah Semester 1 tahun ajaran 2026/2027.",
+          tujuan: "Mendukung penjelasan konsep dan memberi contoh visual sebelum peserta didik mengerjakan tantangan serta proyek kelompok.",
+          kelebihan: "Contoh konkret seperti bazar, jadwal piket, peta, dan antrean kantin menghubungkan konsep dengan pengalaman sehari-hari.",
+          kekurangan: "Peserta didik tetap perlu aktivitas praktik dan tanya jawab agar presentasi tidak menjadi kegiatan satu arah.",
+          teori: "Pembelajaran kontekstual, representasi visual, berpikir komputasional, dan Problem Based Learning."
+        },
+        {
+          judul: "Media Analisis Data — Kelas 8",
+          deskripsi: "Presentasi Informatika kelas VIII tentang pengumpulan, pembersihan, pengolahan, visualisasi, dan penafsiran data.",
+          url: "files/artefak/semester-2/analisis-data-kelas-8/Media_Analisis_Data_Kelas8.pptx",
+          jenis: "Media Pembelajaran",
+          konteks: "Media pembelajaran kelas VIII SMP Negeri 60 Surabaya pada praktik PPG Semester 2.",
+          tujuan: "Membantu peserta didik memahami daur analisis data, ukuran pemusatan, diagram, penyimpulan, dan etika data.",
+          kelebihan: "Alur dari data mentah menuju informasi membuat tahapan analisis terlihat dan mengaitkannya dengan pertanyaan kontekstual.",
+          kekurangan: "Pemaknaan data perlu dilengkapi latihan mengolah dataset sederhana agar peserta didik tidak hanya mengingat istilah.",
+          teori: "Literasi data, pembelajaran kontekstual, interpretasi bukti, dan etika penggunaan data."
+        }
+      ]
+    },
     "model-guru": { paragraf: [] },
     "refleksi-akhir-praktik": { paragraf: [] },
     "filosofi-mengajar": { paragraf: [] },
