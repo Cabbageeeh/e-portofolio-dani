@@ -152,7 +152,26 @@ function archiveCards() {
   return `<div class="archive-index-summary"><span class="archive-summary-mark" aria-hidden="true">${archiveIcon('chip', 'archive-svg-icon')}</span><p><strong>${categories.length} kategori pembelajaran</strong><span>Artefak dari ${P.semester.length} semester praktik · isi menyusul saat kamu mengunggahnya</span></p></div><div class="archive-index-grid">${cards}</div><div class="archive-detail-slot">${archiveCategoryPanel(categories, selected)}</div>`;
 }
 function reflectionCards() {
-  return finals.map((title) => tile(slug(title), title, 'Catatan dan arah pengembangan sebagai calon guru.')).join('');
+  const tones = ['#4f6b45', '#e0b257', '#3e6c78', '#e8d3b6', '#b4553f', '#c98a4b'];
+  const inks = ['#f4efe4', '#2a1d15', '#f4efe4', '#2a1d15', '#fff6ee', '#2a1d15'];
+  const icons = ['school', 'worksheet', 'bookCode', 'layoutCheck', 'chip', 'clipboardCheck'];
+  const prompts = ['Pengalaman selama praktik', 'Pemahaman yang bertambah', 'Langkah pengembangan diri'];
+  return finals.map((title, index) => {
+    const id = slug(title);
+    const content = P.isi?.[id] || {};
+    const paragraphs = (content.paragraf || []).filter(Boolean);
+    const sections = (content.bagian || []).filter((section) => section?.judul || section?.teks);
+    const hasContent = paragraphs.length > 0 || sections.length > 0;
+    const summary = (paragraphs[0] || sections[0]?.teks || 'Catatan pengalaman dan arah pengembangan diri sebagai calon guru.').trim();
+    const excerpt = summary.length > 170 ? `${summary.slice(0, 167).trimEnd()}…` : summary;
+    const points = sections.length
+      ? sections.map((section) => section.judul || section.teks).filter(Boolean).slice(0, 4)
+      : paragraphs.length
+        ? paragraphs.slice(0, 3).map((paragraph) => paragraph.length > 105 ? `${paragraph.slice(0, 102).trimEnd()}…` : paragraph)
+        : prompts;
+    const tone = `reflection-tone-${index}`;
+    return `<article class="reflection-menu-card ${tone}"><span class="reflection-menu-watermark" aria-hidden="true">${archiveIcon(icons[index], 'reflection-watermark-svg')}</span><span class="reflection-menu-icon" aria-hidden="true">${archiveIcon(icons[index], 'archive-svg-icon')}</span><div class="reflection-menu-copy"><h3>${esc(title)}</h3><p>${esc(excerpt)}</p></div><div class="reflection-menu-paper"><p>${hasContent ? 'Pokok refleksi' : 'Kerangka refleksi'}</p><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></div><a class="reflection-menu-link" href="#${id}">Baca refleksi <span aria-hidden="true">↗</span></a></article>`;
+  }).join('');
 }
 function home() {
   const profile = P.profil;
@@ -194,7 +213,7 @@ function home() {
 
     <section class="mas-section mas-reflection" id="refleksi" aria-labelledby="reflection-title">
       <div class="mas-section-head"><div><p class="eyebrow">05 / REFLEKSI PROFESIONAL</p><h2 id="reflection-title">Pengalaman menjadi arah bertumbuh.</h2><p class="mas-lead">Catatan tentang filosofi, praktik, dan rencana pengembangan diri.</p></div><span class="mas-index">REFLEKSI</span></div>
-      <div class="tiles mas-reflection-grid">${reflectionCards()}</div>
+      <div class="reflection-menu-grid">${reflectionCards()}</div>
     </section>
   </div>`;
 }

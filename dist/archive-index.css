@@ -116,3 +116,46 @@
   #main .archive-index-card, #main .archive-index-toggle, #main .archive-index-toggle span, #main .archive-index-watermark, #main .archive-work-analysis summary span { transition: none; }
   #main .archive-detail { animation: none; }
 }
+
+/* Reflection cards take MasRama's colorful service-card and paper-ticket composition. */
+#main .reflection-menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 18px; }
+#main .reflection-menu-card {
+  --reflection-tone: #4f6b45; --reflection-ink: #f4efe4;
+  position: relative; isolation: isolate; display: flex; min-width: 0; min-height: 455px; height: 100%; flex-direction: column; align-items: flex-start; gap: 21px; overflow: hidden;
+  padding: clamp(25px, 3.4vw, 38px); border: 0; border-radius: 30px;
+  background: radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.22), transparent 55%), var(--reflection-tone); color: var(--reflection-ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -3px 0 rgba(0,0,0,.12), 0 0 0 1px color-mix(in srgb, var(--reflection-ink) 8%, transparent), 0 26px 44px -26px rgba(32,24,17,.44);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
+}
+#main .reflection-menu-card:hover { transform: translateY(-4px); box-shadow: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -3px 0 rgba(0,0,0,.12), 0 0 0 1px color-mix(in srgb, var(--reflection-ink) 8%, transparent), 0 31px 48px -25px rgba(32,24,17,.48); }
+#main .reflection-tone-0 { --reflection-tone: #4f6b45; --reflection-ink: #f4efe4; }
+#main .reflection-tone-1 { --reflection-tone: #e0b257; --reflection-ink: #2a1d15; }
+#main .reflection-tone-2 { --reflection-tone: #3e6c78; --reflection-ink: #f4efe4; }
+#main .reflection-tone-3 { --reflection-tone: #e8d3b6; --reflection-ink: #2a1d15; }
+#main .reflection-tone-4 { --reflection-tone: #b4553f; --reflection-ink: #fff6ee; }
+#main .reflection-tone-5 { --reflection-tone: #c98a4b; --reflection-ink: #2a1d15; }
+#main .reflection-menu-watermark { position: absolute; z-index: 0; right: -35px; bottom: -44px; width: 240px; height: 240px; color: var(--reflection-ink); opacity: .13; transform: rotate(-12deg); pointer-events: none; transition: transform .24s ease; }
+#main .reflection-menu-card:hover .reflection-menu-watermark { transform: rotate(-5deg) scale(1.05); }
+#main .reflection-watermark-svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
+#main .reflection-menu-icon { position: relative; z-index: 1; display: grid; width: 56px; height: 56px; flex: none; place-items: center; padding: 13px; border-radius: 18px; background: color-mix(in srgb, var(--reflection-ink) 14%, transparent); color: var(--reflection-ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.2); }
+#main .reflection-menu-icon .archive-svg-icon { width: 29px; height: 29px; }
+#main .reflection-menu-copy { position: relative; z-index: 1; }
+#main .reflection-menu-copy h3 { margin: 0; color: var(--reflection-ink); font-size: clamp(24px, 2.5vw, 34px); font-weight: 800; line-height: 1.08; letter-spacing: -.045em; }
+#main .reflection-menu-copy p { max-width: 50ch; margin: 10px 0 0; color: color-mix(in srgb, var(--reflection-ink) 85%, var(--reflection-tone)); font-size: 15px; line-height: 1.6; }
+#main .reflection-menu-paper { position: relative; z-index: 1; align-self: stretch; margin-top: auto; padding: 17px 20px 19px; border: 1px solid rgba(42,29,21,.06); border-radius: 6px 6px 18px 18px; background: #fffdf8; color: #2a1d15; transform: rotate(-.7deg); box-shadow: 0 14px 22px -14px rgba(0,0,0,.45); }
+#main .reflection-menu-card:nth-child(even) .reflection-menu-paper { transform: rotate(.7deg); }
+#main .reflection-menu-paper > p { margin: 0; padding-bottom: 10px; border-bottom: 1px dashed rgba(42,29,21,.2); color: #6f5947; font-size: 13px; font-weight: 750; }
+#main .reflection-menu-paper ul { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+#main .reflection-menu-paper li { display: flex; align-items: flex-start; gap: 10px; color: #2a1d15; font-size: 13px; font-weight: 650; line-height: 1.4; }
+#main .reflection-menu-paper li::before { content: ""; width: 7px; height: 7px; flex: none; margin-top: 5px; border: 2px solid #fffdf8; border-radius: 50%; background: #4f6b45; box-shadow: 0 0 0 1px rgba(42,29,21,.28); }
+#main .reflection-menu-link { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 14px; padding: 12px 21px; border-radius: 999px; background: var(--reflection-ink); color: var(--reflection-tone); font-size: 13px; font-weight: 800; box-shadow: 0 10px 18px -12px rgba(0,0,0,.6); transition: transform .2s ease, box-shadow .2s ease; }
+#main .reflection-menu-link:hover { transform: translateY(-2px); box-shadow: 0 14px 22px -12px rgba(0,0,0,.6); }
+#main .reflection-menu-link span { font-size: 16px; }
+@media (max-width: 760px) {
+  #main .reflection-menu-grid { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+  #main .reflection-menu-card { min-height: 400px; padding: 24px 21px; border-radius: 24px; }
+  #main .reflection-menu-copy h3 { font-size: clamp(24px, 7vw, 30px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #main .reflection-menu-card, #main .reflection-menu-watermark, #main .reflection-menu-link { transition: none; }
+}
