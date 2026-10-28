@@ -323,6 +323,7 @@ function home() {
       <div class="mas-about-grid"><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester <span>↗</span></a></div>
         <dl class="mas-facts"><div><dt>NAMA</dt><dd>${esc(profile.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(profile.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div><div><dt>PERGURUAN TINGGI</dt><dd>${esc(profile.kampus)}</dd></div></dl>
       </div>
+      <div class="about-journey" data-portfolio-animations="journey" aria-label="Animasi jejak perjalanan PPG"></div>
       <div class="identity-direction-grid" aria-label="Visi dan misi sebagai calon guru Informatika">
         <article class="identity-direction-card identity-direction-card--vision"><p class="identity-direction-kicker">ARAH PENGEMBANGAN DIRI</p><h3>Visi</h3><p>${esc(profile.visi || '')}</p></article>
         <article class="identity-direction-card identity-direction-card--mission"><p class="identity-direction-kicker">LANGKAH YANG DIUPAYAKAN</p><h3>Misi</h3><ol>${(profile.misi || []).map((mission) => `<li>${esc(mission)}</li>`).join('')}</ol></article>

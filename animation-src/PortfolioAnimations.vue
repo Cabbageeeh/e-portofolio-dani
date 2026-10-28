@@ -6,7 +6,7 @@ import PapanFilm from './components/PapanFilm.vue';
 import ProsesSteps from './components/ProsesSteps.vue';
 import PerjalananFilm from './components/PerjalananFilm.vue';
 
-const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'supporting' }>(), { mode: 'supporting' });
+const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'journey' | 'supporting' }>(), { mode: 'supporting' });
 
 const projectQueue = [
   {
@@ -54,6 +54,15 @@ const readingSteps = [
       <PapanFilm :queue="projectQueue" />
     </section>
 
+    <section v-else-if="props.mode === 'journey'" class="journey-feature" aria-labelledby="semester-journey-title">
+      <div class="motion-panel-head">
+        <p class="eyebrow">CERITA PERJALANAN · DARI TEKNIK KE PEDAGOGIK</p>
+        <h3 id="semester-journey-title">Dari Informatika murni menuju guru Informatika.</h3>
+        <p>Sebelum PPG, pedagogik adalah hal baru bagiku. Pilih satu tahap untuk menelusuri bagaimana kuliah, praktik di sekolah, dan karya memperluas cara pandangku tentang mengajar.</p>
+      </div>
+      <PerjalananFilm />
+    </section>
+
     <template v-else>
     <div class="motion-panels">
       <section class="motion-panel process-panel" aria-labelledby="reading-path-title">
@@ -85,14 +94,6 @@ const readingSteps = [
         <KavlingFilm />
       </section>
 
-      <section class="motion-panel" aria-labelledby="semester-journey-title">
-        <div class="motion-panel-head">
-          <p class="eyebrow">CERITA PERJALANAN · DARI TEKNIK KE PEDAGOGIK</p>
-          <h3 id="semester-journey-title">Dari Informatika murni menuju guru Informatika.</h3>
-          <p>Sebelum PPG, pedagogik adalah hal baru bagiku. Pilih satu tahap untuk menelusuri bagaimana kuliah, praktik di sekolah, dan karya memperluas cara pandangku tentang mengajar.</p>
-        </div>
-        <PerjalananFilm />
-      </section>
     </div>
     </template>
   </div>
@@ -127,6 +128,20 @@ const readingSteps = [
 .hero-project-showcase,
 .hero-project-showcase :deep(.papan) { width: 100%; }
 .hero-project-showcase { height: 100%; min-width: 0; }
+.journey-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(28px, 4vw, 56px);
+  width: 100%;
+  max-width: 1320px;
+  margin: clamp(30px, 5vw, 64px) auto;
+}
+.journey-feature > .motion-panel-head { grid-column: 2; grid-row: 1; margin: 0; }
+.journey-feature > .journey-film { grid-column: 1; grid-row: 1; justify-self: start; width: 100%; margin: 0; }
+.journey-feature > .motion-panel-head .eyebrow { margin-bottom: 16px; font-size: 10px; }
+.journey-feature > .motion-panel-head h3 { max-width: 14ch; margin: 0 0 8px; font-size: clamp(34px, 4vw, 54px); font-weight: 650; letter-spacing: -.065em; line-height: 1.02; }
+.journey-feature > .motion-panel-head > p:last-child { max-width: 55ch; margin: 0; color: var(--muted); font-size: clamp(14px, 1.2vw, 16px); line-height: 1.8; }
 :root[data-theme="dark"] .ppg-motion-kit {
   --signal-ok: #7ce0b7;
   --heat-1: #d9edf9;
@@ -196,6 +211,10 @@ const readingSteps = [
   .motion-panels { grid-template-columns: 1fr; }
 }
 @media (max-width: 1100px) {
+  .journey-feature { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+  .journey-feature > .motion-panel-head,
+  .journey-feature > .journey-film { grid-column: 1; grid-row: auto; }
+  .journey-feature > .journey-film { justify-self: stretch; }
   .source-motion-list > .motion-panel {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 20px;
@@ -208,6 +227,10 @@ const readingSteps = [
   }
 }
 @media (max-width: 760px) {
+  .journey-feature { row-gap: 18px; margin-block: 36px; }
+  .journey-feature > .motion-panel-head .eyebrow { margin-bottom: 10px; }
+  .journey-feature > .motion-panel-head h3 { max-width: 16ch; font-size: clamp(30px, 8vw, 42px); }
+  .journey-feature > .motion-panel-head > p:last-child { font-size: 14px; }
   .motion-panels { gap: 12px; }
   .source-motion-list { gap: 52px; }
   .motion-panel { padding: 18px 15px; border-radius: 16px; }
