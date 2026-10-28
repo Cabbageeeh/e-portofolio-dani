@@ -36,7 +36,7 @@ const controlLabel = computed(() => (
 </script>
 
 <template>
-  <figure ref="film" :class="['journey-film', 'journey-film--compact', 'journey-film--' + frame.format]" :data-state="frame.complete ? 'complete' : 'learning'">
+  <figure ref="film" :class="['journey-film', 'journey-film--' + frame.format]" :data-state="frame.complete ? 'complete' : 'learning'">
     <figcaption class="journey-head">
       <span class="journey-name">
         <button v-if="!reduced" type="button" class="journey-control" :aria-label="controlLabel" @click="control">

@@ -130,18 +130,17 @@ const readingSteps = [
 .hero-project-showcase { height: 100%; min-width: 0; }
 .journey-feature {
   display: grid;
-  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
-  align-items: center;
-  column-gap: clamp(28px, 4vw, 56px);
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(18px, 2.5vw, 28px);
   width: 100%;
-  max-width: 1320px;
+  max-width: 1440px;
   margin: clamp(30px, 5vw, 64px) auto;
 }
-.journey-feature > .motion-panel-head { grid-column: 2; grid-row: 1; margin: 0; }
-.journey-feature > .journey-film { grid-column: 1; grid-row: 1; justify-self: start; width: 100%; margin: 0; }
+.journey-feature > .motion-panel-head { max-width: 820px; margin: 0; }
+.journey-feature > .journey-film { width: 100%; margin: 0; }
 .journey-feature > .motion-panel-head .eyebrow { margin-bottom: 16px; font-size: 10px; }
-.journey-feature > .motion-panel-head h3 { max-width: 14ch; margin: 0 0 8px; font-size: clamp(34px, 4vw, 54px); font-weight: 650; letter-spacing: -.065em; line-height: 1.02; }
-.journey-feature > .motion-panel-head > p:last-child { max-width: 55ch; margin: 0; color: var(--muted); font-size: clamp(14px, 1.2vw, 16px); line-height: 1.8; }
+.journey-feature > .motion-panel-head h3 { max-width: 18ch; margin: 0 0 12px; font-size: clamp(36px, 4.2vw, 60px); font-weight: 650; letter-spacing: -.065em; line-height: 1.02; }
+.journey-feature > .motion-panel-head > p:last-child { max-width: 68ch; margin: 0; color: var(--muted); font-size: clamp(15px, 1.3vw, 18px); line-height: 1.8; }
 :root[data-theme="dark"] .ppg-motion-kit {
   --signal-ok: #7ce0b7;
   --heat-1: #d9edf9;
@@ -211,10 +210,7 @@ const readingSteps = [
   .motion-panels { grid-template-columns: 1fr; }
 }
 @media (max-width: 1100px) {
-  .journey-feature { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
-  .journey-feature > .motion-panel-head,
-  .journey-feature > .journey-film { grid-column: 1; grid-row: auto; }
-  .journey-feature > .journey-film { justify-self: stretch; }
+  .journey-feature { row-gap: 20px; }
   .source-motion-list > .motion-panel {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 20px;
