@@ -167,9 +167,9 @@ function archiveCategoryPanel(categories, activeKey) {
   }).join('');
   return `<div class="archive-detail ${active.tone}" data-archive-detail="${active.key}" aria-live="polite"><div class="archive-detail-intro"><span class="archive-detail-icon" aria-hidden="true">${archiveIcon(active.icon, 'archive-svg-icon')}</span><p class="archive-content-label">RUANG PEMBELAJARAN · ${active.entries.length} SEMESTER</p><h3>${esc(active.title)}</h3><p>${esc(active.description)}</p><div class="archive-detail-count"><strong>${total}</strong><span>artefak tersedia</span></div></div><div class="archive-detail-work">${semesterSections}</div><span class="archive-detail-watermark" aria-hidden="true">${archiveIcon(active.icon, 'archive-watermark-svg')}</span></div>`;
 }
-function archiveCards() {
+function buildArchiveCategories(semesters = P.semester) {
   const byTitle = new Map();
-  P.semester.flatMap(semesterArchive).forEach((entry) => {
+  semesters.flatMap(semesterArchive).forEach((entry) => {
     const originalKey = slug(entry.title);
     const key = archiveCategoryAliases[originalKey] || originalKey;
     const title = key === 'video-ppl' ? 'Video PPL' : entry.title;
@@ -180,11 +180,21 @@ function archiveCards() {
     else category.entries.push({ ...entry });
     if (!category.icon) Object.assign(category, { icon: 'chip', description: 'Dokumentasi dan bukti pengalaman belajar selama praktik PPG.' });
   });
-  const categories = [...byTitle.values()].map((category, index) => ({ ...category, tone: `tone-${index % 10}`, count: category.entries.reduce((sum, entry) => sum + entry.artefak.length, 0) }));
+  return [...byTitle.values()].map((category, index) => ({ ...category, tone: `tone-${index % 10}`, count: category.entries.reduce((sum, entry) => sum + entry.artefak.length, 0) }));
+}
+function archiveCategoryCards(categories, summary, detailLabel) {
   archiveCategories = categories;
   const selected = categories[0]?.key || '';
   const cards = categories.map((category) => `<article class="archive-index-card ${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${archiveIcon(category.icon, 'archive-svg-icon')}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span aria-hidden="true">↘</span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-watermark" aria-hidden="true">${archiveIcon(category.icon, 'archive-watermark-svg')}</span></article>`).join('');
-  return `<div class="archive-index-summary"><span class="archive-summary-mark" aria-hidden="true">${archiveIcon('chip', 'archive-svg-icon')}</span><p><strong>${categories.length} kategori pembelajaran</strong><span>Artefak dari ${P.semester.length} semester praktik · isi menyusul saat kamu mengunggahnya</span></p></div><div class="archive-index-grid">${cards}</div><div class="archive-detail-slot">${archiveCategoryPanel(categories, selected)}</div>`;
+  return `<div class="archive-index-summary"><span class="archive-summary-mark" aria-hidden="true">${archiveIcon('chip', 'archive-svg-icon')}</span><p><strong>${summary}</strong><span>${detailLabel}</span></p></div><div class="archive-index-grid">${cards}</div><div class="archive-detail-slot">${archiveCategoryPanel(categories, selected)}</div>`;
+}
+function archiveCards() {
+  const categories = buildArchiveCategories();
+  return archiveCategoryCards(categories, `${categories.length} kategori pembelajaran`, `Artefak dari ${P.semester.length} semester praktik · isi menyusul saat kamu mengunggahnya`);
+}
+function archiveCardsForSemester(semester) {
+  const categories = buildArchiveCategories([semester]);
+  return `<div class="mas-archive-grid semester-archive-grid">${archiveCategoryCards(categories, `${categories.length} kategori artefak`, `Semester 0${semester.nomor} · ${esc(semester.sekolah)} · unggah artefakmu untuk melengkapi arsip ini`)}</div>`;
 }
 function reflectionCards() {
   const tones = ['#4f6b45', '#e0b257', '#3e6c78', '#e8d3b6', '#b4553f', '#c98a4b'];
@@ -269,23 +279,24 @@ function render() {
   else {
     const content = P.isi[id] || {};
     let body = '';
-    if (page.kind.includes('index')) {
-      const items = page.kind === 'index' ? page.semester.artefak : page.semester.mataKuliah;
-      const availableItems = page.kind === 'index' ? items.filter((title) => (P.isi[`s${page.semester.nomor}-${slug(title)}`]?.artefak || []).length > 0) : items;
-      body = availableItems.length
-        ? '<div class="tiles">' + availableItems.map((title, index) => { const key = (page.kind === 'index' ? 's' : 'refleksi-s') + page.semester.nomor + '-' + slug(title); const count = (P.isi[key]?.artefak || []).length; return tile(key, title, page.kind === 'index' ? count + ' artefak tersedia' : 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind); }).join('') + '</div>'
-        : page.kind === 'index' ? empty('Arsip sedang disusun.', 'Kategori dengan artefak yang sudah ditambahkan akan tampil di sini.') : '<div class="tiles">' + items.map((title, index) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind)).join('') + '</div>';
+    if (page.kind === 'index') {
+      body = archiveCardsForSemester(page.semester);
+    } else if (page.kind === 'reflection-index') {
+      const items = page.semester.mataKuliah;
+      body = '<div class="tiles">' + items.map((title, index) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind)).join('') + '</div>';
     } else if (page.kind === 'artifact') {
       body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" target="_blank" rel="noopener noreferrer" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
     } else {
       body = '<article class="reading">' + ((content.paragraf || []).map((paragraph) => '<p>' + esc(paragraph) + '</p>').join('') || empty('Refleksi belum ditambahkan.', 'Catatan pengalaman, kekuatan, tantangan, dan rencana perbaikan dapat ditampilkan di sini.')) + (content.bagian || []).map((section) => '<h2>' + esc(section.judul) + '</h2><p>' + esc(section.teks) + '</p>').join('') + '</article>';
     }
     const backId = page.semester ? (page.kind === 'artifact' ? `artefak-s${page.semester.nomor}` : page.kind === 'reflection' ? `refleksi-s${page.semester.nomor}` : 'beranda') : 'beranda';
-    const isReflectionIndex = page.kind === 'reflection-index' && page.semester;
-    const pageHeadClass = isReflectionIndex ? `page-head page-head--semester-reflections page-head--s${page.semester.nomor}` : 'page-head';
-    const pageContentClass = isReflectionIndex ? `section page-content--semester-reflections page-content--s${page.semester.nomor}` : 'section';
+    const isSemesterIndex = Boolean(page.semester && (page.kind === 'index' || page.kind === 'reflection-index'));
+    const pageHeadClass = isSemesterIndex ? `page-head page-head--semester page-head--s${page.semester.nomor}` : 'page-head';
+    const pageContentClass = isSemesterIndex ? `section page-content--semester-${page.kind === 'index' ? 'artifacts' : 'reflections'} page-content--s${page.semester.nomor}` : 'section';
     const pageDescription = page.kind === 'artifact'
       ? 'Bukti pembelajaran dan analisis pengalaman praktik.'
+      : page.kind === 'index'
+        ? 'Pilih kategori untuk menelusuri dan melengkapi artefak pembelajaran pada semester ini.'
       : page.kind === 'reflection-index'
         ? 'Refleksi mata kuliah yang mendukung perjalanan menjadi guru Informatika.'
         : 'Dokumentasi perjalanan belajar menuju guru profesional.';

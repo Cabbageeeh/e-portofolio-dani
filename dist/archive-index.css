@@ -228,8 +228,8 @@
   #main .project-card.project-text-card, #main .project-card.project-text-card:hover { transform: none; }
 }
 
-/* Semester reflection indexes use the current bold type and warm MasRama palette. */
-#main .page-head.page-head--semester-reflections {
+/* Semester index pages use the current bold type and warm MasRama palette. */
+#main .page-head.page-head--semester {
   --semester-tone: #4f6b45;
   --semester-ink: #f4efe4;
   position: relative;
@@ -247,17 +247,22 @@
 }
 #main .page-head.page-head--s1 { --semester-tone: #4f6b45; --semester-ink: #f4efe4; }
 #main .page-head.page-head--s2 { --semester-tone: #e0b257; --semester-ink: #2a1d15; }
-#main .page-head.page-head--semester-reflections::after { position: absolute; z-index: 0; right: 12px; bottom: -.17em; color: var(--semester-ink); content: attr(data-semester-mark); font-family: 'Space Grotesk', sans-serif; font-size: clamp(210px, 27vw, 350px); font-weight: 800; letter-spacing: -.11em; line-height: .85; opacity: .12; pointer-events: none; }
+#main .page-head.page-head--semester::after { position: absolute; z-index: 0; right: 12px; bottom: -.17em; color: var(--semester-ink); content: attr(data-semester-mark); font-family: 'Space Grotesk', sans-serif; font-size: clamp(210px, 27vw, 350px); font-weight: 800; letter-spacing: -.11em; line-height: .85; opacity: .12; pointer-events: none; }
 #main .page-head.page-head--s1::after { content: "01"; }
 #main .page-head.page-head--s2::after { content: "02"; }
-#main .page-head.page-head--semester-reflections > * { position: relative; z-index: 1; }
-#main .page-head.page-head--semester-reflections .breadcrumb { display: inline-block; margin: 0 0 38px; color: color-mix(in srgb, var(--semester-ink) 78%, var(--semester-tone)); font-size: 11px; font-weight: 650; }
-#main .page-head.page-head--semester-reflections .eyebrow { margin: 0 0 13px; color: color-mix(in srgb, var(--semester-ink) 82%, var(--semester-tone)); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
-#main .page-head.page-head--semester-reflections h1 { max-width: 17ch; margin: 0 0 17px; color: var(--semester-ink); font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 6.1vw, 74px); font-weight: 750; letter-spacing: -.075em; line-height: .98; }
-#main .page-head.page-head--semester-reflections > p:last-child { max-width: 60ch; margin: 0; color: color-mix(in srgb, var(--semester-ink) 84%, var(--semester-tone)); font-size: 14px; line-height: 1.7; }
+#main .page-head.page-head--semester > * { position: relative; z-index: 1; }
+#main .page-head.page-head--semester .breadcrumb { display: inline-block; margin: 0 0 38px; color: color-mix(in srgb, var(--semester-ink) 78%, var(--semester-tone)); font-size: 11px; font-weight: 650; }
+#main .page-head.page-head--semester .eyebrow { margin: 0 0 13px; color: color-mix(in srgb, var(--semester-ink) 82%, var(--semester-tone)); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
+#main .page-head.page-head--semester h1 { max-width: 17ch; margin: 0 0 17px; color: var(--semester-ink); font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 6.1vw, 74px); font-weight: 750; letter-spacing: -.075em; line-height: .98; }
+#main .page-head.page-head--semester > p:last-child { max-width: 60ch; margin: 0; color: color-mix(in srgb, var(--semester-ink) 84%, var(--semester-tone)); font-size: 14px; line-height: 1.7; }
 #main .page-content--semester-reflections { margin-top: 22px; padding: clamp(18px, 2.4vw, 31px); border: 1px solid rgba(96,73,46,.13); border-radius: 29px; background: rgba(255,253,248,.82); box-shadow: 0 24px 40px -32px rgba(32,24,17,.34); }
 :root[data-theme="dark"] #main .page-content--semester-reflections { border-color: rgba(244,230,212,.13); background: rgba(23,31,36,.82); }
 #main .page-content--semester-reflections .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 16px; }
+#main .page-content--semester-artifacts { margin-top: 22px; padding: clamp(18px, 2.4vw, 31px); border: 1px solid rgba(96,73,46,.13); border-radius: 29px; background: rgba(255,253,248,.82); box-shadow: 0 24px 40px -32px rgba(32,24,17,.34); }
+:root[data-theme="dark"] #main .page-content--semester-artifacts { border-color: rgba(244,230,212,.13); background: rgba(23,31,36,.82); }
+#main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 16px; }
+#main .page-content--semester-artifacts .archive-index-summary { margin-bottom: 18px; }
+#main .page-content--semester-artifacts .archive-detail-slot { margin-top: 24px; }
 #main .tile.reflection-tile {
   --reflection-tone: #4f6b45;
   --reflection-ink: #f4efe4;
@@ -302,16 +307,27 @@
 #main .tile.reflection-tile .tile-bottom > span { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid color-mix(in srgb, var(--reflection-ink) 36%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--reflection-ink) 10%, transparent); color: var(--reflection-ink); font-size: 16px; }
 @media (max-width: 1080px) {
   #main .page-content--semester-reflections .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  #main .page-head.page-head--semester-reflections { min-height: 275px; }
+  #main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #main .page-head.page-head--semester { min-height: 275px; }
 }
 @media (max-width: 680px) {
-  #main .page-head.page-head--semester-reflections { min-height: 270px; padding: 25px 22px; border-radius: 23px; }
-  #main .page-head.page-head--semester-reflections .breadcrumb { margin-bottom: 31px; }
-  #main .page-head.page-head--semester-reflections h1 { font-size: clamp(38px, 11vw, 54px); }
-  #main .page-head.page-head--semester-reflections > p:last-child { font-size: 12px; }
-  #main .page-head.page-head--semester-reflections::after { right: -4px; font-size: 210px; }
+  #main .page-head.page-head--semester { min-height: 270px; padding: 25px 22px; border-radius: 23px; }
+  #main .page-head.page-head--semester .breadcrumb { margin-bottom: 31px; }
+  #main .page-head.page-head--semester h1 { font-size: clamp(38px, 11vw, 54px); }
+  #main .page-head.page-head--semester > p:last-child { font-size: 12px; }
+  #main .page-head.page-head--semester::after { right: -4px; font-size: 210px; }
   #main .page-content--semester-reflections { margin-top: 15px; padding: 12px; border-radius: 22px; }
   #main .page-content--semester-reflections .tiles { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  #main .page-content--semester-artifacts { margin-top: 15px; padding: 12px; border-radius: 22px; }
+  #main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  #main .page-content--semester-artifacts .archive-index-card { min-height: 255px; padding: 16px 14px; border-radius: 19px; }
+  #main .page-content--semester-artifacts .archive-index-card h3 { min-height: 2.4em; margin-top: 17px; font-size: 15px; }
+  #main .page-content--semester-artifacts .archive-index-card > p { font-size: 10px; }
+  #main .page-content--semester-artifacts .archive-index-toggle { top: 15px; right: 13px; width: 33px; height: 33px; }
+  #main .page-content--semester-artifacts .archive-index-summary { align-items: flex-start; padding: 13px; }
+  #main .page-content--semester-artifacts .archive-index-summary p span { font-size: 10px; }
+  #main .page-content--semester-artifacts .archive-detail { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 22px 17px; border-radius: 20px; }
+  #main .page-content--semester-artifacts .archive-detail-icon { width: 45px; height: 45px; margin-bottom: 19px; }
   #main .tile.reflection-tile { min-height: 365px; padding: 21px; border-radius: 22px; }
   #main .tile.reflection-tile h3 { font-size: clamp(24px, 8vw, 30px); }
 }
