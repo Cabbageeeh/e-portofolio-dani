@@ -4,71 +4,25 @@ const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&':
 const safe = (value) => { try { const url = new URL(value, location.href); const localFile = location.protocol === 'file:' && url.protocol === 'file:' && url.pathname.startsWith(new URL('.', location.href).pathname); return ['http:', 'https:'].includes(url.protocol) || localFile ? url.href : ''; } catch { return ''; } };
 const pages = new Map();
 const main = document.querySelector('#main');
-const landingScreen = document.querySelector('#landingScreen');
-const portfolioShell = document.querySelector('#portfolioShell');
 const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'ruang-belajar-inovasi', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi', 'portfolio-animation-root']);
 const finals = ['Refleksi Program PPG', 'Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
 const add = (id, title, kind, semester) => pages.set(id, { id, title, kind, semester });
 const navLink = (id, label) => `<a href="#${id}" data-page="${id}">${esc(label)}</a>`;
 
-function landing() {
-  const profile = P.profil;
-  return `<section class="intro-cover landing-cover" aria-labelledby="intro-title">
-    <div class="intro-copy">
-      <p class="intro-eyebrow">PORTOFOLIO PPG <span>·</span> 2026</p>
-      <p class="intro-overline">PENDIDIKAN PROFESI GURU / INFORMATIKA</p>
-      <h1 id="intro-title">Muhammad<br><span>Abduramadani.</span></h1>
-      <p class="intro-role">Calon Guru Informatika<br><span>Universitas Negeri Surabaya</span></p>
-      <p class="intro-summary">Dokumentasi praktik, karya, dan refleksi dari dua semester perjalanan PPL.</p>
-      <div class="intro-actions"><button id="enterPortfolio" type="button">JELAJAHI PORTOFOLIO <span aria-hidden="true">↘</span></button><a id="landingArtifacts" href="#artefak-s2">LIHAT ARTEFAK <span aria-hidden="true">↗</span></a></div>
-      <div class="intro-meta"><div><span>SEMESTER 01</span><b>SMA Negeri 15 Surabaya</b></div><div><span>SEMESTER 02</span><b>SMP Negeri 60 Surabaya</b></div></div>
-    </div>
-    <div class="intro-visual" role="group" aria-label="Potret Muhammad Abduramadani"><span class="intro-year" aria-hidden="true">26</span><span class="intro-vertical">UNIVERSITAS NEGERI SURABAYA</span><div class="intro-seal"><span>PPG</span><small>INFORMATIKA</small></div><img class="intro-portrait" src="${esc(safe(profile.foto))}" alt="${esc(profile.nama)}" fetchpriority="high"><span class="intro-count">01 <i>—</i> 02</span></div>
-    <div class="intro-trajectory" role="group" aria-label="Lintasan belajar dari Teknik Informatika menuju praktik mengajar"><div class="intro-trajectory-story"><div class="intro-trajectory-head"><span>LINIMASA BELAJAR</span><b>3 TAHAP</b></div><h2 class="intro-trajectory-title">Dari Informatika menuju ruang kelas</h2><p class="intro-trajectory-copy">Belajar memahami peserta didik, merancang pembelajaran, lalu berlatih mengajar.</p></div><div class="intro-trajectory-steps"><div class="intro-trajectory-track" aria-hidden="true"><i></i><i></i><i></i><span></span></div><div class="intro-trajectory-labels"><span><b>01</b> Teknik</span><span><b>02</b> Pedagogik</span><span><b>03</b> Praktik</span></div></div></div>
-    <span class="intro-footnote">BELAJAR · MENGAJAR · BERTUMBUH</span>
-  </section>`;
-}
-function enterPortfolio() {
-  if (document.body.classList.contains('landing-closing')) return;
-  const finish = () => {
-    landingScreen.hidden = true;
-    landingScreen.classList.remove('is-leaving');
-    document.body.classList.remove('landing-active', 'landing-pending', 'landing-closing');
-    portfolioShell.inert = false;
-    portfolioShell.removeAttribute('aria-hidden');
-    if (!location.hash) history.replaceState(null, '', '#beranda');
-    window.scrollTo(0, 0);
-    main.focus({ preventScroll: true });
-  };
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return finish();
-  document.body.classList.add('landing-closing');
-  landingScreen.classList.add('is-leaving');
-  let done = false;
-  const reveal = () => { if (done) return; done = true; finish(); };
-  landingScreen.addEventListener('transitionend', (event) => { if (event.target === landingScreen) reveal(); }, { once: true });
-  window.setTimeout(reveal, 500);
-}
-function initLanding() {
-  landingScreen.innerHTML = landing();
-  portfolioShell.inert = true;
-  portfolioShell.setAttribute('aria-hidden', 'true');
-  document.body.classList.add('landing-active');
-  landingScreen.querySelector('#enterPortfolio').addEventListener('click', enterPortfolio);
-  landingScreen.querySelector('#landingArtifacts').addEventListener('click', enterPortfolio);
-}
-
-let nav = navLink('beranda', '⌂  Beranda');
+let nav = `<div class="nav-group"><p class="nav-label">PORTOFOLIO</p>${navLink('beranda', 'Beranda')}${navLink('tentang', 'Tentang saya')}${navLink('semester', 'Perjalanan PPG')}${navLink('karya', 'Karya inovasi')}${navLink('artefak', 'Arsip artefak')}${navLink('refleksi-mata-kuliah', 'Refleksi mata kuliah')}${navLink('refleksi', 'Refleksi profesional')}</div><div class="nav-group"><p class="nav-label">SEMESTER 1</p>`;
 for (const semester of P.semester) {
   add(`artefak-s${semester.nomor}`, `Artefak Semester ${semester.nomor}`, 'index', semester);
   add(`refleksi-s${semester.nomor}`, `Refleksi Mata Kuliah S${semester.nomor}`, 'reflection-index', semester);
-  nav += `<div class="nav-label">SEMESTER ${semester.nomor}</div><details><summary>Artefak Semester ${semester.nomor}</summary>${navLink(`artefak-s${semester.nomor}`, 'Semua artefak')}`;
-  for (const title of semester.artefak) { const id = `s${semester.nomor}-${slug(title)}`; add(id, title, 'artifact', semester); nav += navLink(id, title); }
-  nav += `</details><details><summary>Refleksi Mata Kuliah S${semester.nomor}</summary>${navLink(`refleksi-s${semester.nomor}`, 'Semua refleksi')}`;
-  for (const title of semester.mataKuliah) { const id = `refleksi-s${semester.nomor}-${slug(title)}`; add(id, title, 'reflection', semester); nav += navLink(id, title); }
-  nav += '</details>';
+  if (semester.nomor === 2) nav += '</div><div class="nav-group"><p class="nav-label">SEMESTER 2</p>';
+  nav += navLink(`artefak-s${semester.nomor}`, `Artefak Semester ${semester.nomor}`);
+  nav += navLink(`refleksi-s${semester.nomor}`, `Refleksi Semester ${semester.nomor}`);
+  for (const title of semester.artefak) add(`s${semester.nomor}-${slug(title)}`, title, 'artifact', semester);
+  for (const title of semester.mataKuliah) add(`refleksi-s${semester.nomor}-${slug(title)}`, title, 'reflection', semester);
 }
-nav += '<div class="nav-label">REFLEKSI & ARAH DIRI</div>';
-for (const title of finals) { const id = slug(title); add(id, title, 'reflection'); nav += navLink(id, title); }
+nav += '</div><div class="nav-group"><p class="nav-label">REFLEKSI PROGRAM</p>';
+for (const title of finals) add(slug(title), title, 'reflection');
+nav += navLink(slug(finals[0]), finals[0]);
+nav += `<details class="nav-more"><summary>Refleksi profesional lainnya</summary>${finals.slice(1).map((title) => navLink(slug(title), title)).join('')}</details></div>`;
 document.querySelector('#navigation').innerHTML = nav;
 
 const reflectionTonePalette = ['green', 'mustard', 'teal', 'sand', 'rust', 'orange'];
@@ -309,11 +263,10 @@ function home() {
   return `<div class="masrama-page">
     <section class="editorial-hero" id="portfolio-hero" aria-labelledby="hero-title">
       <div class="navy-field"><span class="hero-kicker">${esc(profile.nama)} / CALON GURU INFORMATIKA · 2026</span><span class="orb orb-one"></span><span class="orb orb-two"></span></div>
-      <div class="white-field"><nav class="hero-nav" aria-label="Navigasi cepat"><a href="#karya">KARYA</a><a href="#semester">PERJALANAN</a><button class="hero-menu" type="button" aria-label="Buka semua menu" aria-expanded="false">☰</button></nav></div>
-      <div class="editorial-copy"><p class="eyebrow">BELAJAR UNTUK MEMBERI MAKNA.</p><h1 id="hero-title">BELAJAR.<br>MENGAJAR.</h1><p>Merancang pembelajaran.<br>Menumbuhkan potensi.</p><a class="hero-button" href="#karya">JELAJAHI KARYA <span>↗</span></a></div>
+      <div class="white-field"></div>
+      <div class="editorial-copy"><p class="eyebrow">BELAJAR UNTUK MEMBERI MAKNA.</p><h1 id="hero-title">BELAJAR.<br>MENGAJAR.</h1><p>Merancang pembelajaran.<br>Menumbuhkan potensi.</p><a class="hero-button" href="#karya">JELAJAHI KARYA</a></div>
       <img class="hero-portrait" src="${esc(safe(profile.foto))}" alt="Potret ${esc(profile.nama)}" fetchpriority="high">
       <div id="hero-project-board" class="hero-project-board" data-portfolio-animations="hero" aria-label="Papan animasi karya pilihan"></div>
-      <div class="hero-bottom-left"><span class="mini-index">01 — 02</span><p>Dua semester.<br>Satu perjalanan menjadi pendidik.</p></div>
       <span class="hero-caption">E-PORTOFOLIO / 2026</span>
     </section>
     <div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#tentang">LANJUTKAN PERJALANAN ↓</a></div>
@@ -546,7 +499,7 @@ let routeTransition;
 function navigatePage() {
   closeMenu();
   const requested = decodeURIComponent(location.hash.slice(1)) || 'beranda';
-  if (homeAnchorIds.has(requested) && !document.body.classList.contains('landing-active')) {
+  if (homeAnchorIds.has(requested)) {
     render();
     main.focus({ preventScroll: true });
     return;
@@ -610,5 +563,4 @@ document.addEventListener('keydown', (event) => {
 });
 window.addEventListener('hashchange', navigatePage);
 document.querySelector('#year').textContent = new Date().getFullYear();
-initLanding();
 render();

@@ -1,0 +1,489 @@
+/* Global design foundation: quiet technology palette, system typography, and one navigation language. */
+:root {
+  color-scheme: light;
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --text: #17212d;
+  --muted: #687789;
+  --border: #dfe6ee;
+  --accent: #1677d2;
+  --soft: #eaf3fb;
+  --hero: #102d49;
+  --heroText: #f5f9fc;
+  --buttonText: #ffffff;
+  --shadow: 0 18px 48px rgba(18, 43, 69, .10);
+  --stage: #1e80b5;
+  --stage-highlight: #82d2f5;
+  --stage-mid: #258ec3;
+  --stage-deep: #10385f;
+  --stage-text: #ffffff;
+  --panel: #ffffff;
+  --panel-text: #17212d;
+  --glass: rgba(255, 255, 255, .72);
+  --glass-strong: rgba(255, 255, 255, .92);
+  --glass-line: rgba(125, 151, 177, .20);
+  --glass-shadow: 0 18px 44px rgba(25, 50, 76, .07), inset 0 1px 0 rgba(255, 255, 255, .92);
+  --glow: rgba(62, 145, 211, .075);
+  --mc-navy: #173e5d;
+  --mc-sky: #78bfdf;
+  --mc-mint: #a7d8cd;
+  --mc-ice: #dcecf5;
+  --mc-paper: #f5f9fb;
+  --mc-ink: #102d49;
+  --mc-on-dark: #f3f8fc;
+  --mc-muted-dark: #d1e2ec;
+  --mc-muted-light: #3d5c72;
+  --mc-shadow: rgba(12, 43, 67, .23);
+  --card-tone-0: #173e5d;
+  --card-tone-1: #78bfdf;
+  --card-tone-2: #3e8198;
+  --card-tone-3: #dcecf5;
+  --card-tone-4: #27658a;
+  --card-tone-5: #a9cfe2;
+  --card-tone-6: #0c2941;
+  --card-tone-7: #b3d5e7;
+  --card-tone-8: #5e9aba;
+  --card-tone-9: #d2e5ef;
+  --card-ink-0: #f3f8fc;
+  --card-ink-1: #102d49;
+  --card-ink-2: #f3f8fc;
+  --card-ink-3: #102d49;
+  --card-ink-4: #f3f8fc;
+  --card-ink-5: #102d49;
+  --card-ink-6: #f3f8fc;
+  --card-ink-7: #102d49;
+  --card-ink-8: #f3f8fc;
+  --card-ink-9: #102d49;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1119;
+  --surface: #141d28;
+  --text: #f2f6fa;
+  --muted: #a5b2c0;
+  --border: #293544;
+  --accent: #79caff;
+  --soft: #1a2a3b;
+  --hero: #081827;
+  --heroText: #f0f7fc;
+  --buttonText: #0b1b2b;
+  --shadow: 0 18px 48px rgba(0, 0, 0, .32);
+  --stage: #15537d;
+  --stage-highlight: #68c8f0;
+  --stage-mid: #176495;
+  --stage-deep: #071d33;
+  --stage-text: #f2f9fe;
+  --panel: #132232;
+  --panel-text: #f2f6fa;
+  --glass: rgba(20, 31, 44, .78);
+  --glass-strong: rgba(24, 37, 52, .94);
+  --glass-line: rgba(155, 183, 208, .16);
+  --glass-shadow: 0 18px 44px rgba(0, 0, 0, .26), inset 0 1px 0 rgba(255, 255, 255, .04);
+  --glow: rgba(53, 132, 194, .09);
+  --mc-navy: #17364f;
+  --mc-sky: #235f7e;
+  --mc-mint: #205650;
+  --mc-ice: #254357;
+  --mc-paper: #172e41;
+  --mc-ink: #eaf5fb;
+  --mc-on-dark: #eff7fc;
+  --mc-muted-dark: #c3d7e4;
+  --mc-muted-light: #bdd2df;
+  --mc-shadow: rgba(0, 0, 0, .42);
+  --card-tone-0: #17364f;
+  --card-tone-1: #235f7e;
+  --card-tone-2: #205b70;
+  --card-tone-3: #254357;
+  --card-tone-4: #1e5979;
+  --card-tone-5: #2a6b88;
+  --card-tone-6: #0c2941;
+  --card-tone-7: #2c6f92;
+  --card-tone-8: #245d76;
+  --card-tone-9: #254357;
+  --card-ink-0: #eff7fc;
+  --card-ink-1: #eff7fc;
+  --card-ink-2: #eff7fc;
+  --card-ink-3: #eff7fc;
+  --card-ink-4: #eff7fc;
+  --card-ink-5: #eff7fc;
+  --card-ink-6: #eff7fc;
+  --card-ink-7: #eff7fc;
+  --card-ink-8: #eff7fc;
+  --card-ink-9: #eff7fc;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Use the platform's native sans font so the typography feels at home on each device. */
+#portfolioShell, #portfolioShell *, #landingScreen, #landingScreen * {
+  font-family: var(--font-ui);
+}
+#portfolioShell :where(h1, h2, h3, h4, .brand) {
+  letter-spacing: -.045em;
+  text-wrap: pretty;
+}
+#main [id] { scroll-margin-top: 94px; }
+
+/* Shared surfaces keep card geometry and depth consistent while their blue-family accents remain useful. */
+#main :where(.mas-facts, .mas-semester-card, .archive-semester, .path-step, .tile, .project-card, .artifact, .page-head, .empty, .course-reflection-card, .reflection-menu-card, .identity-direction-card, .archive-work, .learning-closing) {
+  border-radius: 24px;
+  box-shadow: 0 18px 42px -31px var(--shadow);
+}
+#main :where(.tile, .project-card, .path-step, .artifact, .course-reflection-card, .reflection-menu-card, .identity-direction-card) {
+  border-width: 1px;
+}
+
+/* Header and primary links share a compact, restrained control style. */
+#portfolioShell > header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  width: 100%;
+  max-width: none;
+  height: 76px;
+  margin: 0;
+  padding: 0 clamp(20px, 5vw, 80px);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(180%) blur(22px);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+}
+.brand {
+  flex: 0 0 auto;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.055em;
+  white-space: nowrap;
+}
+.top-nav {
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  margin-right: 14px;
+  font-size: 13px;
+}
+.top-nav a {
+  padding: 9px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-weight: 550;
+  transition: background-color .18s ease, color .18s ease;
+}
+.top-nav a:hover, .top-nav a:focus-visible {
+  background: var(--soft);
+  color: var(--text);
+}
+.actions { align-items: center; gap: 8px; }
+.actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(12, 32, 54, .035);
+  font-size: 14px;
+  transition: transform .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.actions button:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+  box-shadow: 0 6px 18px rgba(12, 32, 54, .08);
+}
+#menuToggle { display: inline-flex; width: 44px; padding: 0; }
+#menuToggle[aria-expanded="true"] { background: var(--soft); color: var(--accent); }
+#themeToggle { gap: 8px; }
+
+/* Compact menu anchored by the existing hamburger positioning behavior. */
+#sidebar {
+  display: block;
+  left: auto;
+  right: 24px;
+  top: 88px;
+  width: min(390px, calc(100vw - 24px));
+  height: auto;
+  max-height: calc(100dvh - 104px);
+  padding: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  box-shadow: 0 24px 70px rgba(12, 32, 54, .18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transform-origin: top right;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px) scale(.985);
+  transition: opacity .2s ease, transform .24s cubic-bezier(.2,.8,.2,1), visibility .24s;
+}
+body.menu-open #sidebar { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0) scale(1); }
+#sidebar .nav-label, #navigation .nav-label {
+  margin: 10px 10px 7px;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+#navigation { display: grid; gap: 8px; }
+#navigation .nav-group {
+  display: grid;
+  gap: 3px;
+  padding: 0 0 8px;
+}
+#navigation .nav-group + .nav-group {
+  border-top: 1px solid var(--border);
+  padding-top: 9px;
+}
+#navigation > .nav-group > a,
+#navigation details > a {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  margin: 0;
+  padding: 9px 12px;
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+  transition: color .18s ease, background-color .18s ease, transform .18s ease;
+}
+#navigation > .nav-group > a:hover,
+#navigation > .nav-group > a.active,
+#navigation details > a:hover,
+#navigation details > a.active {
+  background: var(--soft);
+  color: var(--accent);
+  transform: translateX(2px);
+}
+#navigation details { border-radius: 12px; }
+#navigation details[open] { background: color-mix(in srgb, var(--soft) 52%, transparent); }
+#navigation details summary {
+  min-height: 42px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 550;
+  list-style-position: inside;
+}
+#navigation details summary:hover { background: var(--soft); }
+#navigation details > a { margin-left: 14px; padding-left: 14px; font-size: 12px; }
+#sidebar .aside-foot {
+  margin: 8px 4px 0;
+  padding: 14px 8px 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: .08em;
+}
+
+/* Map the old category names onto one cool, technology-led palette. */
+#main .archive-index-card.tone-0, #main .tile.reflection-tone-0, #main .tile.reflection-tone-green,
+#main .reflection-menu-card.reflection-tone-0, #main .reflection-menu-card.reflection-tone-green,
+#main .project-card.project-tone-0, #main .page-head.page-head--course.reflection-tone-0, #main .page-head.page-head--course.reflection-tone-green {
+  --category-tone: var(--card-tone-0); --category-ink: var(--card-ink-0);
+  --reflection-tone: var(--card-tone-0); --reflection-ink: var(--card-ink-0);
+  --project-tone: var(--card-tone-0); --project-ink: var(--card-ink-0);
+}
+#main .archive-index-card.tone-1, #main .tile.reflection-tone-1, #main .tile.reflection-tone-mustard,
+#main .reflection-menu-card.reflection-tone-1, #main .reflection-menu-card.reflection-tone-mustard,
+#main .project-card.project-tone-1,
+#main .page-head.page-head--course.reflection-tone-1, #main .page-head.page-head--course.reflection-tone-mustard {
+  --category-tone: var(--card-tone-1); --category-ink: var(--card-ink-1);
+  --reflection-tone: var(--card-tone-1); --reflection-ink: var(--card-ink-1);
+  --project-tone: var(--card-tone-1); --project-ink: var(--card-ink-1);
+}
+#main .archive-index-card.tone-2, #main .tile.reflection-tone-2, #main .tile.reflection-tone-teal,
+#main .reflection-menu-card.reflection-tone-2, #main .reflection-menu-card.reflection-tone-teal,
+#main .project-card.project-tone-2,
+#main .page-head.page-head--course.reflection-tone-2, #main .page-head.page-head--course.reflection-tone-teal {
+  --category-tone: var(--card-tone-2); --category-ink: var(--card-ink-2);
+  --reflection-tone: var(--card-tone-2); --reflection-ink: var(--card-ink-2);
+  --project-tone: var(--card-tone-2); --project-ink: var(--card-ink-2);
+}
+#main .archive-index-card.tone-3, #main .tile.reflection-tone-3, #main .tile.reflection-tone-sand,
+#main .reflection-menu-card.reflection-tone-3, #main .reflection-menu-card.reflection-tone-sand,
+#main .page-head.page-head--course.reflection-tone-3, #main .page-head.page-head--course.reflection-tone-sand {
+  --category-tone: var(--card-tone-3); --category-ink: var(--card-ink-3);
+  --reflection-tone: var(--card-tone-3); --reflection-ink: var(--card-ink-3);
+}
+#main .archive-index-card.tone-4, #main .tile.reflection-tone-4, #main .tile.reflection-tone-rust,
+#main .reflection-menu-card.reflection-tone-4, #main .reflection-menu-card.reflection-tone-rust,
+#main .page-head.page-head--course.reflection-tone-4, #main .page-head.page-head--course.reflection-tone-rust {
+  --category-tone: var(--card-tone-4); --category-ink: var(--card-ink-4);
+  --reflection-tone: var(--card-tone-4); --reflection-ink: var(--card-ink-4);
+}
+#main .archive-index-card.tone-5, #main .tile.reflection-tone-5, #main .tile.reflection-tone-orange,
+#main .reflection-menu-card.reflection-tone-5, #main .reflection-menu-card.reflection-tone-orange,
+#main .page-head.page-head--course.reflection-tone-5, #main .page-head.page-head--course.reflection-tone-orange {
+  --category-tone: var(--card-tone-5); --category-ink: var(--card-ink-5);
+  --reflection-tone: var(--card-tone-5); --reflection-ink: var(--card-ink-5);
+}
+#main .archive-index-card.tone-6 { --category-tone: var(--card-tone-6); --category-ink: var(--card-ink-6); }
+#main .archive-index-card.tone-7 { --category-tone: var(--card-tone-7); --category-ink: var(--card-ink-7); }
+#main .archive-index-card.tone-8 { --category-tone: var(--card-tone-8); --category-ink: var(--card-ink-8); }
+#main .archive-index-card.tone-9 { --category-tone: var(--card-tone-9); --category-ink: var(--card-ink-9); }
+#main .archive-index-card {
+  border: 1px solid color-mix(in srgb, var(--category-ink) 20%, transparent);
+  border-radius: 24px;
+  background: var(--category-tone);
+  background-image: none;
+  box-shadow: 0 4px 0 rgba(7, 31, 52, .18), 0 17px 28px -17px rgba(7, 31, 52, .48);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, outline-color .18s ease;
+}
+#main .archive-index-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 0 rgba(7, 31, 52, .16), 0 21px 32px -17px rgba(7, 31, 52, .5);
+}
+#main .archive-index-card.is-selected {
+  outline: 2px solid color-mix(in srgb, var(--category-ink) 82%, transparent);
+  outline-offset: 3px;
+  transform: none;
+}
+#main .archive-index-icon {
+  border: 1px solid color-mix(in srgb, var(--category-ink) 16%, transparent);
+  background: color-mix(in srgb, var(--category-ink) 15%, transparent);
+  box-shadow: none;
+}
+#main .archive-index-motif i { box-shadow: none; }
+#main .archive-detail.tone-0 { --detail-tone: var(--card-tone-0); --detail-ink: var(--card-ink-0); }
+#main .archive-detail.tone-1 { --detail-tone: var(--card-tone-1); --detail-ink: var(--card-ink-1); }
+#main .archive-detail.tone-2 { --detail-tone: var(--card-tone-2); --detail-ink: var(--card-ink-2); }
+#main .archive-detail.tone-3 { --detail-tone: var(--card-tone-3); --detail-ink: var(--card-ink-3); }
+#main .archive-detail.tone-4 { --detail-tone: var(--card-tone-4); --detail-ink: var(--card-ink-4); }
+#main .archive-detail.tone-5 { --detail-tone: var(--card-tone-5); --detail-ink: var(--card-ink-5); }
+#main .archive-detail.tone-6 { --detail-tone: var(--card-tone-6); --detail-ink: var(--card-ink-6); }
+#main .archive-detail.tone-7 { --detail-tone: var(--card-tone-7); --detail-ink: var(--card-ink-7); }
+#main .archive-detail.tone-8 { --detail-tone: var(--card-tone-8); --detail-ink: var(--card-ink-8); }
+#main .archive-detail.tone-9 { --detail-tone: var(--card-tone-9); --detail-ink: var(--card-ink-9); }
+
+#main .mas-semester-card:first-child, #main .page-head.page-head--s1 { --mc-card-tone: var(--card-tone-0); --mc-card-ink: var(--card-ink-0); --mc-card-muted: color-mix(in srgb, var(--card-ink-0) 76%, var(--card-tone-0)); --semester-tone: var(--card-tone-0); --semester-ink: var(--card-ink-0); }
+#main .mas-semester-card:nth-child(2), #main .page-head.page-head--s2 { --mc-card-tone: var(--card-tone-1); --mc-card-ink: var(--card-ink-1); --mc-card-muted: color-mix(in srgb, var(--card-ink-1) 76%, var(--card-tone-1)); --semester-tone: var(--card-tone-1); --semester-ink: var(--card-ink-1); }
+:root[data-theme="dark"] #main .mas-semester-card:nth-child(2),
+:root[data-theme="dark"] #main .page-head.page-head--s2 {
+  --mc-card-ink: var(--card-ink-1);
+  --mc-card-muted: var(--mc-muted-dark);
+  --semester-ink: var(--card-ink-1);
+}
+#main .mas-semester-card { border-color: color-mix(in srgb, var(--mc-card-ink) 18%, transparent); }
+#main .mas-semester-card:nth-child(2) .semester-links a { background: var(--mc-card-ink); color: var(--mc-card-tone); }
+#main .mas-semester-card:nth-child(2) .semester-links a span { background: var(--mc-card-tone); color: var(--mc-card-ink); }
+
+/* Inner panels use the same calm surface language; remove the paper-ticket tilt. */
+#main :where(.reflection-menu-paper, .reflection-tile-ticket, .project-ticket) {
+  border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  color: var(--text);
+  transform: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 12px 28px rgba(15, 42, 65, .08);
+}
+#main :where(.reflection-menu-paper > p, .reflection-tile-ticket > span, .project-ticket > p) {
+  border-bottom-color: var(--border);
+  color: var(--muted);
+}
+#main :where(.reflection-menu-paper li, .reflection-tile-ticket > strong, .project-ticket li) { color: var(--text); }
+#main :where(.reflection-menu-paper li::before, .project-ticket li::before) { background: var(--accent); }
+
+/* Keep the personal profile and cards on a cool blue foundation in both themes. */
+.navy-field { background: radial-gradient(ellipse at 66% 79%, #82d2f5 0%, #258ec3 44%, #10385f 100%) !important; }
+.hero-button { color: #102d49; }
+:root[data-theme="dark"] .navy-field { background: radial-gradient(ellipse at 66% 74%, #68c8f0 0%, #176495 48%, #071d33 100%) !important; }
+
+/* Keep the hero focused: portrait left, title in the open blue column, artwork up top. */
+.hero-nav,
+.hero-bottom-left { display: none !important; }
+.editorial-copy .eyebrow { color: #fff !important; }
+.hero-strip { position: relative; top: -12px; }
+@media (min-width: 761px) {
+  .hero-project-board {
+    inset: 8% 4% 5% 60.5%;
+  }
+}
+@media (min-width: 1101px) {
+  .hero-portrait {
+    left: 0;
+    width: 27%;
+    height: 94%;
+  }
+  .editorial-copy .eyebrow {
+    top: 10%;
+    left: 27%;
+  }
+  .editorial-copy h1 {
+    top: 16%;
+    left: 27%;
+    width: 30%;
+    font-size: clamp(42px, 4.4vw, 72px);
+    line-height: .94;
+    letter-spacing: -.07em;
+  }
+  .editorial-copy > p:not(.eyebrow) {
+    display: block;
+    top: 46%;
+    left: 27%;
+    width: 30%;
+    max-width: 460px;
+  }
+  .editorial-copy .hero-button {
+    top: 56%;
+    left: 27%;
+  }
+}
+
+/* Fit the desktop hero into the visible space below the header. */
+@media (min-width: 761px) {
+  .editorial-hero {
+    height: min(740px, calc(100svh - 112px));
+    min-height: min(580px, calc(100svh - 112px));
+    max-height: none;
+  }
+}
+
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 72%, white); outline-offset: 3px; }
+
+@media (max-width: 1000px) {
+  #portfolioShell > header { padding-inline: 24px; }
+  .top-nav { gap: 0; margin-right: 8px; }
+  .top-nav a { padding-inline: 9px; font-size: 12px; }
+}
+@media (max-width: 760px) {
+  #portfolioShell > header { height: 68px; padding-inline: 16px; }
+  .brand { max-width: calc(100% - 108px); overflow: hidden; font-size: clamp(14px, 4vw, 18px); text-overflow: ellipsis; }
+  .top-nav { display: none; }
+  .actions { gap: 6px; }
+  .actions button { min-width: 42px; height: 42px; padding-inline: 11px; }
+  #menuToggle { width: 42px; }
+  #themeToggle span { display: none; }
+  #sidebar {
+    width: min(390px, calc(100vw - 24px));
+    max-height: calc(100dvh - 82px);
+    padding: 14px;
+    border-radius: 20px;
+  }
+  #navigation > .nav-group > a, #navigation details summary { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

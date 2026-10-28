@@ -11,17 +11,17 @@ const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'journey' 
 const projectQueue = [
   {
     field: { id: 'semester-1', name: 'Semester 1 · Kelompok' },
-    work: { brand: 'JURNAL', name: 'JurnalKita', detail: 'Karya kelompok untuk artikel Semester 1 di SMA Negeri 15 Surabaya.' },
+    work: { brand: 'JurnalKita', name: 'Jurnal Kelas Digital', detail: 'Karya kelompok untuk artikel Semester 1 di SMA Negeri 15 Surabaya.' },
     number: 1,
   },
   {
     field: { id: 'semester-2', name: 'Semester 2 · Kelompok' },
-    work: { brand: 'SIGAP', name: 'SIGAP', detail: 'Proyek kepemimpinan kelompok pada praktik di SMP Negeri 60 Surabaya.' },
+    work: { brand: 'SIGAP', name: 'Sistem Informasi Sekolah', detail: 'Proyek kepemimpinan kelompok pada praktik di SMP Negeri 60 Surabaya.' },
     number: 2,
   },
   {
     field: { id: 'inovasi', name: 'Inovasi · Individu' },
-    work: { brand: 'RUANG', name: 'Ruang Belajar', detail: 'Karya inovasi pembelajaran Informatika yang dikembangkan secara pribadi.' },
+    work: { brand: 'RuangBelajar', name: 'Ruang Kelas Digital', detail: 'Karya inovasi pembelajaran Informatika yang dikembangkan secara pribadi.' },
     number: 3,
   },
 ];
