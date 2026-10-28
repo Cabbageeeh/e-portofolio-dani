@@ -1,0 +1,281 @@
+/* Assessment additions: identity direction and the featured education innovation. */
+.identity-direction-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.identity-direction-card {
+  position: relative;
+  min-width: 0;
+  min-height: 245px;
+  overflow: hidden;
+  padding: clamp(24px, 3.1vw, 38px);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 27px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -4px 0 rgba(0,0,0,.1), 0 24px 38px -30px rgba(9,35,55,.55);
+}
+.identity-direction-card--vision {
+  background: radial-gradient(100% 90% at 100% 0%, rgba(98,176,213,.32), transparent 54%), #153d5b;
+  color: #f4f8fb;
+}
+.identity-direction-card--mission {
+  background: radial-gradient(100% 90% at 100% 0%, rgba(255,255,255,.42), transparent 52%), #83c3dc;
+  color: #12344d;
+  border-color: rgba(18,52,77,.15);
+}
+.identity-direction-kicker {
+  margin: 0 0 17px;
+  font: 800 9px/1.4 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: .15em;
+  opacity: .75;
+}
+.identity-direction-card h3 {
+  margin: 0 0 12px;
+  font: 750 clamp(25px, 3vw, 34px)/1.05 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -.055em;
+}
+.identity-direction-card--vision > p:last-child {
+  max-width: 38ch;
+  margin: 0;
+  color: #e1edf4;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.7;
+}
+.identity-direction-card--mission ol {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: mission;
+}
+.identity-direction-card--mission li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  color: #173e58;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.55;
+  counter-increment: mission;
+}
+.identity-direction-card--mission li::before {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border: 1px solid rgba(18,52,77,.22);
+  border-radius: 50%;
+  background: rgba(255,255,255,.28);
+  content: counter(mission, decimal-leading-zero);
+  font-size: 8px;
+  font-weight: 800;
+}
+
+#main .innovation-case {
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(26px, 4vw, 44px);
+  overflow: hidden;
+  padding: clamp(22px, 3.4vw, 42px);
+  border: 1px solid rgba(155,204,229,.4);
+  border-radius: 31px;
+  background: radial-gradient(90% 90% at 95% 0%, rgba(88,177,216,.2), transparent 55%), linear-gradient(135deg, #102f49, #174966 70%, #1d5976);
+  color: #f3f8fb;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -4px 0 rgba(0,0,0,.18), 0 30px 46px -34px rgba(8,32,50,.8);
+  scroll-margin-top: 28px;
+}
+#main .innovation-case::after {
+  position: absolute;
+  z-index: -1;
+  right: -100px;
+  bottom: -170px;
+  width: 420px;
+  height: 420px;
+  border: 1px solid rgba(157,213,240,.12);
+  border-radius: 50%;
+  box-shadow: 0 0 0 35px rgba(157,213,240,.035), 0 0 0 70px rgba(157,213,240,.025);
+  content: '';
+  pointer-events: none;
+}
+.innovation-case-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 27px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(219,239,249,.2);
+}
+.innovation-case-head .eyebrow,
+.innovation-case-design .eyebrow {
+  margin: 0;
+  color: #8ed3f1;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+.innovation-case-head > span {
+  flex: none;
+  padding: 8px 12px;
+  border: 1px solid rgba(219,239,249,.3);
+  border-radius: 999px;
+  color: #d7eaf4;
+  font: 750 8px/1 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: .1em;
+}
+.innovation-case-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, .76fr) minmax(0, 1.24fr);
+  gap: clamp(20px, 3.5vw, 48px);
+  align-items: stretch;
+}
+.innovation-case-intro { min-width: 0; padding: 4px 0 0; }
+.innovation-case-icon {
+  display: grid;
+  width: 53px;
+  height: 53px;
+  place-items: center;
+  margin-bottom: 19px;
+  border: 1px solid rgba(217,239,249,.28);
+  border-radius: 16px;
+  background: rgba(219,239,249,.12);
+  color: #a4e2fa;
+}
+.innovation-case-icon .project-icon-svg { width: 27px; height: 27px; }
+.innovation-product-name {
+  margin: 0 0 8px;
+  color: #91d4f1;
+  font: 800 9px/1.5 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: .13em;
+}
+.innovation-case-intro h3 {
+  margin: 0 0 13px;
+  color: #fff;
+  font: 800 clamp(32px, 4vw, 48px)/1 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -.065em;
+}
+.innovation-case-summary {
+  max-width: 47ch;
+  margin: 0;
+  color: #d5e4ec;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.innovation-role {
+  display: grid;
+  gap: 7px;
+  margin-top: 24px;
+  padding: 15px 17px;
+  border-left: 3px solid #78c5e4;
+  border-radius: 0 12px 12px 0;
+  background: rgba(255,255,255,.08);
+}
+.innovation-role span {
+  color: #9cc9dd;
+  font: 800 8px/1.4 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: .14em;
+}
+.innovation-role strong { color: #f3f8fb; font-size: 12px; line-height: 1.5; }
+.innovation-case-design {
+  min-width: 0;
+  padding: clamp(18px, 2.3vw, 27px);
+  border: 1px solid rgba(207,232,244,.18);
+  border-radius: 22px;
+  background: rgba(7,28,44,.28);
+}
+.innovation-case-problem {
+  margin: 10px 0 22px;
+  color: #e1edf3;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.innovation-flow-label { margin-bottom: 13px !important; }
+.innovation-stages {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.innovation-stage {
+  display: grid;
+  grid-template-columns: 31px minmax(0, 1fr);
+  gap: 11px;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid rgba(202,231,244,.19);
+  border-radius: 14px;
+  background: rgba(117,185,215,.12);
+}
+.innovation-stage > span {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border-radius: 9px;
+  background: #8dcce4;
+  color: #113953;
+  font: 800 9px/1 'Plus Jakarta Sans', sans-serif;
+}
+.innovation-stage h4 { margin: 1px 0 5px; color: #f7fbfd; font-size: 12px; font-weight: 800; line-height: 1.35; }
+.innovation-stage p { margin: 0; color: #c7dbe5; font-size: 10px; line-height: 1.55; }
+.innovation-principles {
+  display: grid;
+  grid-template-columns: minmax(125px, .52fr) minmax(0, 1.48fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px solid rgba(18,52,77,.09);
+  border-radius: 8px 8px 19px 19px;
+  background: #dceef5;
+  color: #143b55;
+  box-shadow: 0 16px 24px -20px rgba(0,0,0,.65);
+  transform: rotate(-.18deg);
+}
+.innovation-principles > p {
+  margin: 0;
+  color: #54788a;
+  font: 800 9px/1.5 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: .13em;
+}
+.innovation-principles ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.innovation-principles li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: #153b55;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+.innovation-principles li::before {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  margin-top: 5px;
+  border: 2px solid #dceef5;
+  border-radius: 50%;
+  background: #2f8ebd;
+  box-shadow: 0 0 0 1px rgba(21,59,85,.3);
+  content: '';
+}
+.innovation-case-note { margin: 14px 0 0; color: #b8d1df; font-size: 9px; line-height: 1.6; }
+
+@media (max-width: 850px) {
+  .innovation-case-grid { grid-template-columns: 1fr; }
+  .innovation-case-summary { max-width: 70ch; }
+}
+@media (max-width: 680px) {
+  .identity-direction-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+  .identity-direction-card { min-height: 0; padding: 23px 21px; border-radius: 22px; }
+  .identity-direction-card--mission li { font-size: 12px; }
+  #main .innovation-case { padding: 22px 17px; border-radius: 24px; }
+  .innovation-case-head { align-items: flex-start; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+  .innovation-case-design { padding: 16px 13px; border-radius: 17px; }
+  .innovation-stages { grid-template-columns: 1fr; }
+  .innovation-principles { grid-template-columns: 1fr; gap: 10px; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .identity-direction-card, #main .innovation-case { scroll-behavior: auto; }
+}

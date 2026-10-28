@@ -6,8 +6,8 @@ const pages = new Map();
 const main = document.querySelector('#main');
 const landingScreen = document.querySelector('#landingScreen');
 const portfolioShell = document.querySelector('#portfolioShell');
-const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi', 'portfolio-animation-root']);
-const finals = ['Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
+const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'ruang-belajar-inovasi', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi', 'portfolio-animation-root']);
+const finals = ['Refleksi Program PPG', 'Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
 const add = (id, title, kind, semester) => pages.set(id, { id, title, kind, semester });
 const navLink = (id, label) => `<a href="#${id}" data-page="${id}">${esc(label)}</a>`;
 
@@ -230,8 +230,9 @@ function reflectionCards() {
       : paragraphs.length
         ? paragraphs.slice(0, 3).map((paragraph) => paragraph.length > 105 ? `${paragraph.slice(0, 102).trimEnd()}…` : paragraph)
         : prompts;
-    const tone = `reflection-tone-${index}`;
-    return `<article class="reflection-menu-card ${tone}"><span class="reflection-menu-watermark" aria-hidden="true">${archiveIcon(icons[index], 'reflection-watermark-svg')}</span><span class="reflection-menu-icon" aria-hidden="true">${archiveIcon(icons[index], 'archive-svg-icon')}</span><div class="reflection-menu-copy"><h3>${esc(title)}</h3><p>${esc(excerpt)}</p></div><div class="reflection-menu-paper"><p>${hasContent ? 'Pokok refleksi' : 'Kerangka refleksi'}</p><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></div><a class="reflection-menu-link" href="#${id}">Baca refleksi <span aria-hidden="true">↗</span></a></article>`;
+    const tone = `reflection-tone-${index % 6}`;
+    const icon = icons[index % icons.length];
+    return `<article class="reflection-menu-card ${tone}"><span class="reflection-menu-watermark" aria-hidden="true">${archiveIcon(icon, 'reflection-watermark-svg')}</span><span class="reflection-menu-icon" aria-hidden="true">${archiveIcon(icon, 'archive-svg-icon')}</span><div class="reflection-menu-copy"><h3>${esc(title)}</h3><p>${esc(excerpt)}</p></div><div class="reflection-menu-paper"><p>${hasContent ? 'Pokok refleksi' : 'Kerangka refleksi'}</p><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></div><a class="reflection-menu-link" href="#${id}">Baca refleksi <span aria-hidden="true">↗</span></a></article>`;
   }).join('');
 }
 function home() {
@@ -252,6 +253,10 @@ function home() {
       <div class="mas-section-head"><div><p class="eyebrow">01 / TENTANG SAYA</p><h2 id="about-title">Menjadi guru, dimulai dari terus belajar.</h2></div><span class="mas-index">PPG · 2026</span></div>
       <div class="mas-about-grid"><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester <span>↗</span></a></div>
         <dl class="mas-facts"><div><dt>NAMA</dt><dd>${esc(profile.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(profile.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div><div><dt>PERGURUAN TINGGI</dt><dd>${esc(profile.kampus)}</dd></div></dl>
+      </div>
+      <div class="identity-direction-grid" aria-label="Visi dan misi sebagai calon guru Informatika">
+        <article class="identity-direction-card identity-direction-card--vision"><p class="identity-direction-kicker">ARAH PENGEMBANGAN DIRI</p><h3>Visi</h3><p>${esc(profile.visi || '')}</p></article>
+        <article class="identity-direction-card identity-direction-card--mission"><p class="identity-direction-kicker">LANGKAH YANG DIUPAYAKAN</p><h3>Misi</h3><ol>${(profile.misi || []).map((mission) => `<li>${esc(mission)}</li>`).join('')}</ol></article>
       </div>
     </section>
 

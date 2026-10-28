@@ -10,7 +10,14 @@ window.portfolio = {
     foto: "files/dani-portrait.png",
     email: "",
     pengantar: "Selamat datang di portofolio PPG saya. Laman ini menjadi ruang dokumentasi artefak pembelajaran, pengalaman praktik, serta refleksi selama proses pendidikan profesi guru.",
-    bio: "Mahasiswa PPG bidang studi Informatika di Universitas Negeri Surabaya. Portofolio ini memuat perjalanan belajar pada Semester 1 dan Semester 2."
+    bio: "Mahasiswa PPG bidang studi Informatika di Universitas Negeri Surabaya. Portofolio ini memuat perjalanan belajar pada Semester 1 dan Semester 2.",
+    visi: "Menjadi guru Informatika yang memadukan penguasaan teknologi dengan pemahaman pedagogik agar setiap peserta didik dapat belajar secara aman, inklusif, bermakna, dan terus berkembang.",
+    misi: [
+      "Memahami karakteristik, kebutuhan, dan potensi peserta didik sebelum merancang pembelajaran.",
+      "Merancang pembelajaran Informatika yang aktif, kontekstual, inklusif, dan didukung asesmen yang adil.",
+      "Mengembangkan literasi digital, kreativitas, kolaborasi, serta tanggung jawab etis peserta didik.",
+      "Terus belajar melalui praktik reflektif dan kolaborasi dengan komunitas sekolah."
+    ]
   },
   semester: [
     {
@@ -28,6 +35,15 @@ window.portfolio = {
   ],
   // Kunci halaman refleksi mengikuti slug judul mata kuliah pada URL sesudah tanda #.
   isi: {
+    "refleksi-program-ppg": {
+      paragraf: ["Saya memasuki PPG dengan latar belakang Teknik Informatika murni. Saya cukup akrab dengan teknologi dan pemecahan masalah, tetapi pedagogik, perancangan pembelajaran, dan cara memahami kebutuhan peserta didik merupakan hal baru yang perlu saya pelajari."],
+      bagian: [
+        { judul: "Connection", teks: "Kebiasaan berpikir terstruktur dari Informatika membantu saya menyusun langkah dan mencari pola. Di PPG, saya belajar bahwa rancangan mengajar juga perlu berangkat dari konteks manusia: siapa peserta didiknya, apa yang sudah mereka pahami, dan dukungan apa yang mereka perlukan. Praktik di SMA Negeri 15 Surabaya dan SMP Negeri 60 Surabaya mempertemukan pembelajaran dengan konteks sekolah yang berbeda." },
+        { judul: "Challenge", teks: "Perubahan terbesar bagi saya adalah bergeser dari fokus pada materi atau teknologi menuju pengalaman belajar peserta didik. Saya perlu memastikan tujuan, kegiatan, dan asesmen saling terhubung; memberi ruang bagi kebutuhan yang beragam; serta tetap menjaga penilaian yang adil. Menerapkan gagasan pedagogik ke dalam rancangan nyata juga menuntut saya untuk meninjau ulang asumsi dan menerima masukan." },
+        { judul: "Concept", teks: "Berbagai mata kuliah dan praktik memperkenalkan saya pada pembelajaran yang berpusat pada peserta didik, pembelajaran inklusif dan mendalam, asesmen, perkembangan sosial-emosional, serta pola pikir bertumbuh. Saya melihat teknologi sebagai sarana untuk mendukung tujuan belajar, bukan tujuan itu sendiri. Gagasan tersebut saya bawa ke karya inovasi Ruang Belajar: dukungan dan bahan belajar dapat menyesuaikan kesiapan, sedangkan evaluasi akhir tetap mengacu pada ukuran yang sama." },
+        { judul: "Change", teks: "Setelah mengikuti PPG, saya ingin memulai perencanaan dari kebutuhan dan pengetahuan awal peserta didik, lalu menyelaraskan tujuan, aktivitas, media, dan asesmen. Saat mengajar, saya akan mengumpulkan bukti belajar, merefleksikan bagian yang belum berjalan baik, dan memperbaikinya dengan masukan dari peserta didik serta rekan guru. Saya juga akan terus mengembangkan Ruang Belajar dan menilai manfaatnya melalui penerapan serta bukti belajar yang nyata." }
+      ]
+    },
     "refleksi-s1-ppp": {
       paragraf: ["Mata kuliah Pemahaman tentang Peserta Didik dan Pembelajaran (PPP) mengubah titik berangkat saya: dari berfokus pada materi Informatika menjadi lebih dulu memahami peserta didik yang akan belajar."],
       bagian: [
