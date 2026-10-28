@@ -22,7 +22,7 @@ window.portfolio = {
     {
       nomor: 2,
       sekolah: "SMP Negeri 60 Surabaya",
-      artefak: ["Media Pembelajaran", "Video PPL Terbimbing", "Video PPL Mandiri", "Modul Ajar", "Kegiatan Non Mengajar", "Instrumen Penilaian", "Materi Pembelajaran"],
+      artefak: ["Media Pembelajaran", "Video PPL Terbimbing", "Video PPL Mandiri", "Modul Ajar", "LKPD", "Kegiatan Non Mengajar", "Instrumen Penilaian", "Materi Pembelajaran"],
       mataKuliah: ["Pendidikan Inklusi", "Pembelajaran Sosial Emosional", "PMAL", "PPKPT", "Proyek Kepemimpinan", "Seminar PPG"]
     }
   ],
