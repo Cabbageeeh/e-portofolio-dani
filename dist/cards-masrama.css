@@ -299,6 +299,27 @@
 #main .page-head.page-head--course .eyebrow { position: relative; z-index: 1; margin: 0 0 12px; color: color-mix(in srgb, var(--reflection-ink) 82%, var(--reflection-tone)); font-size: 9px; font-weight: 800; letter-spacing: .15em; }
 #main .page-head.page-head--course h1 { position: relative; z-index: 1; max-width: 18ch; margin: 0 0 15px; color: var(--reflection-ink); font-size: clamp(39px, 5.5vw, 64px); font-weight: 750; letter-spacing: -.065em; line-height: 1; }
 #main .page-head.page-head--course > p:last-child { position: relative; z-index: 1; max-width: 58ch; margin: 0; color: var(--mc-card-muted); font-size: 13px; line-height: 1.65; }
+#main .back-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 20px;
+  padding: 7px 16px 7px 8px;
+  border: 1px solid color-mix(in srgb, var(--mc-on-dark) 21%, transparent);
+  border-radius: 17px;
+  background: radial-gradient(120% 130% at 0% 0%, rgba(255,255,255,.18), transparent 58%), var(--mc-navy);
+  color: var(--mc-on-dark);
+  font-size: 11px;
+  font-weight: 750;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), inset 0 -3px 0 rgba(0,0,0,.13), 0 13px 22px -16px var(--mc-shadow);
+  transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, filter .22s ease;
+}
+#main .back-button:hover { transform: translateX(-3px); filter: brightness(1.07); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), inset 0 -3px 0 rgba(0,0,0,.13), 0 17px 27px -17px var(--mc-shadow); }
+#main .back-arrow { display: grid; width: 33px; height: 33px; flex: none; place-items: center; border: 1px solid color-mix(in srgb, var(--mc-on-dark) 26%, transparent); border-radius: 11px; background: color-mix(in srgb, var(--mc-sky) 48%, transparent); color: var(--mc-on-dark); font-size: 18px; line-height: 1; transition: transform .22s ease, background-color .22s ease; }
+#main .back-button:hover .back-arrow { transform: translateX(-2px); background: color-mix(in srgb, var(--mc-sky) 68%, transparent); }
+#main .back-label { color: var(--mc-on-dark); }
+#main .back-context { margin-left: -5px; color: color-mix(in srgb, var(--mc-on-dark) 72%, var(--mc-sky)); font-size: 10px; font-weight: 550; }
 #main .artifact {
   --mc-card-tone: var(--mc-paper);
   --mc-card-ink: var(--text);
@@ -351,6 +372,8 @@
   #main .page-head.page-head--course .breadcrumb { margin-bottom: 23px; }
   #main .page-head.page-head--course h1 { max-width: 16ch; font-size: clamp(35px, 10vw, 49px); }
   #main .page-head-course-watermark { right: -20px; bottom: -34px; width: 160px; height: 160px; }
+  #main .back-button { min-height: 44px; gap: 9px; padding-right: 13px; border-radius: 15px; }
+  #main .back-arrow { width: 31px; height: 31px; border-radius: 10px; }
   #main .archive-semester > summary { min-height: 160px; }
 }
 
@@ -360,4 +383,6 @@
   #main .path-step,
   #main .tile,
   #main .project-card { transition: none !important; }
+  #main .back-button, #main .back-arrow { transition: none !important; }
+  #main .back-button:hover, #main .back-button:hover .back-arrow { transform: none; }
 }
