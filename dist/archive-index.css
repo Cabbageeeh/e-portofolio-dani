@@ -227,3 +227,95 @@
   #main .project-card.project-text-card, #main .project-watermark, #main .project-card.project-text-card .project-link { transition: none; }
   #main .project-card.project-text-card, #main .project-card.project-text-card:hover { transform: none; }
 }
+
+/* Semester reflection indexes use the current bold type and warm MasRama palette. */
+#main .page-head.page-head--semester-reflections {
+  --semester-tone: #4f6b45;
+  --semester-ink: #f4efe4;
+  position: relative;
+  isolation: isolate;
+  min-height: 300px;
+  overflow: hidden;
+  margin-bottom: 0;
+  padding: clamp(27px, 4.2vw, 51px);
+  border: 1px solid color-mix(in srgb, var(--semester-ink) 17%, transparent);
+  border-radius: 29px;
+  background: radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.25), transparent 57%), var(--semester-tone);
+  color: var(--semester-ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28), inset 0 -3px 0 rgba(0,0,0,.14), 0 26px 40px -28px rgba(32,24,17,.44);
+  backdrop-filter: none;
+}
+#main .page-head.page-head--s1 { --semester-tone: #4f6b45; --semester-ink: #f4efe4; }
+#main .page-head.page-head--s2 { --semester-tone: #e0b257; --semester-ink: #2a1d15; }
+#main .page-head.page-head--semester-reflections::after { position: absolute; z-index: 0; right: 12px; bottom: -.17em; color: var(--semester-ink); content: attr(data-semester-mark); font-family: 'Space Grotesk', sans-serif; font-size: clamp(210px, 27vw, 350px); font-weight: 800; letter-spacing: -.11em; line-height: .85; opacity: .12; pointer-events: none; }
+#main .page-head.page-head--s1::after { content: "01"; }
+#main .page-head.page-head--s2::after { content: "02"; }
+#main .page-head.page-head--semester-reflections > * { position: relative; z-index: 1; }
+#main .page-head.page-head--semester-reflections .breadcrumb { display: inline-block; margin: 0 0 38px; color: color-mix(in srgb, var(--semester-ink) 78%, var(--semester-tone)); font-size: 11px; font-weight: 650; }
+#main .page-head.page-head--semester-reflections .eyebrow { margin: 0 0 13px; color: color-mix(in srgb, var(--semester-ink) 82%, var(--semester-tone)); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
+#main .page-head.page-head--semester-reflections h1 { max-width: 17ch; margin: 0 0 17px; color: var(--semester-ink); font-family: 'Space Grotesk', sans-serif; font-size: clamp(42px, 6.1vw, 74px); font-weight: 750; letter-spacing: -.075em; line-height: .98; }
+#main .page-head.page-head--semester-reflections > p:last-child { max-width: 60ch; margin: 0; color: color-mix(in srgb, var(--semester-ink) 84%, var(--semester-tone)); font-size: 14px; line-height: 1.7; }
+#main .page-content--semester-reflections { margin-top: 22px; padding: clamp(18px, 2.4vw, 31px); border: 1px solid rgba(96,73,46,.13); border-radius: 29px; background: rgba(255,253,248,.82); box-shadow: 0 24px 40px -32px rgba(32,24,17,.34); }
+:root[data-theme="dark"] #main .page-content--semester-reflections { border-color: rgba(244,230,212,.13); background: rgba(23,31,36,.82); }
+#main .page-content--semester-reflections .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 16px; }
+#main .tile.reflection-tile {
+  --reflection-tone: #4f6b45;
+  --reflection-ink: #f4efe4;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-width: 0;
+  min-height: 395px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid color-mix(in srgb, var(--reflection-ink) 17%, transparent);
+  border-radius: 26px;
+  background: radial-gradient(130% 90% at 0% 0%, rgba(255,255,255,.24), transparent 56%), var(--reflection-tone);
+  color: var(--reflection-ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.26), inset 0 -3px 0 rgba(0,0,0,.13), 0 23px 35px -26px rgba(32,24,17,.42);
+  transition: transform .23s cubic-bezier(.2,.8,.2,1), box-shadow .23s ease;
+}
+#main .tile.reflection-tone-green { --reflection-tone: #4f6b45; --reflection-ink: #f4efe4; }
+#main .tile.reflection-tone-mustard { --reflection-tone: #e0b257; --reflection-ink: #2a1d15; }
+#main .tile.reflection-tone-teal { --reflection-tone: #3e6c78; --reflection-ink: #f4efe4; }
+#main .tile.reflection-tone-sand { --reflection-tone: #e8d3b6; --reflection-ink: #2a1d15; }
+#main .tile.reflection-tone-rust { --reflection-tone: #b4553f; --reflection-ink: #fff6ee; }
+#main .tile.reflection-tone-orange { --reflection-tone: #c98a4b; --reflection-ink: #2a1d15; }
+#main .tile.reflection-tile:hover { z-index: 1; transform: translateY(-5px); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), inset 0 -3px 0 rgba(0,0,0,.13), 0 30px 43px -27px rgba(32,24,17,.48); }
+#main .tile.reflection-tile::before { content: none; }
+#main .reflection-tile-watermark { position: absolute; z-index: 0; right: -29px; bottom: -38px; width: 190px; height: 190px; color: var(--reflection-ink); opacity: .13; transform: rotate(-11deg); pointer-events: none; transition: transform .25s ease; }
+#main .reflection-tile:hover .reflection-tile-watermark { transform: rotate(-5deg) scale(1.05); }
+#main .reflection-tile-watermark .archive-svg-icon { width: 100%; height: 100%; stroke-width: 1.15; }
+#main .tile.reflection-tile .tile-icon { position: relative; z-index: 1; display: grid; width: 52px; height: 52px; flex: none; place-items: center; margin: 0; padding: 12px; border: 0; border-radius: 16px; background: color-mix(in srgb, var(--reflection-ink) 15%, transparent); color: var(--reflection-ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+#main .reflection-tile .tile-icon .archive-svg-icon { width: 27px; height: 27px; }
+#main .tile.reflection-tile .reflection-tile-kicker { position: relative; z-index: 1; margin: 0; color: color-mix(in srgb, var(--reflection-ink) 82%, var(--reflection-tone)); font-size: 8px; font-weight: 800; letter-spacing: .13em; line-height: 1.5; }
+#main .tile.reflection-tile h3 { position: relative; z-index: 1; max-width: 18ch; margin: 0; color: var(--reflection-ink); font-family: 'Space Grotesk', sans-serif; font-size: clamp(23px, 2.2vw, 30px); font-weight: 750; letter-spacing: -.055em; line-height: 1.08; }
+#main .tile.reflection-tile .reflection-tile-description { position: relative; z-index: 1; margin: 0; color: color-mix(in srgb, var(--reflection-ink) 86%, var(--reflection-tone)); font-size: 12px; line-height: 1.6; }
+#main .reflection-tile-ticket { position: relative; z-index: 1; display: grid; gap: 8px; margin-top: auto; padding: 14px 15px; border: 1px solid rgba(42,29,21,.07); border-radius: 6px 6px 15px 15px; background: #fffdf8; color: #2a1d15; box-shadow: 0 12px 22px -15px rgba(0,0,0,.43); }
+#main .reflection-tile:nth-child(even) .reflection-tile-ticket { transform: rotate(.5deg); }
+#main .reflection-tile-ticket > span { padding-bottom: 8px; border-bottom: 1px dashed rgba(42,29,21,.2); color: #7b6049; font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+#main .reflection-tile-ticket > strong { color: #2a1d15; font-size: 12px; font-weight: 700; line-height: 1.4; }
+#main .tile.reflection-tile .tile-bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; margin: 0; padding: 0; border: 0; color: var(--reflection-ink); font-size: 9px; font-weight: 800; letter-spacing: .1em; }
+#main .tile.reflection-tile .tile-bottom > span { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid color-mix(in srgb, var(--reflection-ink) 36%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--reflection-ink) 10%, transparent); color: var(--reflection-ink); font-size: 16px; }
+@media (max-width: 1080px) {
+  #main .page-content--semester-reflections .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #main .page-head.page-head--semester-reflections { min-height: 275px; }
+}
+@media (max-width: 680px) {
+  #main .page-head.page-head--semester-reflections { min-height: 270px; padding: 25px 22px; border-radius: 23px; }
+  #main .page-head.page-head--semester-reflections .breadcrumb { margin-bottom: 31px; }
+  #main .page-head.page-head--semester-reflections h1 { font-size: clamp(38px, 11vw, 54px); }
+  #main .page-head.page-head--semester-reflections > p:last-child { font-size: 12px; }
+  #main .page-head.page-head--semester-reflections::after { right: -4px; font-size: 210px; }
+  #main .page-content--semester-reflections { margin-top: 15px; padding: 12px; border-radius: 22px; }
+  #main .page-content--semester-reflections .tiles { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  #main .tile.reflection-tile { min-height: 365px; padding: 21px; border-radius: 22px; }
+  #main .tile.reflection-tile h3 { font-size: clamp(24px, 8vw, 30px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #main .tile.reflection-tile, #main .reflection-tile-watermark { transition: none; }
+  #main .tile.reflection-tile:hover { transform: none; }
+}

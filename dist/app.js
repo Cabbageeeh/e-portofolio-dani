@@ -71,7 +71,36 @@ nav += '<div class="nav-label">REFLEKSI & ARAH DIRI</div>';
 for (const title of finals) { const id = slug(title); add(id, title, 'reflection'); nav += navLink(id, title); }
 document.querySelector('#navigation').innerHTML = nav;
 
-const tile = (id, title, subtitle, tag = '↗') => `<a class="tile" href="#${id}"><span class="tile-icon">${tag}</span><h3>${esc(title)}</h3><p>${esc(subtitle)}</p><span class="tile-bottom">JELAJAHI <span>↗</span></span></a>`;
+const reflectionTonePalette = ['green', 'mustard', 'teal', 'sand', 'rust', 'orange'];
+function reflectionIconFor(title) {
+  const value = title.toLowerCase();
+  if (value.includes('kebugaran')) return 'activity';
+  if (value.includes('mental') || value.includes('sosial emosional')) return 'heart';
+  if (value.includes('growth')) return 'spark';
+  if (value.includes('inklusi')) return 'people';
+  if (value.includes('kepemimpinan')) return 'flag';
+  if (value.includes('ppp') || value.includes('pmad') || value.includes('pmal')) return 'bookCode';
+  if (value.includes('ppkpt')) return 'shield';
+  if (value.includes('sppg')) return 'school';
+  return 'clipboardCheck';
+}
+function tile(id, title, subtitle, semester = 1, index = 0, kind = 'reflection-index') {
+  const icon = archiveIcon(reflectionIconFor(title), 'archive-svg-icon');
+  const isArtifact = kind === 'index';
+  const sectionLabel = isArtifact ? 'ARTEFAK PEMBELAJARAN' : 'REFLEKSI MATA KULIAH';
+  const ticketLabel = isArtifact ? 'KATEGORI ARTEFAK' : 'CATATAN REFLEKSI';
+  const ticketText = isArtifact ? 'Bukti pembelajaran dan dokumentasi praktik' : 'Pengalaman, pemahaman, dan tindak lanjut';
+  const action = isArtifact ? 'TELUSURI ARTEFAK' : 'BACA REFLEKSI';
+  return `<a class="tile reflection-tile reflection-tone-${reflectionTonePalette[index % reflectionTonePalette.length]}" href="#${id}">
+    <span class="reflection-tile-watermark" aria-hidden="true">${icon}</span>
+    <span class="tile-icon" aria-hidden="true">${icon}</span>
+    <p class="reflection-tile-kicker">SEMESTER 0${semester} · ${sectionLabel}</p>
+    <h3>${esc(title)}</h3>
+    <p class="reflection-tile-description">${esc(subtitle)}</p>
+    <span class="reflection-tile-ticket"><span>${ticketLabel}</span><strong>${ticketText}</strong></span>
+    <span class="tile-bottom">${action} <span aria-hidden="true">↗</span></span>
+  </a>`;
+}
 function semesterCards() {
   return P.semester.map((semester) => '<article class="semester-card mas-semester-card"><span class="semester-number">0' + semester.nomor + '</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ' + semester.nomor + '</h3><p class="mas-school">' + esc(semester.sekolah) + '</p><p class="mas-semester-note">' + semester.artefak.length + ' kategori artefak · ' + semester.mataKuliah.length + ' refleksi mata kuliah</p><div class="semester-links"><a href="#artefak-s' + semester.nomor + '">Telusuri artefak <span>↗</span></a><a href="#refleksi-s' + semester.nomor + '">Baca refleksi <span>↗</span></a></div></article>').join('');
 }
@@ -99,6 +128,12 @@ const archiveIconPaths = {
   monitorCode: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4M9 9l-2 2 2 2m6-4 2 2-2 2"/>',
   video: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3zM7 3h5"/>',
   bookCode: '<path d="M12 7v14m0-14C9 4 6 4 3 5v13c3-1 6-1 9 2m0-13c3-3 6-3 9-2v13c-3-1-6-1-9 2"/><path d="m7 10-2 2 2 2m3-4 2 2-2 2"/>',
+  activity: '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+  heart: '<path d="M20.8 8.8c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.8 4.8 0 0 1 12 6.3a4.8 4.8 0 0 1 8.8 2.5Z"/><path d="M4 12h4l2-3 3.5 6 2-3H20"/>',
+  spark: '<path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Zm7 12 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/>',
+  people: '<circle cx="9" cy="8" r="3"/><path d="M3 20v-1a6 6 0 0 1 12 0v1M16 5.2a3 3 0 0 1 0 5.6M18 14a5 5 0 0 1 3 4.6V20"/>',
+  flag: '<path d="M5 21V4m0 1c5-4 9 4 14 0v10c-5 4-9-4-14 0"/>',
+  shield: '<path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/>',
   clipboardCheck: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6a1.5 1.5 0 0 0-1.5-1.5h-3A1.5 1.5 0 0 0 9 4.5ZM8 11l1.5 1.5L12 10m2 2h2m-8 4 1.5 1.5L12 15m2 2h2"/>',
   layoutCheck: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 9v11m4-7 1.5 1.5L17 11m-3 4h3"/>',
   camera: '<path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v11H3V8a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.5"/>',
@@ -238,15 +273,23 @@ function render() {
       const items = page.kind === 'index' ? page.semester.artefak : page.semester.mataKuliah;
       const availableItems = page.kind === 'index' ? items.filter((title) => (P.isi[`s${page.semester.nomor}-${slug(title)}`]?.artefak || []).length > 0) : items;
       body = availableItems.length
-        ? '<div class="tiles">' + availableItems.map((title) => { const key = (page.kind === 'index' ? 's' : 'refleksi-s') + page.semester.nomor + '-' + slug(title); const count = (P.isi[key]?.artefak || []).length; return tile(key, title, page.kind === 'index' ? count + ' artefak tersedia' : 'Refleksi pengalaman belajar'); }).join('') + '</div>'
-        : page.kind === 'index' ? empty('Arsip sedang disusun.', 'Kategori dengan artefak yang sudah ditambahkan akan tampil di sini.') : '<div class="tiles">' + items.map((title) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar')).join('') + '</div>';
+        ? '<div class="tiles">' + availableItems.map((title, index) => { const key = (page.kind === 'index' ? 's' : 'refleksi-s') + page.semester.nomor + '-' + slug(title); const count = (P.isi[key]?.artefak || []).length; return tile(key, title, page.kind === 'index' ? count + ' artefak tersedia' : 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind); }).join('') + '</div>'
+        : page.kind === 'index' ? empty('Arsip sedang disusun.', 'Kategori dengan artefak yang sudah ditambahkan akan tampil di sini.') : '<div class="tiles">' + items.map((title, index) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind)).join('') + '</div>';
     } else if (page.kind === 'artifact') {
       body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" target="_blank" rel="noopener noreferrer" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
     } else {
       body = '<article class="reading">' + ((content.paragraf || []).map((paragraph) => '<p>' + esc(paragraph) + '</p>').join('') || empty('Refleksi belum ditambahkan.', 'Catatan pengalaman, kekuatan, tantangan, dan rencana perbaikan dapat ditampilkan di sini.')) + (content.bagian || []).map((section) => '<h2>' + esc(section.judul) + '</h2><p>' + esc(section.teks) + '</p>').join('') + '</article>';
     }
     const backId = page.semester ? (page.kind === 'artifact' ? `artefak-s${page.semester.nomor}` : page.kind === 'reflection' ? `refleksi-s${page.semester.nomor}` : 'beranda') : 'beranda';
-    main.innerHTML = '<a class="back-button" href="#' + backId + '"><span aria-hidden="true">←</span> Kembali<span class="back-context"> ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="page-head"><a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + (page.kind === 'artifact' ? 'Bukti pembelajaran dan analisis pengalaman praktik.' : 'Dokumentasi perjalanan belajar menuju guru profesional.') + '</p></section><section class="section">' + body + '</section>';
+    const isReflectionIndex = page.kind === 'reflection-index' && page.semester;
+    const pageHeadClass = isReflectionIndex ? `page-head page-head--semester-reflections page-head--s${page.semester.nomor}` : 'page-head';
+    const pageContentClass = isReflectionIndex ? `section page-content--semester-reflections page-content--s${page.semester.nomor}` : 'section';
+    const pageDescription = page.kind === 'artifact'
+      ? 'Bukti pembelajaran dan analisis pengalaman praktik.'
+      : page.kind === 'reflection-index'
+        ? 'Refleksi mata kuliah yang mendukung perjalanan menjadi guru Informatika.'
+        : 'Dokumentasi perjalanan belajar menuju guru profesional.';
+    main.innerHTML = '<a class="back-button" href="#' + backId + '"><span aria-hidden="true">←</span> Kembali<span class="back-context"> ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="' + pageHeadClass + '"><a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + pageDescription + '</p></section><section class="' + pageContentClass + '">' + body + '</section>';
   }
   document.body.classList.toggle('is-home', id === 'beranda');
   window.PortfolioMotion?.reveal(main);
