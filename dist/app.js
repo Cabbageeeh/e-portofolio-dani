@@ -6,7 +6,7 @@ const pages = new Map();
 const main = document.querySelector('#main');
 const landingScreen = document.querySelector('#landingScreen');
 const portfolioShell = document.querySelector('#portfolioShell');
-const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'proses', 'artefak', 'refleksi', 'portfolio-animation-root']);
+const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi', 'portfolio-animation-root']);
 const finals = ['Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
 const add = (id, title, kind, semester) => pages.set(id, { id, title, kind, semester });
 const navLink = (id, label) => `<a href="#${id}" data-page="${id}">${esc(label)}</a>`;
@@ -103,6 +103,21 @@ function tile(id, title, subtitle, semester = 1, index = 0, kind = 'reflection-i
 }
 function semesterCards() {
   return P.semester.map((semester) => '<article class="semester-card mas-semester-card"><span class="semester-number">0' + semester.nomor + '</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ' + semester.nomor + '</h3><p class="mas-school">' + esc(semester.sekolah) + '</p><p class="mas-semester-note">' + semester.artefak.length + ' kategori artefak · ' + semester.mataKuliah.length + ' refleksi mata kuliah</p><div class="semester-links"><a href="#artefak-s' + semester.nomor + '">Telusuri artefak <span>↗</span></a><a href="#refleksi-s' + semester.nomor + '">Baca refleksi <span>↗</span></a></div></article>').join('');
+}
+function reflectionSemesterCards() {
+  return P.semester.map((semester) => {
+    const number = String(semester.nomor).padStart(2, '0');
+    const courses = semester.mataKuliah.map((title) => `<a href="#refleksi-s${semester.nomor}-${slug(title)}">${esc(title)}<span aria-hidden="true">↗</span></a>`).join('');
+    return `<article class="course-reflection-card course-reflection-card--s${semester.nomor}">
+      <span class="course-reflection-watermark" aria-hidden="true">${archiveIcon('bookCode', 'archive-watermark-svg')}</span>
+      <div class="course-reflection-top"><span class="course-reflection-icon" aria-hidden="true">${archiveIcon('bookCode', 'archive-svg-icon')}</span><span class="course-reflection-count"><strong>${String(semester.mataKuliah.length).padStart(2, '0')}</strong><small>MATA KULIAH</small></span></div>
+      <p class="eyebrow">REFLEKSI MATA KULIAH · SEMESTER ${number}</p>
+      <h3>Semester ${semester.nomor}</h3>
+      <p class="course-reflection-school">${esc(semester.sekolah)}</p>
+      <div class="course-reflection-links" aria-label="Pilih mata kuliah">${courses}</div>
+      <a class="course-reflection-all" href="#refleksi-s${semester.nomor}">Buka semua refleksi <span aria-hidden="true">↗</span></a>
+    </article>`;
+  }).join('');
 }
 function semesterArchive(semester) {
   return semester.artefak.map((title) => {
@@ -256,8 +271,13 @@ function home() {
       <div class="mas-archive-grid">${archiveCards()}</div>
     </section>
 
+    <section class="mas-section mas-course-reflections" id="refleksi-mata-kuliah" aria-labelledby="course-reflections-title">
+      <div class="mas-section-head"><div><p class="eyebrow">05 / REFLEKSI MATA KULIAH</p><h2 id="course-reflections-title">Setiap mata kuliah memberi perspektif baru.</h2><p class="mas-lead">Pilih mata kuliah untuk membaca refleksi, atau buka daftar lengkap per semester.</p></div><span class="mas-index">${P.semester.reduce((total, semester) => total + semester.mataKuliah.length, 0)} REFLEKSI</span></div>
+      <div class="course-reflection-grid">${reflectionSemesterCards()}</div>
+    </section>
+
     <section class="mas-section mas-reflection" id="refleksi" aria-labelledby="reflection-title">
-      <div class="mas-section-head"><div><p class="eyebrow">05 / REFLEKSI PROFESIONAL</p><h2 id="reflection-title">Pengalaman menjadi arah bertumbuh.</h2><p class="mas-lead">Catatan tentang filosofi, praktik, dan rencana pengembangan diri.</p></div><span class="mas-index">REFLEKSI</span></div>
+      <div class="mas-section-head"><div><p class="eyebrow">06 / REFLEKSI PROFESIONAL</p><h2 id="reflection-title">Pengalaman menjadi arah bertumbuh.</h2><p class="mas-lead">Catatan tentang filosofi, praktik, dan rencana pengembangan diri.</p></div><span class="mas-index">REFLEKSI</span></div>
       <div class="reflection-menu-grid">${reflectionCards()}</div>
     </section>
   </div>`;
