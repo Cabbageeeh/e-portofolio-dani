@@ -23,7 +23,7 @@ window.portfolio = {
       nomor: 2,
       sekolah: "SMP Negeri 60 Surabaya",
       artefak: ["Media Pembelajaran", "Video PPL Terbimbing", "Video PPL Mandiri", "Modul Ajar", "Kegiatan Non Mengajar", "Instrumen Penilaian", "Materi Pembelajaran"],
-      mataKuliah: ["Pendidikan Inklusi", "Pembelajaran Sosial Emosional", "PMAL", "PPKPT", "Proyek Kepemimpinan", "SPPG"]
+      mataKuliah: ["Pendidikan Inklusi", "Pembelajaran Sosial Emosional", "PMAL", "PPKPT", "Proyek Kepemimpinan", "Seminar PPG"]
     }
   ],
   // Kunci halaman refleksi mengikuti slug judul mata kuliah pada URL sesudah tanda #.
@@ -80,6 +80,60 @@ window.portfolio = {
         { judul: "Challenge", teks: "Tantangan saya adalah mengenali miskonsepsi dan stigma tanpa menyederhanakan kondisi seseorang. Sebagai calon guru, saya perlu merespons dengan empati, tetapi juga memahami bahwa peran guru bukan mendiagnosis atau menggantikan tenaga profesional. Mengetahui kapan dan ke mana meminta bantuan merupakan bagian dari tanggung jawab." },
         { judul: "Concept", teks: "Materi ini mengajak saya membedakan kesehatan mental dan gangguan mental, mengkaji stigma, serta memahami cara mencari dan memberi dukungan secara positif. Kesehatan mental juga berkaitan dengan pemeliharaan diri dan lingkungan belajar yang membuat warga sekolah merasa dihargai serta aman untuk meminta bantuan." },
         { judul: "Change", teks: "Saya akan berusaha memakai bahasa yang menghargai, mendengarkan tanpa menghakimi, dan ikut membangun suasana kelas yang aman. Saya juga akan menjaga kebiasaan perawatan diri serta mengarahkan peserta didik kepada pihak yang tepat apabila kebutuhan dukungannya melampaui kapasitas saya sebagai guru." }
+      ]
+    },
+    "refleksi-s2-pendidikan-inklusi": {
+      paragraf: ["Pendidikan Inklusi mengajak saya melihat keberagaman kebutuhan peserta didik sebagai titik awal merancang pembelajaran yang memberi kesempatan belajar bagi semua."],
+      bagian: [
+        { judul: "Connection", teks: "Latar belakang saya di Teknik Informatika murni membiasakan saya mencari solusi yang terstruktur. Di PPG, saya belajar bahwa solusi pembelajaran perlu mempertimbangkan siapa yang akan menggunakannya. Pendidikan Inklusi menghubungkan cara berpikir itu dengan kebutuhan untuk mengenali karakteristik, potensi, dan hambatan belajar setiap peserta didik." },
+        { judul: "Challenge", teks: "Tantangan saya adalah tidak menganggap satu strategi, media, atau bentuk penilaian akan cocok bagi semua peserta didik. Saya perlu belajar mengidentifikasi kebutuhan secara cermat, merancang akomodasi yang relevan, dan mengevaluasi apakah dukungan yang diberikan benar-benar membantu keterlibatan serta perkembangan belajar." },
+        { judul: "Concept", teks: "Saya memahami bahwa pendidikan inklusif mencakup pengenalan kebutuhan peserta didik, perencanaan dan pelaksanaan pembelajaran akomodatif, serta evaluasi dukungannya. Inklusi bukan sekadar menempatkan semua peserta didik di ruang yang sama, melainkan menata lingkungan dan pengalaman belajar agar setiap orang dapat berpartisipasi." },
+        { judul: "Change", teks: "Saya akan memeriksa aksesibilitas materi, instruksi, aktivitas, dan asesmen saat merancang pembelajaran Informatika. Saya ingin menyediakan pilihan cara mengakses materi dan menunjukkan pemahaman, serta menggunakan pengamatan dan umpan balik untuk memperbaiki dukungan tanpa memberi label atau menurunkan harapan belajar." }
+      ]
+    },
+    "refleksi-s2-pembelajaran-sosial-emosional": {
+      paragraf: ["Pembelajaran Sosial Emosional memperluas pemahaman saya bahwa proses belajar juga dibentuk oleh kesadaran diri, hubungan yang sehat, dan rasa aman di kelas."],
+      bagian: [
+        { judul: "Connection", teks: "Saya sebelumnya banyak memikirkan bagaimana menjelaskan konsep Informatika dan menyusun langkah kerja. Mata kuliah ini mengingatkan saya bahwa peserta didik belajar bersama orang lain dengan perasaan, kebutuhan, dan pengalaman yang berbeda. Relasi guru dengan peserta didik menjadi bagian penting dari suasana belajar." },
+        { judul: "Challenge", teks: "Tantangan saya adalah menjaga respons yang tenang dan empatik ketika muncul perbedaan pendapat, kesulitan, atau perilaku yang mengganggu proses belajar. Saya juga perlu memastikan pembelajaran sosial emosional tidak berhenti sebagai nasihat, tetapi hadir konsisten dalam cara berkomunikasi, bekerja sama, dan menyelesaikan masalah." },
+        { judul: "Concept", teks: "Saya memahami bahwa pembelajaran sosial emosional membantu peserta didik mengenali dan mengelola emosi, memahami orang lain, membangun hubungan positif, serta mengambil keputusan yang bertanggung jawab. Keterampilan tersebut mendukung keterlibatan belajar dan perlu ditumbuhkan melalui budaya kelas yang menghargai semua pihak." },
+        { judul: "Change", teks: "Saya akan membangun kesepakatan kelas, memberi ruang untuk mendengarkan dan bekerja sama, serta menggunakan bahasa yang menghargai. Dalam kegiatan Informatika, seperti diskusi atau proyek kelompok, saya ingin memberi perhatian pada proses komunikasi dan kontribusi anggota, bukan hanya hasil akhirnya." }
+      ]
+    },
+    "refleksi-s2-pmal": {
+      paragraf: ["Pembelajaran Mendalam dan Asesmen Lanjut (PMAL) membantu saya menghubungkan tujuan belajar, kebutuhan peserta didik, konteks kelas, dan bukti asesmen ke dalam rancangan pembelajaran yang lebih adaptif."],
+      bagian: [
+        { judul: "Connection", teks: "Di bidang Informatika, saya terbiasa memecah persoalan menjadi bagian-bagian yang dapat dianalisis. PMAL menghubungkan kebiasaan itu dengan keputusan pedagogis: data dan konteks belajar perlu dibaca untuk menentukan pengalaman belajar yang tepat, bukan hanya untuk mencatat nilai." },
+        { judul: "Challenge", teks: "Tantangan saya adalah menerjemahkan hasil asesmen menjadi tindak lanjut yang sesuai, terutama ketika kesiapan dan kebutuhan peserta didik beragam. Saya perlu menjaga agar aktivitas tetap menantang, tetapi dapat dijangkau, serta tidak menyamakan kedalaman belajar dengan banyaknya materi atau tugas." },
+        { judul: "Concept", teks: "Saya belajar mempertimbangkan tiga kerangka dalam merancang pembelajaran: Universal Design for Learning (UDL), Teaching at the Right Level (TaRL), dan Culturally Responsive Teaching (CRT). Data asesmen, kebutuhan belajar, dan konteks budaya membantu guru menentukan strategi yang adaptif, inklusif, dan berpihak pada murid." },
+        { judul: "Change", teks: "Saya akan menggunakan bukti asesmen untuk mengenali pemahaman awal, menentukan variasi dukungan dan tantangan, lalu memeriksa kembali dampaknya. Dalam Informatika, saya ingin memberi pilihan representasi atau cara menyelesaikan masalah sambil menjaga tujuan belajar tetap jelas bagi semua peserta didik." }
+      ]
+    },
+    "refleksi-s2-ppkpt": {
+      paragraf: ["Pencegahan dan Penanganan Kekerasan di Lingkungan Pendidikan (PPKPT) menegaskan bahwa rasa aman dan dihargai merupakan prasyarat agar peserta didik dapat belajar dan berkembang."],
+      bagian: [
+        { judul: "Connection", teks: "Pembelajaran Informatika sering melibatkan diskusi, kerja kelompok, dan penggunaan ruang digital. Saya menghubungkan hal itu dengan tanggung jawab guru untuk memastikan interaksi berlangsung dengan aman, menghormati martabat peserta didik, dan tidak membiarkan kekerasan maupun perundungan dianggap sebagai hal biasa." },
+        { judul: "Challenge", teks: "Tantangan saya adalah peka terhadap tanda-tanda situasi yang tidak aman dan merespons laporan secara tenang serta berpihak pada keselamatan peserta didik. Niat baik saja tidak cukup; saya perlu memahami batas peran, menghindari menyalahkan korban, menjaga kerahasiaan secara bertanggung jawab, dan mengikuti mekanisme penanganan yang berlaku di satuan pendidikan." },
+        { judul: "Concept", teks: "Saya memahami pentingnya mengenali urgensi lingkungan pendidikan yang aman dan menyenangkan, memahami bentuk serta cakupan kekerasan, dan mengetahui prinsip pencegahan serta penanganannya. Pencegahan juga tumbuh dari budaya sekolah yang menghormati batas, membangun relasi sehat, dan menyediakan jalur bantuan yang jelas." },
+        { judul: "Change", teks: "Saya akan menyepakati aturan interaksi yang saling menghormati, termasuk saat peserta didik berkomunikasi di ruang digital. Jika menemukan dugaan kekerasan, saya akan mendengarkan dengan empati, mengutamakan keselamatan, mencatat informasi seperlunya, dan menghubungi pihak atau mekanisme resmi sekolah sesuai prosedur." }
+      ]
+    },
+    "refleksi-s2-proyek-kepemimpinan": {
+      paragraf: ["Proyek Kepemimpinan memberi ruang untuk belajar bahwa kepemimpinan pendidikan tumbuh lewat kerja kolaboratif: memahami masalah, menyusun inisiatif, dan mengupayakan solusi yang bermakna."],
+      bagian: [
+        { judul: "Connection", teks: "Pengalaman mengembangkan SIGAP bersama kelompok menghubungkan kemampuan teknis saya dengan kebutuhan untuk bekerja bersama orang lain. Saya melihat bahwa sebuah proyek pendidikan tidak hanya membutuhkan perangkat yang berfungsi, tetapi juga pemahaman masalah, tujuan bersama, komunikasi, dan pertimbangan terhadap orang yang akan menggunakannya." },
+        { judul: "Challenge", teks: "Tantangan dalam proyek kolaboratif adalah menyatukan sudut pandang, membagi tanggung jawab dengan jelas, dan menjaga agar solusi tetap berangkat dari kebutuhan nyata. Saya juga belajar bahwa gagasan yang menarik perlu diuji dan diperbaiki, bukan hanya diselesaikan dari sisi teknis." },
+        { judul: "Concept", teks: "Saya memahami kepemimpinan sebagai proses mengajak tim bergerak menuju tujuan yang bermanfaat. Pengalaman berbasis proyek melatih perencanaan, kolaborasi, komunikasi, pengambilan keputusan, dan pemecahan masalah dalam konteks nyata. Keberhasilan inisiatif perlu dilihat dari relevansi solusi dan proses belajar bersama." },
+        { judul: "Change", teks: "Pada proyek berikutnya, saya ingin lebih awal mendengarkan calon pengguna, menyepakati ukuran keberhasilan, dan membagi peran berdasarkan kekuatan anggota. Saya juga akan menyediakan waktu untuk meminta masukan, menguji solusi, dan mendokumentasikan perubahan agar keputusan tim dapat dipertanggungjawabkan." }
+      ]
+    },
+    "refleksi-s2-seminar-ppg": {
+      paragraf: ["Seminar PPG menjadi ruang untuk menyatukan pengalaman belajar, praktik, dan karya ke dalam refleksi yang dapat dijelaskan serta ditinjau kembali."],
+      bagian: [
+        { judul: "Connection", teks: "Saya menghubungkan seminar dengan perjalanan saya dari latar Teknik Informatika murni menuju peran calon guru. Selama PPG, saya belajar banyak konsep pedagogik yang sebelumnya belum menjadi bagian dari pendidikan awal saya. Portofolio digital ini membantu menautkan pembelajaran, praktik, dan karya sebagai bukti perkembangan tersebut." },
+        { judul: "Challenge", teks: "Tantangan saya adalah menyampaikan proses dan alasan di balik sebuah karya secara ringkas, runtut, dan didukung bukti. Saya perlu membedakan antara menjelaskan apa yang dibuat dan menganalisis mengapa pilihan pembelajaran dibuat, apa yang dipelajari, serta bagian mana yang masih perlu diperbaiki." },
+        { judul: "Concept", teks: "Saya memahami seminar sebagai kegiatan akademik yang menuntut refleksi berbasis data, komunikasi yang efektif, dan keterbukaan terhadap tanggapan. Dokumentasi portofolio, partisipasi, dan pemaparan karya dapat menjadi kesempatan untuk menguji pemahaman dan menghubungkan pengalaman praktik dengan gagasan yang dipelajari." },
+        { judul: "Change", teks: "Saya akan menyiapkan pemaparan dengan menyertakan konteks, tujuan, bukti proses, analisis, dan refleksi. Saya ingin menggunakan pertanyaan serta masukan dari dosen dan rekan sebagai bahan untuk memperbaiki karya dan rancangan pembelajaran, bukan sekadar sebagai penilaian atas hasil akhir." }
       ]
     },
     "model-guru": { paragraf: [] },
