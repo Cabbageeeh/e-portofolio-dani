@@ -260,7 +260,7 @@
 #main .page-content--semester-reflections .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 16px; }
 #main .page-content--semester-artifacts { margin-top: 22px; padding: clamp(18px, 2.4vw, 31px); border: 1px solid rgba(96,73,46,.13); border-radius: 29px; background: rgba(255,253,248,.82); box-shadow: 0 24px 40px -32px rgba(32,24,17,.34); }
 :root[data-theme="dark"] #main .page-content--semester-artifacts { border-color: rgba(244,230,212,.13); background: rgba(23,31,36,.82); }
-#main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 16px; }
+#main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; gap: 16px; }
 #main .page-content--semester-artifacts .archive-index-summary { margin-bottom: 18px; }
 #main .page-content--semester-artifacts .archive-detail-slot { margin-top: 24px; }
 #main .tile.reflection-tile {
@@ -308,6 +308,7 @@
 @media (max-width: 1080px) {
   #main .page-content--semester-reflections .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #main .page-content--semester-artifacts .archive-index-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 8px); justify-self: center; }
   #main .page-head.page-head--semester { min-height: 275px; }
 }
 @media (max-width: 680px) {
@@ -320,6 +321,7 @@
   #main .page-content--semester-reflections .tiles { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   #main .page-content--semester-artifacts { margin-top: 15px; padding: 12px; border-radius: 22px; }
   #main .page-content--semester-artifacts .archive-index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  #main .page-content--semester-artifacts .archive-index-card:last-child:nth-child(odd) { width: calc(50% - 5px); }
   #main .page-content--semester-artifacts .archive-index-card { min-height: 255px; padding: 16px 14px; border-radius: 19px; }
   #main .page-content--semester-artifacts .archive-index-card h3 { min-height: 2.4em; margin-top: 17px; font-size: 15px; }
   #main .page-content--semester-artifacts .archive-index-card > p { font-size: 10px; }

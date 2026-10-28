@@ -16,7 +16,7 @@ window.portfolio = {
     {
       nomor: 1,
       sekolah: "SMA Negeri 15 Surabaya",
-      artefak: ["LKPD", "Media Pembelajaran", "Video Pembelajaran", "Modul Ajar", "Penilaian Praktik Mengajar", "Penilaian Penyusunan Perangkat"],
+      artefak: ["Media Pembelajaran", "Video Pembelajaran", "Modul Ajar", "LKPD", "Penilaian Praktik Mengajar", "Penilaian Penyusunan Perangkat", "Materi Pembelajaran"],
       mataKuliah: ["PPP", "Pengembangan Kebugaran Jasmani", "FPPN", "PMAD", "Growth Mindset", "Literasi Kesehatan Mental"]
     },
     {
@@ -175,6 +175,7 @@ window.portfolio = {
         teori: "Pembelajaran berbasis contoh, demonstrasi atau live coding, scaffolding, dan Project Based Learning."
       }]
     },
+    "s1-materi-pembelajaran": { artefak: [] },
     "s2-modul-ajar": {
       artefak: [
         {
