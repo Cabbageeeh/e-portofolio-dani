@@ -356,9 +356,79 @@ function home() {
       <div class="mas-section-head"><div><p class="eyebrow">06 / REFLEKSI PROFESIONAL</p><h2 id="reflection-title">Pengalaman menjadi arah bertumbuh.</h2><p class="mas-lead">Catatan tentang filosofi, praktik, dan rencana pengembangan diri.</p></div><span class="mas-index">REFLEKSI</span></div>
       <div class="reflection-menu-grid">${reflectionCards()}</div>
     </section>
+
+    <section class="mas-section learning-closing" id="penutup-ppg" aria-labelledby="learning-closing-title">
+      <div class="learning-closing-copy">
+        <p class="eyebrow">07 / PENUTUP · PERJALANAN PPG 2026</p>
+        <h2 id="learning-closing-title">Dari kode, tumbuh menjadi pendidik.</h2>
+        <p class="learning-closing-lead">Berangkat dari Teknik Informatika murni, perjalanan PPG mengenalkanku pada pedagogik, praktik di sekolah, dan cara baru merancang pembelajaran yang berpihak pada peserta didik.</p>
+        <div class="learning-closing-actions"><a class="learning-closing-button" href="#karya">Telusuri karya <span aria-hidden="true">↗</span></a><a class="learning-closing-link" href="#refleksi">Baca refleksi <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="learning-emblem" data-learning-emblem aria-hidden="true">
+        <svg class="learning-emblem-svg" viewBox="0 0 400 400" role="presentation" focusable="false">
+          <defs>
+            <radialGradient id="learning-aura" cx="50%" cy="42%" r="60%"><stop offset="0" stop-color="#ffffff"/><stop offset=".68" stop-color="#e8f5ff"/><stop offset="1" stop-color="#c7e5f6"/></radialGradient>
+            <linearGradient id="learning-core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12395c"/><stop offset="1" stop-color="#1c72a2"/></linearGradient>
+            <linearGradient id="learning-page" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#d8efff"/></linearGradient>
+            <linearGradient id="learning-route" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#74c5ec"/><stop offset="1" stop-color="#70e0bd"/></linearGradient>
+            <filter id="learning-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="15" stdDeviation="13" flood-color="#102d46" flood-opacity=".22"/></filter>
+            <path id="learning-orbit-path" d="M200 200m-174 0a174 174 0 1 1 348 0a174 174 0 1 1-348 0"/>
+          </defs>
+          <circle class="learning-aura" cx="200" cy="200" r="156" fill="url(#learning-aura)"/>
+          <circle class="learning-ring learning-ring--outer" cx="200" cy="200" r="158"/>
+          <circle class="learning-ring learning-ring--inner" cx="200" cy="200" r="132"/>
+          <g class="learning-orbit-copy"><text textLength="1088" lengthAdjust="spacing"><textPath href="#learning-orbit-path">INFORMATIKA ✦ PEDAGOGIK ✦ PRAKTIK ✦ REFLEKSI ✦ INFORMATIKA ✦ PEDAGOGIK ✦ PRAKTIK ✦ REFLEKSI ✦</textPath></text></g>
+          <g class="learning-book" filter="url(#learning-shadow)">
+            <circle class="learning-disc" cx="200" cy="200" r="91" fill="url(#learning-core)"/>
+            <circle class="learning-disc-line" cx="200" cy="200" r="91"/>
+            <path class="learning-book-page learning-book-page--left" d="M200 234c-22-15-47-20-73-15v-65c27-5 51 0 73 16z"/>
+            <path class="learning-book-page learning-book-page--right" d="M200 170c22-16 46-21 73-16v65c-26-5-51 0-73 15z"/>
+            <path class="learning-book-line" d="M200 171v63M140 176c17-2 34 1 48 8M140 190c17-2 34 1 48 8M212 184c14-7 31-10 48-8M212 198c14-7 31-10 48-8"/>
+            <path class="learning-route-line" d="M145 216c17-13 34 8 51-1s30-11 43-2 18-6 28-12"/>
+            <circle class="learning-route-node learning-route-node--one" cx="146" cy="215" r="4.5"/><circle class="learning-route-node learning-route-node--two" cx="200" cy="215" r="4.5"/><circle class="learning-route-node learning-route-node--three" cx="267" cy="201" r="4.5"/>
+            <text class="learning-code-mark" x="200" y="145" text-anchor="middle">&lt;/&gt;</text>
+          </g>
+          <circle class="learning-spark learning-spark--one" cx="84" cy="170" r="4"/><circle class="learning-spark learning-spark--two" cx="317" cy="237" r="5"/><circle class="learning-spark learning-spark--three" cx="255" cy="86" r="3"/>
+        </svg>
+      </div>
+      <p class="learning-closing-foot">Belajar · Mengajar · Bertumbuh</p>
+    </section>
   </div>`;
 }
 function empty(title, description) { return `<div class="empty"><span class="empty-icon">▤</span><h2>${title}</h2><p>${description}</p><span class="pill">MENUNGGU MATERI</span></div>`; }
+let learningEmblemObserver;
+function observeLearningEmblem() {
+  learningEmblemObserver?.disconnect();
+  const emblem = document.querySelector('[data-learning-emblem]');
+  if (!emblem) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    emblem.classList.add('is-visible');
+    return;
+  }
+  learningEmblemObserver = new IntersectionObserver((entries, observer) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      emblem.classList.add('is-visible');
+      observer.disconnect();
+    }
+  }, { threshold: 0.35 });
+  learningEmblemObserver.observe(emblem);
+}
+document.addEventListener('pointermove', (event) => {
+  if (event.pointerType === 'touch') return;
+  const emblem = event.target.closest?.('[data-learning-emblem]');
+  if (!emblem) return;
+  const rect = emblem.getBoundingClientRect();
+  const x = Math.max(-1, Math.min(1, (event.clientX - rect.left - rect.width / 2) / (rect.width / 2)));
+  const y = Math.max(-1, Math.min(1, (event.clientY - rect.top - rect.height / 2) / (rect.height / 2)));
+  emblem.style.setProperty('--learning-tilt-x', `${(-y * 7).toFixed(2)}deg`);
+  emblem.style.setProperty('--learning-tilt-y', `${(x * 7).toFixed(2)}deg`);
+});
+document.addEventListener('pointerout', (event) => {
+  const emblem = event.target.closest?.('[data-learning-emblem]');
+  if (!emblem || event.relatedTarget?.closest?.('[data-learning-emblem]') === emblem) return;
+  emblem.style.removeProperty('--learning-tilt-x');
+  emblem.style.removeProperty('--learning-tilt-y');
+});
 function render() {
   const requested = decodeURIComponent(location.hash.slice(1)) || 'beranda';
   const anchorTarget = homeAnchorIds.has(requested) ? requested : null;
@@ -370,7 +440,7 @@ function render() {
     link.removeAttribute('aria-current');
     if (active) { link.setAttribute('aria-current', 'page'); if (link.closest('details')) link.closest('details').open = true; }
   });
-  if (id === 'beranda') main.innerHTML = home();
+  if (id === 'beranda') { main.innerHTML = home(); observeLearningEmblem(); }
   else if (!page) main.innerHTML = '<section class="section"><h1>Halaman tidak ditemukan</h1><a class="button" href="#beranda">Kembali ke beranda</a></section>';
   else {
     const content = P.isi[id] || {};
