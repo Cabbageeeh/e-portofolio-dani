@@ -1,0 +1,123 @@
+/* Ruang Belajar is the lead innovation; the two collaborative works remain a quieter pair. */
+#main .project-featured-wrap { margin-top: clamp(22px, 3.5vw, 42px); }
+#main .project-card.project-feature-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr);
+  align-items: center;
+  gap: clamp(26px, 5vw, 72px);
+  min-height: 0;
+  padding: clamp(28px, 5vw, 64px);
+  border-radius: var(--portfolio-card-radius, 24px);
+  border-color: color-mix(in srgb, var(--card-ink-2) 17%, transparent);
+  background-color: var(--card-tone-2);
+  background-image: none;
+  color: var(--card-ink-2);
+  box-shadow: var(--portfolio-card-shadow);
+  transform: none;
+}
+#main .project-card.project-feature-card:hover {
+  border-color: color-mix(in srgb, var(--card-ink-2) 17%, transparent);
+  transform: translateY(-4px);
+  box-shadow: var(--portfolio-card-shadow-hover);
+}
+#main .project-feature-card .project-watermark {
+  right: -28px;
+  bottom: -70px;
+  width: clamp(220px, 28vw, 370px);
+  height: clamp(220px, 28vw, 370px);
+  opacity: .07;
+}
+#main .project-feature-copy,
+#main .project-feature-flow { position: relative; z-index: 1; min-width: 0; }
+#main .project-feature-copy { display: flex; align-items: flex-start; flex-direction: column; }
+#main .project-feature-topline { display: flex; align-items: center; gap: 15px; margin-bottom: 26px; }
+#main .project-feature-topline .project-icon { width: 58px; height: 58px; }
+#main .project-feature-tag,
+#main .project-feature-product,
+#main .project-feature-card .project-index {
+  color: var(--card-ink-2);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  line-height: 1.55;
+}
+#main .project-feature-tag { opacity: .8; }
+#main .project-feature-card .project-index { margin: 0 0 11px; opacity: .72; }
+#main .project-feature-product { margin: 0 0 8px; opacity: .82; text-transform: uppercase; }
+#main .project-feature-product span { padding: 0 4px; opacity: .58; }
+#main .project-feature-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 14px;
+  color: var(--card-ink-2);
+  font-size: clamp(42px, 6vw, 76px);
+  font-weight: 800;
+  letter-spacing: -.075em;
+  line-height: .98;
+}
+#main .project-feature-description {
+  position: relative;
+  z-index: 1;
+  max-width: 58ch;
+  margin: 0;
+  color: var(--card-ink-2);
+  font-size: clamp(15px, 1.45vw, 18px);
+  line-height: 1.7;
+  opacity: .88;
+}
+#main .project-feature-card .project-ticket {
+  width: min(100%, 560px);
+  margin: 25px 0 19px;
+  border-radius: 15px;
+  transform: none;
+}
+#main .project-feature-card .project-link { margin-top: 0; }
+#main .project-feature-flow {
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid color-mix(in srgb, var(--card-ink-2) 22%, transparent);
+  border-radius: 22px;
+  background-color: color-mix(in srgb, var(--card-ink-2) 8%, var(--card-tone-2));
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--card-ink-2) 11%, transparent);
+}
+#main .project-feature-flow-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid color-mix(in srgb, var(--card-ink-2) 19%, transparent); }
+#main .project-feature-flow-head > div { display: grid; gap: 6px; }
+#main .project-feature-flow-head span,
+#main .project-feature-flow-head > b { color: var(--card-ink-2); font-size: 9px; font-weight: 800; letter-spacing: .13em; opacity: .72; }
+#main .project-feature-flow-head strong { color: var(--card-ink-2); font-size: clamp(18px, 2vw, 24px); letter-spacing: -.04em; }
+#main .project-feature-flow-head > b { flex: none; padding: 7px 9px; border: 1px solid color-mix(in srgb, var(--card-ink-2) 23%, transparent); border-radius: 999px; }
+#main .project-feature-flow ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
+#main .innovation-feature-step { display: flex; min-width: 0; gap: 11px; padding: 14px 12px; border: 1px solid color-mix(in srgb, var(--card-ink-2) 17%, transparent); border-radius: 14px; background: color-mix(in srgb, var(--card-ink-2) 5%, var(--card-tone-2)); }
+#main .innovation-feature-step > span { display: grid; width: 30px; height: 30px; flex: none; place-items: center; border-radius: 9px; background: color-mix(in srgb, var(--card-ink-2) 15%, transparent); color: var(--card-ink-2); font-size: 10px; font-weight: 800; }
+#main .innovation-feature-step strong { display: block; margin: 1px 0 5px; color: var(--card-ink-2); font-size: 12px; line-height: 1.35; }
+#main .innovation-feature-step p { margin: 0; color: var(--card-ink-2); font-size: 10px; line-height: 1.55; opacity: .76; }
+#main .project-feature-flow-note { margin: 16px 0 0; color: var(--card-ink-2); font-size: 11px; line-height: 1.55; opacity: .76; }
+#main .project-collaboration-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin: clamp(45px, 7vw, 82px) 0 22px; }
+#main .project-collaboration-head .eyebrow { margin: 0 0 8px; color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+#main .project-collaboration-head h3 { margin: 0; color: var(--text); font-size: clamp(24px, 3.1vw, 38px); letter-spacing: -.06em; line-height: 1.12; }
+#main .project-collaboration-head > span { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .13em; }
+#main .project-list.project-collaboration-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#main .project-list.project-collaboration-grid .project-card { min-height: 390px; }
+
+@media (max-width: 900px) {
+  #main .project-card.project-feature-card { grid-template-columns: 1fr; gap: 28px; }
+  #main .project-feature-flow { max-width: none; }
+}
+@media (max-width: 760px) {
+  #main .project-card.project-feature-card { gap: 25px; padding: 24px 20px; }
+  #main .project-feature-topline { gap: 12px; margin-bottom: 22px; }
+  #main .project-feature-topline .project-icon { width: 49px; height: 49px; }
+  #main .project-feature-tag { font-size: 8px; }
+  #main .project-feature-card h3 { font-size: clamp(42px, 13vw, 60px); }
+  #main .project-feature-description { font-size: 14px; }
+  #main .project-feature-card .project-ticket { margin: 20px 0 17px; }
+  #main .project-feature-flow { padding: 19px 15px; border-radius: 18px; }
+  #main .project-feature-flow ol { grid-template-columns: 1fr; gap: 8px; margin-top: 15px; }
+  #main .innovation-feature-step { padding: 12px 10px; }
+  #main .project-collaboration-head { align-items: flex-start; flex-direction: column; gap: 9px; margin-top: 48px; }
+  #main .project-list.project-collaboration-grid { grid-template-columns: 1fr; }
+  #main .project-list.project-collaboration-grid .project-card { min-height: 355px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #main .project-card.project-feature-card,
+  #main .project-card.project-feature-card:hover { transform: none; }
+}

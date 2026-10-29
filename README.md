@@ -32,11 +32,11 @@ Pertahankan tanda kutip, koma, dan kurung JavaScript. Jangan masukkan pengalaman
 
 ## Animasi dan sumber
 
-Enam pola animasi MasRama diadaptasi untuk portofolio pendidikan: film jadwal interaktif, gulungan judul karya, tahapan penelusuran, simulasi ketahanan sistem digital, peta karya, dan garis waktu dua semester. Kode sumbernya tersedia di `animation-src/`; lisensi MIT dan atribusinya tercantum di `THIRD-PARTY-NOTICES.md`. Paletnya disesuaikan ke Navy & Sky. Adegan yang bersifat konsep ditandai sebagai ilustrasi, bukan klaim tentang fitur atau status proyek.
+Tiga animasi utama mendukung cerita portofolio: papan karya JurnalKita, SIGAP, dan RuangBelajar; jejak perjalanan dari Teknik Informatika menuju pendidikan; serta preview ilustratif penjadwalan sekolah. Simulasi dekoratif yang tidak mewakili karya atau pengalaman nyata tidak ditampilkan. Kode sumber animasi tersedia di `animation-src/`; lisensi MIT dan atribusinya tercantum di `THIRD-PARTY-NOTICES.md`. Paletnya disesuaikan ke Navy & Sky.
 
 Setelah mengubah source animasi, jalankan `npm install` lalu `npm run build`. Berkas statis hasilnya dibuat di `dist/portfolio-animations.js` dan `dist/portfolio-animations.css`. `vercel.json` memakai `dist` sebagai output directory.
 
-Animasi menghormati pengaturan reduced motion perangkat. Film jadwal dan simulasi sistem dapat dijeda serta dilompati per bab, papan karya berhenti saat penunjuk diarahkan ke sana, kartu proses muncul bertahap, peta karya dapat dipilih, dan garis waktu dapat diputar ulang dari tiap karya. Kartu karya juga memiliki efek tilt ringan pada perangkat dengan pointer.
+Animasi menghormati pengaturan reduced motion perangkat. Film jadwal dapat dijeda dan dilompati per bab, papan karya berhenti saat penunjuk diarahkan ke sana, dan garis waktu dapat diputar ulang atau dipilih per tahap. Kartu karya juga memiliki efek tilt ringan pada perangkat dengan pointer.
 
 ## Menjalankan lokal
 

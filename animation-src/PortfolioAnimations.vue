@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import JadwalFilm from './components/JadwalFilm.vue';
-import KavlingFilm from './components/KavlingFilm.vue';
-import MesinFilm from './components/MesinFilm.vue';
 import PapanFilm from './components/PapanFilm.vue';
-import ProsesSteps from './components/ProsesSteps.vue';
 import PerjalananFilm from './components/PerjalananFilm.vue';
 
-const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'journey' | 'supporting' }>(), { mode: 'supporting' });
+const props = withDefaults(defineProps<{ mode?: 'featured' | 'hero' | 'journey' }>(), { mode: 'featured' });
 
 const projectQueue = [
   {
@@ -24,13 +21,6 @@ const projectQueue = [
     work: { brand: 'RuangBelajar', name: 'Ruang Kelas Digital', detail: 'Karya inovasi pembelajaran Informatika yang dikembangkan secara pribadi.' },
     number: 3,
   },
-];
-
-const readingSteps = [
-  { name: 'Kenali konteks', text: 'Mulai dari profil dan sekolah tempat PPL berlangsung.', result: 'Profil dan perjalanan dua semester' },
-  { name: 'Telusuri artefak', text: 'Buka perangkat, media, video, dan dokumentasi praktik.', result: 'Bukti pembelajaran' },
-  { name: 'Baca analisis', text: 'Pahami tujuan, kelebihan, tantangan, dan kaitan teori.', result: 'Analisis setiap artefak' },
-  { name: 'Temukan refleksi', text: 'Ikuti catatan pengalaman dan arah pengembangan diri.', result: 'Refleksi profesional' },
 ];
 
 </script>
@@ -62,40 +52,6 @@ const readingSteps = [
       </div>
       <PerjalananFilm />
     </section>
-
-    <template v-else>
-    <div class="motion-panels">
-      <section class="motion-panel process-panel" aria-labelledby="reading-path-title">
-        <div class="motion-panel-head">
-          <p class="eyebrow">ALUR PENELUSURAN · TAHAP BERURUTAN</p>
-          <h3 id="reading-path-title">Ikuti proses di balik pembelajaran.</h3>
-          <p>Empat tahap ini membantu dosen menelusuri konteks, bukti, analisis, lalu refleksi.</p>
-        </div>
-        <ProsesSteps :steps="readingSteps" />
-      </section>
-    </div>
-
-    <div class="source-motion-list">
-      <section class="motion-panel" aria-labelledby="system-flow-title">
-        <div class="motion-panel-head">
-          <p class="eyebrow">SIMULASI KONSEP INFORMATIKA</p>
-          <h3 id="system-flow-title">Alur digital tetap berjalan.</h3>
-          <p>Visualisasi konsep ketahanan sistem: sesi berpindah saat satu simpul mengalami gangguan. Ini ilustrasi pembelajaran, bukan klaim tentang fitur JurnalKita atau SIGAP.</p>
-        </div>
-        <MesinFilm />
-      </section>
-
-      <section class="motion-panel" aria-labelledby="artifact-map-title">
-        <div class="motion-panel-head">
-          <p class="eyebrow">PETA KARYA · SIMULASI</p>
-          <h3 id="artifact-map-title">Pilih karya untuk melihat alurnya.</h3>
-          <p>Peta interaktif ini menggambarkan cara menelusuri karya dan bukti. Status yang muncul hanya visual contoh, bukan status pengumpulan artefakmu.</p>
-        </div>
-        <KavlingFilm />
-      </section>
-
-    </div>
-    </template>
   </div>
 </template>
 
@@ -159,83 +115,12 @@ const readingSteps = [
 .schedule-copy > p:not(.eyebrow):not(.schedule-footnote):not(.schedule-problem-label):not(.schedule-built-label) { color: var(--muted); font-size: clamp(14px, 1.5vw, 19px); line-height: 1.75; }
 .schedule-feature > .film { min-width: 0; }
 .schedule-footnote { margin: 13px 0 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
-.motion-panels { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
-.source-motion-list { display: grid; gap: clamp(68px, 7vw, 105px); }
-.motion-panel {
-  min-width: 0;
-  padding: clamp(18px, 2.6vw, 28px);
-  overflow: hidden;
-  border: 1px solid var(--glass-line);
-  border-radius: 20px;
-  background: linear-gradient(145deg, var(--glass-strong), var(--glass));
-  box-shadow: var(--glass-shadow);
-}
-.motion-panel-head { margin-bottom: 24px; }
-.motion-panel-head .eyebrow { margin: 0 0 10px; color: var(--accent); font-size: 9px; font-weight: 800; letter-spacing: .13em; }
-.motion-panel-head h3 { margin: 0 0 8px; font-size: clamp(20px, 2.1vw, 28px); font-weight: 700; letter-spacing: -.05em; line-height: 1.14; }
-.motion-panel-head > p:last-child { max-width: 440px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
-.process-panel .proses { margin-top: 8px; }
-.source-motion-list > .motion-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
-  align-items: center;
-  column-gap: clamp(28px, 4vw, 56px);
-  width: 100%;
-  max-width: 1320px;
-  padding: 0;
-  overflow: visible;
-  margin-inline: auto;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-.source-motion-list > .motion-panel > .motion-panel-head {
-  grid-column: 2;
-  grid-row: 1;
-  margin: 0;
-}
-.source-motion-list > .motion-panel > .film,
-.source-motion-list > .motion-panel > .journey-film {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: start;
-  width: min(100%, 560px);
-  margin: 0;
-}
-.source-motion-list > .motion-panel > .motion-panel-head .eyebrow { margin-bottom: 16px; font-size: 10px; }
-.source-motion-list > .motion-panel > .motion-panel-head h3 { max-width: 14ch; font-size: clamp(34px, 4vw, 54px); font-weight: 650; letter-spacing: -.065em; line-height: 1.02; }
-.source-motion-list > .motion-panel > .motion-panel-head > p:last-child { max-width: 55ch; font-size: clamp(14px, 1.2vw, 16px); line-height: 1.8; }
-@media (max-width: 1050px) {
-  .motion-panels { grid-template-columns: 1fr; }
-}
-@media (max-width: 1100px) {
-  .journey-feature { row-gap: 20px; }
-  .source-motion-list > .motion-panel {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 20px;
-  }
-  .source-motion-list > .motion-panel > .motion-panel-head,
-  .source-motion-list > .motion-panel > .film,
-  .source-motion-list > .motion-panel > .journey-film {
-    grid-column: 1;
-    grid-row: auto;
-  }
-}
+@media (max-width: 1100px) { .journey-feature { row-gap: 20px; } }
 @media (max-width: 760px) {
   .journey-feature { row-gap: 18px; margin-block: 36px; }
   .journey-feature > .motion-panel-head .eyebrow { margin-bottom: 10px; }
   .journey-feature > .motion-panel-head h3 { max-width: 16ch; font-size: clamp(30px, 8vw, 42px); }
   .journey-feature > .motion-panel-head > p:last-child { font-size: 14px; }
-  .motion-panels { gap: 12px; }
-  .source-motion-list { gap: 52px; }
-  .motion-panel { padding: 18px 15px; border-radius: 16px; }
-  .motion-panel-head { margin-bottom: 18px; }
-  .source-motion-list > .motion-panel { row-gap: 18px; padding: 0; }
-  .source-motion-list > .motion-panel > .motion-panel-head { margin: 0; }
-  .source-motion-list > .motion-panel > .motion-panel-head .eyebrow { margin-bottom: 10px; }
-  .source-motion-list > .motion-panel > .motion-panel-head h3 { max-width: 16ch; font-size: clamp(30px, 8vw, 42px); }
-  .source-motion-list > .motion-panel > .motion-panel-head > p:last-child { font-size: 14px; }
   .schedule-feature { padding: 19px 15px; }
   .schedule-feature h2 { max-width: 17ch; margin-bottom: 20px; font-size: clamp(34px, 10vw, 48px); }
   .schedule-problem { font-size: 18px; }

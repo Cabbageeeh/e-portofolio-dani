@@ -4,7 +4,7 @@ const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&':
 const safe = (value) => { try { const url = new URL(value, location.href); const localFile = location.protocol === 'file:' && url.protocol === 'file:' && url.pathname.startsWith(new URL('.', location.href).pathname); return ['http:', 'https:'].includes(url.protocol) || localFile ? url.href : ''; } catch { return ''; } };
 const pages = new Map();
 const main = document.querySelector('#main');
-const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'ruang-belajar-inovasi', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi', 'portfolio-animation-root']);
+const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'ruang-belajar-inovasi', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi']);
 const finals = ['Refleksi Program PPG', 'Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
 const add = (id, title, kind, semester) => pages.set(id, { id, title, kind, semester });
 const navLink = (id, label) => `<a href="#${id}" data-page="${id}">${esc(label)}</a>`;
@@ -382,6 +382,37 @@ document.addEventListener('pointerout', (event) => {
   emblem.style.removeProperty('--learning-tilt-x');
   emblem.style.removeProperty('--learning-tilt-y');
 });
+const primaryNavSections = [
+  ['beranda', 'portfolio-hero'],
+  ['tentang', 'tentang'],
+  ['semester', 'semester'],
+  ['karya', 'proses'],
+  ['refleksi', 'refleksi'],
+];
+function updatePrimaryNav() {
+  const links = [...document.querySelectorAll('.top-nav a')];
+  if (!links.length) return;
+  const isHome = document.body.classList.contains('is-home');
+  let current = 'beranda';
+  if (isHome) {
+    const activationLine = window.scrollY + document.querySelector('#portfolioShell > header').offsetHeight + 112;
+    for (const [id, targetId] of primaryNavSections) {
+      const target = document.getElementById(targetId);
+      if (target && target.getBoundingClientRect().top + window.scrollY <= activationLine) current = id;
+    }
+  } else {
+    const requested = decodeURIComponent(location.hash.slice(1));
+    const page = pages.get(requested);
+    if (page?.kind === 'reflection' || page?.kind === 'reflection-index') current = 'refleksi';
+    else if (page?.kind === 'artifact' || page?.kind === 'index') current = 'karya';
+  }
+  for (const link of links) {
+    const active = link.hash.slice(1) === current;
+    link.classList.toggle('active', active);
+    link.removeAttribute('aria-current');
+    if (active) link.setAttribute('aria-current', isHome ? 'location' : 'page');
+  }
+}
 function render() {
   const requested = decodeURIComponent(location.hash.slice(1)) || 'beranda';
   const anchorTarget = homeAnchorIds.has(requested) ? requested : null;
@@ -434,6 +465,7 @@ function render() {
     main.innerHTML = '<a class="back-button" href="#' + backId + '"><span class="back-arrow" aria-hidden="true">←</span><span class="back-label">Kembali</span><span class="back-context">ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="' + pageHeadClass + '">' + courseReflectionTop + courseReflectionWatermark + '<a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + pageDescription + '</p></section><section class="' + pageContentClass + '">' + body + '</section>';
   }
   document.body.classList.toggle('is-home', id === 'beranda');
+  updatePrimaryNav();
   window.PortfolioMotion?.reveal(main);
   document.title = (page && id !== 'beranda' ? `${page.title} — ` : '') + 'Muhammad Abduramadani | Portofolio';
   document.body.classList.remove('menu-open');
@@ -472,7 +504,10 @@ function positionMenu(trigger) {
 }
 function closeMenu(restoreFocus = false) {
   document.body.classList.remove('menu-open');
-  document.querySelectorAll('#menuToggle, .hero-menu').forEach((button) => button.setAttribute('aria-expanded', 'false'));
+  document.querySelectorAll('#menuToggle, .hero-menu').forEach((button) => {
+    button.setAttribute('aria-expanded', 'false');
+    if (button.id === 'menuToggle') button.setAttribute('aria-label', 'Buka navigasi');
+  });
   menuPanel.inert = true;
   if (restoreFocus) menuTrigger?.focus();
 }
@@ -483,6 +518,7 @@ function toggleMenu(trigger) {
   menuPanel.inert = false;
   document.body.classList.add('menu-open');
   document.querySelectorAll('#menuToggle, .hero-menu').forEach((button) => button.setAttribute('aria-expanded', 'true'));
+  if (trigger.id === 'menuToggle') trigger.setAttribute('aria-label', 'Tutup navigasi');
 }
 menuPanel.inert = true;
 document.querySelector('#menuToggle').onclick = (event) => toggleMenu(event.currentTarget);
@@ -492,8 +528,20 @@ document.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(true); });
 menuPanel.addEventListener('click', (event) => { if (event.target.closest('a')) closeMenu(); });
 document.addEventListener('click', (event) => { const trigger = event.target.closest('.hero-menu'); if (trigger) toggleMenu(trigger); });
-window.addEventListener('resize', () => { if (document.body.classList.contains('menu-open')) positionMenu(menuTrigger); });
-window.addEventListener('scroll', () => { if (document.body.classList.contains('menu-open')) closeMenu(); }, { passive: true });
+window.addEventListener('resize', () => {
+  if (document.body.classList.contains('menu-open')) positionMenu(menuTrigger);
+  updatePrimaryNav();
+});
+let navUpdatePending = false;
+window.addEventListener('scroll', () => {
+  if (document.body.classList.contains('menu-open')) closeMenu();
+  if (navUpdatePending) return;
+  navUpdatePending = true;
+  requestAnimationFrame(() => {
+    navUpdatePending = false;
+    updatePrimaryNav();
+  });
+}, { passive: true });
 document.querySelector('.skip').onclick = (event) => { event.preventDefault(); main.focus(); };
 let routeTransition;
 function navigatePage() {

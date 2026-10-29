@@ -53,6 +53,30 @@ window.portfolioProjects = [
       <a class="project-link" href="#${escapeHTML(target)}" data-project-target="${escapeHTML(target)}">${escapeHTML(project.action || 'Lihat preview interaktif')} <span aria-hidden="true">↘</span></a>
     </article>`;
   }
+  function featuredInnovationCard(project, index) {
+    const innovation = project.innovation;
+    if (!innovation) return '';
+    const flow = innovation.flow.map((step, stepIndex) => `<li class="innovation-feature-step"><span>${String(stepIndex + 1).padStart(2, '0')}</span><div><strong>${escapeHTML(step.title)}</strong><p>${escapeHTML(step.description)}</p></div></li>`).join('');
+    const details = (project.details || []).map((detail) => `<li>${escapeHTML(detail)}</li>`).join('');
+    const target = project.target || 'ruang-belajar-inovasi';
+    return `<article class="project-card project-text-card project-feature-card project-tone-2" data-index="${index}" aria-labelledby="featured-project-title">
+      <span class="project-watermark" aria-hidden="true">${projectIcon(project.icon, 'project-watermark-svg')}</span>
+      <div class="project-feature-copy">
+        <div class="project-feature-topline"><span class="project-icon" aria-hidden="true">${projectIcon(project.icon, 'project-icon-svg')}</span><span class="project-feature-tag">INOVASI UTAMA · INDIVIDU</span></div>
+        <p class="project-index">01 / ${escapeHTML(project.kind)}</p>
+        <p class="project-feature-product">${escapeHTML(innovation.product)} <span>·</span> INFORMATIKA KELAS 7</p>
+        <h3 id="featured-project-title">${escapeHTML(project.title)}</h3>
+        <p class="project-feature-description">${escapeHTML(project.description)}</p>
+        <div class="project-ticket"><p>Ringkasan inovasi</p><ul>${details}</ul></div>
+        <a class="project-link" href="#${escapeHTML(target)}" data-project-target="${escapeHTML(target)}">Lihat rancangan inovasi <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="project-feature-flow" aria-label="Alur pembelajaran Ruang Belajar">
+        <div class="project-feature-flow-head"><div><span>RUANG BERTUMBUH</span><strong>Alur belajar per bab</strong></div><b>04 TAHAP</b></div>
+        <ol>${flow}</ol>
+        <p class="project-feature-flow-note">Tujuan belajar tetap sama; dukungan disesuaikan dengan kesiapan murid.</p>
+      </div>
+    </article>`;
+  }
   function innovationPanel(projects) {
     const project = projects.find((item) => item.innovation);
     if (!project) return '';
@@ -73,12 +97,16 @@ window.portfolioProjects = [
     const slot = document.querySelector('#karya');
     if (!slot || slot.querySelector('#portfolio-projects')) return;
     const projects = Array.isArray(window.portfolioProjects) ? window.portfolioProjects : [];
+    const featured = projects.find((project) => project.innovation);
+    const collaborations = projects.filter((project) => !project.innovation);
+    const featuredIndex = Math.max(0, projects.indexOf(featured));
     slot.innerHTML = `<section class="mas-section mas-projects" id="portfolio-projects" aria-labelledby="projects-title">
-      <div class="mas-section-head"><div><p class="eyebrow">03 / KARYA PILIHAN</p><h2 id="projects-title">Pembelajaran yang diwujudkan bersama.</h2><p class="mas-lead">Dua karya kolaborasi dan satu inovasi pendidikan individu. Buka rancangan Ruang Belajar atau lihat simulasi alur penjadwalan sekolah.</p></div><span class="mas-index">02 KELOMPOK · 01 INDIVIDU</span></div>
-      <div class="project-list">${projects.map(projectCard).join('')}</div>
+      <div class="mas-section-head"><div><p class="eyebrow">03 / KARYA PILIHAN</p><h2 id="projects-title">Inovasi pendidikan yang saya kembangkan.</h2><p class="mas-lead">Ruang Belajar menjadi karya utama dari perjalanan PPG ini. JurnalKita dan SIGAP melengkapi pengalaman kolaborasi saya.</p></div><span class="mas-index">01 INOVASI · 02 KOLABORASI</span></div>
+      ${featured ? `<div class="project-featured-wrap">${featuredInnovationCard(featured, featuredIndex)}</div>` : ''}
+      <div class="project-collaboration-head"><div><p class="eyebrow">KARYA KOLABORASI</p><h3>Gagasan yang diwujudkan bersama.</h3></div><span>SEMESTER 1 · SEMESTER 2</span></div>
+      <div class="project-list project-collaboration-grid">${collaborations.map((project) => projectCard(project, projects.indexOf(project))).join('')}</div>
       ${innovationPanel(projects)}
       <div id="jadwal" class="masrama-schedule-root project-schedule-preview" data-portfolio-animations="featured"></div>
-      <div id="portfolio-animation-root" class="portfolio-animation-root" data-portfolio-animations="supporting"></div>
     </section>`;
     window.PortfolioMotion?.reveal(slot);
     slot.querySelectorAll('.project-card').forEach((card) => {

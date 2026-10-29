@@ -1,0 +1,62 @@
+/* Stage 5: quiet, responsive navigation that follows the reader through the portfolio. */
+#portfolioShell > header {
+  isolation: isolate;
+}
+
+.top-nav a {
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.top-nav a.active,
+.top-nav a[aria-current="location"],
+.top-nav a[aria-current="page"] {
+  border-color: color-mix(in srgb, var(--accent) 12%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  color: var(--accent);
+}
+
+#navigation > .nav-group > a:focus-visible,
+#navigation details summary:focus-visible,
+#navigation details > a:focus-visible {
+  outline-offset: 2px;
+  background: var(--soft);
+  color: var(--accent);
+}
+
+#sidebar {
+  scrollbar-color: color-mix(in srgb, var(--muted) 34%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+#sidebar::-webkit-scrollbar { width: 8px; }
+#sidebar::-webkit-scrollbar-track { background: transparent; }
+#sidebar::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 34%, transparent);
+  background-clip: padding-box;
+}
+
+@media (min-width: 761px) and (max-width: 860px) {
+  .top-nav { display: none; }
+  .actions { margin-left: auto; }
+}
+
+@media (max-width: 760px) {
+  #portfolioShell > header { box-shadow: 0 5px 18px -18px var(--shadow); }
+  #sidebar {
+    right: 12px;
+    width: min(350px, calc(100vw - 24px));
+    border-radius: 18px;
+  }
+  #navigation > .nav-group > a,
+  #navigation details summary { border-radius: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-nav a,
+  #sidebar,
+  #navigation > .nav-group > a,
+  #navigation details > a { transition-duration: .01ms !important; }
+}
