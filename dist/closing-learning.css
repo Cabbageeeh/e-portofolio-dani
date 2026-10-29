@@ -192,3 +192,84 @@
   .learning-book-page, .learning-route-node, .learning-code-mark { opacity: 1; transform: none; }
   .learning-route-line { stroke-dashoffset: 0; }
 }
+
+/* Writing plays once, then the pen rests diagonally above the open book. */
+.learning-code-stroke {
+  fill: none;
+  stroke: #23678e;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 70;
+  animation: learning-write-code 9s linear infinite paused;
+}
+.learning-code-stroke--two { animation-delay: 2s; }
+.learning-code-stroke--three { animation-delay: 4s; }
+.learning-writing-pen { transform-origin: 138px 177px; animation: learning-pen-write 9s linear 1 forwards paused; }
+.learning-emblem.is-visible :is(.learning-code-stroke, .learning-writing-pen) { animation-play-state: running; }
+@keyframes learning-write-code {
+  0% { stroke-dashoffset: 70; opacity: 1; }
+  19%, 79% { stroke-dashoffset: 0; opacity: 1; }
+  85%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes learning-pen-write {
+  0%, 3% { transform: translate(0, 0); opacity: 1; }
+  10% { transform: translate(10px, 5px); }
+  19% { transform: translate(22px, 8px); }
+  22% { transform: translate(0, 17px); }
+  40% { transform: translate(38px, 26px); }
+  44% { transform: translate(65px, -8px); }
+  47% { transform: translate(69px, 8px); }
+  61% { transform: translate(92px, 4px); }
+  64% { transform: translate(72px, 24px); }
+  79% { transform: translate(115px, 12px); }
+  84% { transform: translate(115px, 12px); }
+  100% { transform: translate(80px, -22px) rotate(25deg); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-code-stroke { animation: none; stroke-dashoffset: 0; }
+  .learning-writing-pen { animation: none; }
+}
+.learning-book-words {
+  fill: #173e5d;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 6.3px;
+  font-weight: 600;
+  letter-spacing: -.12px;
+}
+.learning-book-words--left { animation: learning-book-left 9s linear 1 both paused; }
+.learning-book-words--right { animation: learning-book-right 9s linear 1 both paused; }
+@keyframes learning-book-left {
+  0% { clip-path: inset(0 100% 0 0); }
+  38%, 100% { clip-path: inset(0 0 0 0); }
+}
+@keyframes learning-book-right {
+  0%, 44% { clip-path: inset(0 100% 0 0); }
+  80%, 100% { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-book-words { animation: none; clip-path: none; }
+}
+.learning-emblem.is-visible .learning-book-words { animation-play-state: running; }
+@media (prefers-reduced-motion: reduce) {
+  .learning-writing-pen { transform: translate(80px, -22px) rotate(25deg); }
+}
+.learning-replay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  margin: 8px auto 0;
+  padding: 5px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  transition: color .2s ease, border-color .2s ease;
+}
+.learning-replay span { font-size: 18px; line-height: 1; }
+.learning-replay:hover { color: var(--accent); border-color: var(--accent); }

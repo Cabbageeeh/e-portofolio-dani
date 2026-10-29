@@ -277,8 +277,9 @@ function home() {
         <dl class="mas-facts"><div><dt>NAMA</dt><dd>${esc(profile.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(profile.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div><div><dt>PERGURUAN TINGGI</dt><dd>${esc(profile.kampus)}</dd></div></dl>
       </div>
       <div class="about-journey" data-portfolio-animations="journey" aria-label="Animasi jejak perjalanan PPG"></div>
-      <div class="identity-direction-grid" aria-label="Visi dan misi sebagai calon guru Informatika">
-        <article class="identity-direction-card identity-direction-card--vision"><p class="identity-direction-kicker">ARAH PENGEMBANGAN DIRI</p><h3>Visi</h3><p>${esc(profile.visi || '')}</p></article>
+      <div class="identity-direction-grid" aria-label="Dua visi dan misi sebagai calon guru Informatika">
+        <article class="identity-direction-card identity-direction-card--vision"><p class="identity-direction-kicker">VISI PRIBADI · CALON GURU</p><h3>Guru Informatika</h3><p>${esc(profile.visi || '')}</p></article>
+        <article class="identity-direction-card identity-direction-card--vision"><p class="identity-direction-kicker">VISI UNTUK PENDIDIKAN INDONESIA</p><h3>Pendidikan Indonesia</h3><p>${esc(profile.visiPendidikanIndonesia || '')}</p></article>
         <article class="identity-direction-card identity-direction-card--mission"><p class="identity-direction-kicker">LANGKAH YANG DIUPAYAKAN</p><h3>Misi</h3><ol>${(profile.misi || []).map((mission) => `<li>${esc(mission)}</li>`).join('')}</ol></article>
       </div>
     </section>
@@ -317,7 +318,7 @@ function home() {
         <p class="learning-closing-lead">Berangkat dari Teknik Informatika murni, perjalanan PPG mengenalkanku pada pedagogik, praktik di sekolah, dan cara baru merancang pembelajaran yang berpihak pada peserta didik.</p>
         <div class="learning-closing-actions"><a class="learning-closing-button" href="#karya">Telusuri karya <span aria-hidden="true">↗</span></a><a class="learning-closing-link" href="#refleksi">Baca refleksi <span aria-hidden="true">↗</span></a></div>
       </div>
-      <div class="learning-emblem" data-learning-emblem aria-hidden="true">
+      <div class="learning-emblem" data-learning-emblem>
         <svg class="learning-emblem-svg" viewBox="0 0 400 400" role="presentation" focusable="false">
           <defs>
             <radialGradient id="learning-aura" cx="50%" cy="42%" r="60%"><stop offset="0" stop-color="#ffffff"/><stop offset=".68" stop-color="#e8f5ff"/><stop offset="1" stop-color="#c7e5f6"/></radialGradient>
@@ -325,6 +326,10 @@ function home() {
             <linearGradient id="learning-page" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#d8efff"/></linearGradient>
             <linearGradient id="learning-route" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#74c5ec"/><stop offset="1" stop-color="#70e0bd"/></linearGradient>
             <filter id="learning-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="15" stdDeviation="13" flood-color="#102d46" flood-opacity=".22"/></filter>
+            <path id="book-writing-left" d="M139 178Q165 177 189 192"/>
+            <path id="book-writing-left-two" d="M139 190Q165 189 189 204"/>
+            <path id="book-writing-right-one" d="M211 191Q237 176 263 177"/>
+            <path id="book-writing-right-two" d="M211 203Q237 188 263 189"/>
             <path id="learning-orbit-path" d="M200 200m-174 0a174 174 0 1 1 348 0a174 174 0 1 1-348 0"/>
           </defs>
           <circle class="learning-aura" cx="200" cy="200" r="156" fill="url(#learning-aura)"/>
@@ -332,17 +337,33 @@ function home() {
           <circle class="learning-ring learning-ring--inner" cx="200" cy="200" r="132"/>
           <g class="learning-orbit-copy"><text textLength="1088" lengthAdjust="spacing"><textPath href="#learning-orbit-path">INFORMATIKA ✦ PEDAGOGIK ✦ PRAKTIK ✦ REFLEKSI ✦ INFORMATIKA ✦ PEDAGOGIK ✦ PRAKTIK ✦ REFLEKSI ✦</textPath></text></g>
           <g class="learning-book" filter="url(#learning-shadow)">
-            <circle class="learning-disc" cx="200" cy="200" r="91" fill="url(#learning-core)"/>
-            <circle class="learning-disc-line" cx="200" cy="200" r="91"/>
-            <path class="learning-book-page learning-book-page--left" d="M200 234c-22-15-47-20-73-15v-65c27-5 51 0 73 16z"/>
-            <path class="learning-book-page learning-book-page--right" d="M200 170c22-16 46-21 73-16v65c-26-5-51 0-73 15z"/>
-            <path class="learning-book-line" d="M200 171v63M140 176c17-2 34 1 48 8M140 190c17-2 34 1 48 8M212 184c14-7 31-10 48-8M212 198c14-7 31-10 48-8"/>
-            <path class="learning-route-line" d="M145 216c17-13 34 8 51-1s30-11 43-2 18-6 28-12"/>
-            <circle class="learning-route-node learning-route-node--one" cx="146" cy="215" r="4.5"/><circle class="learning-route-node learning-route-node--two" cx="200" cy="215" r="4.5"/><circle class="learning-route-node learning-route-node--three" cx="267" cy="201" r="4.5"/>
-            <text class="learning-code-mark" x="200" y="145" text-anchor="middle">&lt;/&gt;</text>
+            <ellipse cx="201" cy="256" rx="79" ry="12" fill="#123853" opacity=".12"/>
+            <path d="M119 160Q161 149 200 174Q240 149 281 160L281 240Q240 232 200 255Q160 232 119 240Z" fill="#123853" stroke="#79bada" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M124 155Q164 146 200 171Q238 146 276 155L276 233Q237 226 200 249Q163 226 124 233Z" fill="#afcddd" stroke="#e4f4fc" stroke-width="1.5"/>
+            <path d="M126 151Q165 143 200 168Q237 143 274 151L274 227Q237 221 200 244Q164 221 126 227Z" fill="#e0edf5" stroke="#9bb8cc" stroke-width="1"/>
+            <path d="M129 146Q166 141 200 165Q235 141 271 146L271 221Q235 216 200 238Q166 216 129 221Z" fill="url(#learning-page)" stroke="#8eb9d2" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M200 165Q195 199 200 238Q207 201 200 165" fill="#b3d0e2" opacity=".8"/>
+            <path d="M137 158Q166 157 189 173M137 170Q166 169 189 185M137 182Q166 181 189 197M137 194Q166 193 181 204M212 173Q236 157 263 158M212 185Q236 169 263 170M212 197Q236 181 263 182M219 204Q239 194 263 194" fill="none" stroke="#76a7c4" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+            <path d="M124 237Q164 230 200 251Q239 230 277 237M127 230Q164 224 195 243M205 243Q240 224 274 230" fill="none" stroke="#8caebe" stroke-width="1"/>
+
+            <g class="learning-writing">
+              <text class="learning-book-words learning-book-words--left"><textPath href="#book-writing-left" startOffset="50%" text-anchor="middle">Dari Teknik</textPath><textPath href="#book-writing-left-two" startOffset="50%" text-anchor="middle">Informatika</textPath></text>
+              <text class="learning-book-words learning-book-words--right"><textPath href="#book-writing-right-one" startOffset="50%" text-anchor="middle" textLength="49" lengthAdjust="spacingAndGlyphs">Untuk Pendidikan</textPath><textPath href="#book-writing-right-two" startOffset="50%" text-anchor="middle">Indonesia</textPath></text>
+              <g class="learning-writing-pen">
+                <g transform="translate(138 177) rotate(32) scale(1.3)">
+                  <path d="M0 0L-3-9V-43Q0-47 3-43V-9Z" fill="#173e5d" stroke="#8dcbe5" stroke-width="1"/>
+                  <path d="M-3-36H3V-13H-3Z" fill="#63b7dd"/>
+                  <path d="M-3-9L0 0L3-9Z" fill="#d9e6ee"/>
+                  <path d="M0 0L-.9-3H.9Z" fill="#173e5d"/>
+                  <path d="M2-40H5V-24" fill="none" stroke="#f4f9fd" stroke-width="1.5" stroke-linecap="round"/>
+                </g>
+              </g>
+            </g>
+
           </g>
           <circle class="learning-spark learning-spark--one" cx="84" cy="170" r="4"/><circle class="learning-spark learning-spark--two" cx="317" cy="237" r="5"/><circle class="learning-spark learning-spark--three" cx="255" cy="86" r="3"/>
         </svg>
+        <button class="learning-replay" type="button" data-learning-replay aria-label="Putar ulang animasi menulis di buku"><span aria-hidden="true">↻</span> Replay</button>
       </div>
       <p class="learning-closing-foot">Belajar · Mengajar · Bertumbuh</p>
     </section>
@@ -612,3 +633,14 @@ document.addEventListener('keydown', (event) => {
 window.addEventListener('hashchange', navigatePage);
 document.querySelector('#year').textContent = new Date().getFullYear();
 render();
+
+document.addEventListener('click', (event) => {
+  const replay = event.target.closest('[data-learning-replay]');
+  if (!replay) return;
+  const writing = replay.closest('[data-learning-emblem]')?.querySelector('.learning-writing');
+  if (!writing || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  writing.getAnimations({ subtree: true }).forEach((animation) => {
+    animation.currentTime = 0;
+    animation.play();
+  });
+});

@@ -1,0 +1,19 @@
+/* Compact personal mark, shared with the browser favicon. */
+#portfolioShell header .brand { display: inline-flex; align-items: center; gap: 11px; }
+.brand-mark { display: block; width: 38px; height: 38px; flex: 0 0 38px; }
+#portfolioShell header .brand > span {
+  display: block;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+@media (max-width: 680px) {
+  #portfolioShell header .brand { gap: 8px; }
+  #portfolioShell header .brand > span { font-size: clamp(13px, 3.8vw, 18px); }
+  .brand-mark { width: 31px; height: 31px; flex-basis: 31px; }
+}

@@ -86,13 +86,13 @@
   box-shadow: var(--portfolio-card-shadow, 0 4px 0 rgba(10,43,68,.17), 0 18px 30px -22px rgba(10,43,68,.42));
 }
 #main .page-head.page-head--course :is(.breadcrumb, .eyebrow, .page-head-course-label, .page-head-course-arrow, h1) {
-  color: var(--detail-navy-ink);
+  color: var(--reflection-ink, var(--detail-navy-ink));
 }
-#main .page-head.page-head--course > p:last-child { color: var(--detail-navy-ink); }
+#main .page-head.page-head--course > p:last-child { color: color-mix(in srgb, var(--reflection-ink, var(--detail-navy-ink)) 82%, var(--reflection-tone, var(--detail-navy))); }
 #main .page-head.page-head--course .eyebrow { opacity: .78; }
 #main .page-head.page-head--course .breadcrumb { opacity: .72; }
-#main .page-head-course-icon { background: color-mix(in srgb, var(--detail-navy-ink) 12%, transparent); box-shadow: none; }
-#main .page-head-course-arrow { border-color: color-mix(in srgb, var(--detail-navy-ink) 28%, transparent); }
+#main .page-head-course-icon { background: color-mix(in srgb, var(--reflection-ink, var(--detail-navy-ink)) 12%, transparent); box-shadow: none; }
+#main .page-head-course-arrow { border-color: color-mix(in srgb, var(--reflection-ink, var(--detail-navy-ink)) 28%, transparent); }
 #main .page-head-course-watermark { opacity: .08; }
 #main .page-head.page-head--semester.page-head--s1 { --mc-card-tone: var(--detail-navy); --mc-card-ink: var(--detail-navy-ink); }
 #main .page-head.page-head--semester.page-head--s2 { --mc-card-tone: var(--detail-sky); --mc-card-ink: var(--detail-sky-ink); }

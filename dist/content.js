@@ -12,11 +12,12 @@ window.portfolio = {
     pengantar: "Selamat datang di portofolio PPG saya. Laman ini menjadi ruang dokumentasi artefak pembelajaran, pengalaman praktik, serta refleksi selama proses pendidikan profesi guru.",
     bio: "Mahasiswa PPG bidang studi Informatika di Universitas Negeri Surabaya. Portofolio ini memuat perjalanan belajar pada Semester 1 dan Semester 2.",
     visi: "Menjadi guru Informatika yang memadukan penguasaan teknologi dengan pemahaman pedagogik agar setiap peserta didik dapat belajar secara aman, inklusif, bermakna, dan terus berkembang.",
+    visiPendidikanIndonesia: "Terwujudnya pendidikan Indonesia yang inklusif, aman, dan berkualitas, dengan pemanfaatan teknologi yang bijak untuk membantu setiap peserta didik mengembangkan potensi dan berkontribusi bagi masyarakat.",
     misi: [
-      "Memahami karakteristik, kebutuhan, dan potensi peserta didik sebelum merancang pembelajaran.",
-      "Merancang pembelajaran Informatika yang aktif, kontekstual, inklusif, dan didukung asesmen yang adil.",
-      "Mengembangkan literasi digital, kreativitas, kolaborasi, serta tanggung jawab etis peserta didik.",
-      "Terus belajar melalui praktik reflektif dan kolaborasi dengan komunitas sekolah."
+      "Memahami karakteristik, kebutuhan, konteks, dan kesiapan peserta didik sebagai dasar merancang pembelajaran.",
+      "Menghadirkan pembelajaran Informatika yang aktif, kontekstual, inklusif, aman, dan didukung asesmen yang adil.",
+      "Memanfaatkan teknologi secara bijak serta menumbuhkan literasi digital, kreativitas, kolaborasi, dan tanggung jawab etis.",
+      "Menggunakan bukti belajar dan refleksi untuk memperbaiki praktik, berkolaborasi dengan komunitas sekolah, dan terus mengembangkan kompetensi."
     ]
   },
   semester: [
@@ -267,11 +268,59 @@ window.portfolio = {
         }
       ]
     },
-    "model-guru": { paragraf: [] },
-    "refleksi-akhir-praktik": { paragraf: [] },
-    "filosofi-mengajar": { paragraf: [] },
-    "rencana-tindak-lanjut": { paragraf: [] },
-    "harapan-pendidikan-indonesia": { paragraf: [] },
-    "upaya-menjadi-guru-yang-profesional": { paragraf: [] }
+    "model-guru": {
+      paragraf: ["Perjalanan dari Teknik Informatika murni menuju pendidikan mengubah gambaran saya tentang guru. Guru bukan hanya menyampaikan materi, tetapi merancang kondisi agar peserta didik dapat memahami, mencoba, dan berkembang."],
+      bagian: [
+        { judul: "Connection", teks: "Pengalaman belajar Informatika membiasakan saya berpikir runtut, memecah masalah, dan mencari solusi. Dalam PPG, kemampuan itu terasa berguna saat menyusun pembelajaran, tetapi saya juga belajar bahwa pekerjaan guru dimulai dengan memahami orang yang belajar—bukan hanya materi atau perangkat yang akan digunakan." },
+        { judul: "Challenge", teks: "Tantangan saya adalah tidak menganggap penjelasan yang jelas atau teknologi yang menarik otomatis membuat semua peserta didik memahami materi. Saya perlu memperhatikan kesiapan, cara belajar, dan respons mereka, lalu mengubah pendekatan ketika bukti belajar menunjukkan bahwa dukungan yang diberikan belum cukup." },
+        { judul: "Concept", teks: "Saya memandang guru sebagai perancang pengalaman belajar, fasilitator, pemberi umpan balik, sekaligus teladan. Peran tersebut menuntut penguasaan materi yang disertai kepedulian, komunikasi yang menghargai peserta didik, asesmen yang adil, serta kesediaan untuk terus mengevaluasi praktik." },
+        { judul: "Change", teks: "Saya ingin menjadi guru Informatika yang menjelaskan konsep dengan runtut sekaligus memberi ruang bagi peserta didik untuk bertanya, bereksperimen, bekerja sama, dan belajar dari kesalahan. Saya akan menggunakan teknologi ketika memang membantu tujuan belajar dan menjaga agar setiap peserta didik tetap merasa dilibatkan." }
+      ]
+    },
+    "refleksi-akhir-praktik": {
+      paragraf: ["Praktik PPG di SMA Negeri 15 Surabaya dan SMP Negeri 60 Surabaya membantu saya melihat bahwa rancangan pembelajaran perlu bertemu dengan kondisi kelas yang nyata. Pengalaman dua semester ini menjadi ruang untuk menghubungkan teori, perangkat ajar, pelaksanaan, dan refleksi."],
+      bagian: [
+        { judul: "Connection", teks: "Sebelum PPG, saya lebih akrab dengan pemecahan masalah teknis daripada mengelola proses belajar. Dalam praktik, saya mulai menghubungkan pengetahuan Informatika dengan tujuan pembelajaran, karakteristik kelas, pemilihan media, serta cara memeriksa pemahaman peserta didik." },
+        { judul: "Challenge", teks: "Saya belajar bahwa rencana yang tersusun baik tetap perlu disesuaikan dengan waktu, respons, dan kebutuhan kelas. Tantangan bagi saya adalah menjaga alur pembelajaran tetap jelas sambil memberi kesempatan untuk bertanya, mencoba, dan memperoleh bantuan; saya juga perlu menilai apakah asesmen benar-benar menunjukkan pemahaman." },
+        { judul: "Concept", teks: "Praktik mengajar merupakan siklus merencanakan, melaksanakan, mengamati bukti belajar, lalu merefleksikan dan memperbaiki. Modul ajar, LKPD, media, dan instrumen penilaian akan lebih bermakna ketika semuanya saling terkait dan membantu guru mengambil keputusan pembelajaran." },
+        { judul: "Change", teks: "Pada praktik berikutnya, saya akan menyiapkan tujuan dan alur dengan lebih terukur, menyediakan pertanyaan atau pemeriksaan pemahaman di beberapa tahap, serta mencatat bagian yang perlu diperbaiki. Saya juga akan menggunakan masukan dari guru pamong, dosen, dan peserta didik sebagai bahan refleksi, bukan sekadar pelengkap administrasi." }
+      ]
+    },
+    "filosofi-mengajar": {
+      paragraf: ["Filosofi mengajar saya bertumbuh dari pergeseran cara pandang: dari mengutamakan teknologi dan isi materi menuju pembelajaran yang memanusiakan peserta didik dan memberi makna pada pengetahuan."],
+      bagian: [
+        { judul: "Connection", teks: "Teknik Informatika membentuk kebiasaan saya menyukai struktur, efisiensi, dan solusi yang dapat dijalankan. Pendidikan mengingatkan saya bahwa keberhasilan belajar tidak hanya diukur dari materi yang selesai atau aplikasi yang digunakan, tetapi dari pemahaman, rasa ingin tahu, dan perkembangan peserta didik." },
+        { judul: "Challenge", teks: "Saya perlu menghindari anggapan bahwa semua peserta didik harus belajar dengan cara dan kecepatan yang sama. Tantangan lainnya adalah membuat pembelajaran Informatika relevan tanpa mengorbankan ketelitian konsep, serta membahas penggunaan teknologi secara kritis dan bertanggung jawab." },
+        { judul: "Concept", teks: "Saya meyakini pembelajaran perlu berpusat pada peserta didik, kontekstual, inklusif, dan memberi ruang untuk membangun pemahaman. Guru merancang tujuan dan dukungan yang jelas, sedangkan peserta didik aktif mengeksplorasi, berdiskusi, mencoba, dan merefleksikan prosesnya." },
+        { judul: "Change", teks: "Saya akan mengaitkan konsep Informatika dengan persoalan yang dekat dengan kehidupan peserta didik, memberi pilihan cara untuk menunjukkan pemahaman, dan membangun kebiasaan beretika di ruang digital. Saya ingin teknologi menjadi sarana untuk berpikir dan berkarya, bukan sekadar hiasan pembelajaran." }
+      ]
+    },
+    "rencana-tindak-lanjut": {
+      paragraf: ["PPG memberi saya fondasi pedagogik dan pengalaman praktik, tetapi menjadi guru yang terus berkembang memerlukan tindak lanjut yang konsisten. Saya ingin menjadikan refleksi sebagai kebiasaan kerja, bukan hanya kegiatan di akhir program."],
+      bagian: [
+        { judul: "Connection", teks: "Latar Informatika mengajarkan saya menyusun langkah perbaikan secara sistematis. PPG menambahkan arah yang lebih berpusat pada peserta didik: setiap keputusan mengajar sebaiknya berangkat dari kebutuhan belajar dan ditinjau berdasarkan bukti, bukan hanya berdasarkan asumsi saya." },
+        { judul: "Challenge", teks: "Tantangan saya adalah menjaga waktu untuk merencanakan, mengumpulkan bukti belajar, dan mengevaluasi pembelajaran di tengah tanggung jawab mengajar. Saya juga perlu terbuka terhadap umpan balik dan pembaruan pengetahuan, termasuk ketika temuan di kelas berbeda dari rencana awal." },
+        { judul: "Concept", teks: "Pengembangan profesional berlangsung melalui siklus belajar berkelanjutan: menetapkan tujuan, mencoba strategi, menelaah hasil, berdiskusi dengan komunitas, lalu memperbaiki praktik. Asesmen formatif dan refleksi dapat membantu menentukan langkah berikutnya bagi peserta didik maupun bagi saya sebagai guru." },
+        { judul: "Change", teks: "Saya akan membiasakan diri membuat catatan singkat setelah mengajar tentang tujuan, bukti pemahaman, bagian yang berjalan baik, dan satu perbaikan berikutnya. Saya juga ingin berdiskusi dengan rekan guru, mengembangkan Ruang Belajar berdasarkan kebutuhan nyata, dan meninjau manfaatnya melalui proses serta hasil belajar." }
+      ]
+    },
+    "harapan-pendidikan-indonesia": {
+      paragraf: ["Saya berharap pendidikan Indonesia memberi setiap peserta didik kesempatan untuk menemukan potensi dan mengembangkan kemampuan yang relevan bagi kehidupannya. Kemajuan teknologi akan lebih berarti jika berjalan bersama pemerataan, karakter, dan kepedulian terhadap kebutuhan manusia."],
+      bagian: [
+        { judul: "Connection", teks: "Sebagai calon guru Informatika, saya melihat teknologi membuka peluang untuk belajar, berkarya, dan berkolaborasi. Namun, pendidikan juga mengajarkan bahwa akses terhadap perangkat saja belum cukup; peserta didik memerlukan pendampingan agar mampu memahami informasi dan menggunakan teknologi secara bijak." },
+        { judul: "Challenge", teks: "Pendidikan menghadapi keragaman kondisi sekolah, akses, kesiapan, dan kebutuhan peserta didik. Tantangannya adalah memastikan inovasi digital tidak memperlebar kesenjangan serta tetap menyediakan interaksi, dukungan, dan pengalaman belajar yang bermakna bagi mereka yang membutuhkan cara belajar berbeda." },
+        { judul: "Concept", teks: "Pendidikan yang kuat membekali peserta didik dengan pengetahuan, kemampuan berpikir kritis dan kreatif, kolaborasi, karakter, serta tanggung jawab. Teknologi sebaiknya mendukung tujuan tersebut, sementara lingkungan belajar tetap aman, inklusif, dan menghargai martabat setiap orang." },
+        { judul: "Change", teks: "Saya ingin berkontribusi dari ruang kelas: merancang pembelajaran Informatika yang kontekstual dan dapat diakses, mengajarkan literasi serta etika digital, dan terus menyesuaikan dukungan dengan kebutuhan peserta didik. Saya berharap praktik kecil yang konsisten dapat ikut membangun budaya belajar yang saling menguatkan." }
+      ]
+    },
+    "upaya-menjadi-guru-yang-profesional": {
+      paragraf: ["Menjadi guru profesional bagi saya berarti terus mempertemukan penguasaan Informatika dengan kompetensi pedagogik, tanggung jawab, dan kemauan untuk belajar sepanjang hayat."],
+      bagian: [
+        { judul: "Connection", teks: "Latar Teknik Informatika memberi saya bekal untuk memahami teknologi dan menyelesaikan masalah secara terstruktur. PPG memperluas bekal itu dengan pengetahuan tentang peserta didik, perencanaan, asesmen, komunikasi, dan refleksi yang diperlukan agar keahlian bidang studi dapat menjadi pembelajaran yang bermakna." },
+        { judul: "Challenge", teks: "Saya perlu terus mengembangkan kompetensi sekaligus menjaga sikap profesional: teliti dalam menyiapkan pembelajaran, adil saat menilai, bertanggung jawab dalam menggunakan data dan teknologi, serta menghargai perbedaan. Hal tersebut tidak selesai setelah memperoleh bekal awal atau menyelesaikan satu praktik." },
+        { judul: "Concept", teks: "Profesionalisme guru tumbuh melalui perpaduan kompetensi, etika, refleksi, dan kolaborasi. Guru perlu menguasai materi, memahami bagaimana peserta didik belajar, berkomunikasi dengan baik, serta bersedia meninjau dampak keputusan pembelajaran berdasarkan bukti." },
+        { judul: "Change", teks: "Saya akan menjaga kebiasaan belajar dan refleksi, memperbarui pemahaman tentang Informatika serta pedagogik, dan meminta masukan dari komunitas sekolah. Dalam setiap rancangan, saya akan memeriksa keselarasan tujuan, kegiatan, media, dan asesmen serta memastikan teknologi digunakan secara aman dan bertanggung jawab." }
+      ]
+    }
   }
 };

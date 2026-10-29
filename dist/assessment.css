@@ -1,7 +1,7 @@
 /* Assessment additions: identity direction and the featured education innovation. */
 .identity-direction-grid {
   display: grid;
-  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   margin-top: 28px;
 }
@@ -20,6 +20,7 @@
   color: #f4f8fb;
 }
 .identity-direction-card--mission {
+  grid-column: 1 / -1;
   background: radial-gradient(100% 90% at 100% 0%, rgba(255,255,255,.42), transparent 52%), #83c3dc;
   color: #12344d;
   border-color: rgba(18,52,77,.15);
@@ -44,6 +45,7 @@
 }
 .identity-direction-card--mission ol {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin: 0;
   padding: 0;
@@ -269,6 +271,7 @@
 @media (max-width: 680px) {
   .identity-direction-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
   .identity-direction-card { min-height: 0; padding: 23px 21px; border-radius: 22px; }
+  .identity-direction-card--mission ol { grid-template-columns: 1fr; }
   .identity-direction-card--mission li { font-size: 12px; }
   #main .innovation-case { padding: 22px 17px; border-radius: 24px; }
   .innovation-case-head { align-items: flex-start; flex-direction: column; gap: 10px; margin-bottom: 22px; }
