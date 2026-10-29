@@ -387,7 +387,7 @@ const primaryNavSections = [
   ['tentang', 'tentang'],
   ['semester', 'semester'],
   ['karya', 'proses'],
-  ['refleksi', 'refleksi'],
+  ['refleksi', 'refleksi-mata-kuliah'],
 ];
 function updatePrimaryNav() {
   const links = [...document.querySelectorAll('.top-nav a')];
