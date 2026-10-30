@@ -254,3 +254,23 @@
   #main .back-button:hover,
   #main .artifact > .button:hover { transform: none; }
 }
+
+#main .course-back-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin: 4px 0 20px;
+}
+#main .course-back-navigation .back-button { margin: 0; }
+#main .course-back-navigation .back-button:last-child { margin-left: auto; }
+@media (max-width: 600px) {
+  #main .course-back-navigation { align-items: stretch; gap: 10px; }
+  #main .course-back-navigation .back-button {
+    max-width: 100%;
+    min-width: 0;
+    font-size: 11px;
+    white-space: normal;
+  }
+}

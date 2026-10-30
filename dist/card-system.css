@@ -273,7 +273,17 @@
 #main .innovation-stage,
 #main .innovation-principles { border-color: color-mix(in srgb, var(--card-ink-6) 18%, transparent); background-color: color-mix(in srgb, var(--card-tone-4) 34%, var(--card-tone-6)); }
 #main .innovation-principles { color: var(--card-ink-6); }
-#main .innovation-stage > span { background: var(--card-tone-1); color: var(--card-ink-1); }
+/* Number badges keep a matched foreground/background in both themes.
+   Override the panel's inherited light text explicitly. */
+#main .innovation-case .innovation-stage > span {
+  background: #78bfdf;
+  color: #102d49;
+  -webkit-text-fill-color: #102d49;
+  opacity: 1;
+}
+#main .innovation-case .innovation-case-icon { color: var(--card-ink-6); }
+#main .innovation-case .innovation-role :is(span, strong),
+#main .innovation-case .innovation-principles :is(p, li) { color: var(--card-ink-6); }
 
 /* The semester summary accordion inherits the same semester colors as its page. */
 #main .archive-semester > summary,

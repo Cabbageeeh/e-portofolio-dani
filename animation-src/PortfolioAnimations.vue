@@ -30,7 +30,7 @@ const projectQueue = [
     <section v-if="props.mode === 'featured'" class="schedule-feature" aria-labelledby="schedule-feature-title">
       <div class="schedule-copy">
         <p class="eyebrow">PREVIEW PROYEK · PENJADWALAN SEKOLAH</p>
-        <h2 id="schedule-feature-title">Jadwal mengajar yang menyusun dirinya sendiri.</h2>
+        <h2 id="schedule-feature-title">Susun jadwal. Hindari bentrok.</h2>
         <p class="schedule-problem-label">Masalahnya</p>
         <p class="schedule-problem">Menyusun jadwal guru dengan tangan berarti berhari-hari menghindari bentrok, jam kosong guru, dan mapel yang harus dua jam berurutan.</p>
         <p class="schedule-built-label">Alur yang divisualisasikan</p>

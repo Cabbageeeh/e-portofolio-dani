@@ -82,7 +82,7 @@
 .ppg-motion-kit .journey-node--now .journey-marker { fill: #c8f4ff !important; }
 .ppg-motion-kit .journey-phase-track { background: rgb(157 211 240 / 0.09) !important; }
 .ppg-motion-kit .journey-node-core { stroke: #0e2438 !important; }
-.ppg-motion-kit .journey-readout span { background: linear-gradient(180deg, #c8f4ff, #4d9bd0) !important; filter: drop-shadow(0 0 18px rgb(77 155 208 / 0.32)) !important; }
+.ppg-motion-kit .journey-readout span { background: none !important; filter: none !important; }
 .ppg-motion-kit .journey-control:hover { background: rgb(120 190 230 / 0.12) !important; }
 .ppg-motion-kit .journey-entry:hover { background: rgb(157 211 240 / 0.07) !important; }
 .ppg-motion-kit .journey-stage--now .journey-entry { background: rgb(77 155 208 / 0.13) !important; }

@@ -53,7 +53,7 @@ const controlLabel = computed(() => (
       </span>
       <p class="journey-readout" :aria-label="'Tahap ' + frame.readout">
         <span>{{ frame.readout }}</span>
-        <small>tahap perjalanan</small>
+        <small>Tahap perjalanan</small>
       </p>
     </figcaption>
 
@@ -128,7 +128,7 @@ const controlLabel = computed(() => (
             <strong>{{ node.context }}</strong>
             <small>{{ node.teaser }}</small>
           </span>
-          <span class="journey-entry-arrow" aria-hidden="true">↗</span>
+
         </button>
       </li>
     </ol>
@@ -177,8 +177,8 @@ const controlLabel = computed(() => (
 .journey-control svg { width: 14px; height: 14px; }
 .journey-control-line { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .journey-control-fill { fill: currentColor; }
-.journey-readout { text-align: right; }
-.journey-readout span { display: block; color: transparent; background: linear-gradient(180deg, #c8f4ff, #4d9bd0); background-clip: text; filter: drop-shadow(0 0 18px rgb(77 155 208 / .3)); font-size: clamp(2.4rem, 5vw, 3.7rem); font-weight: 850; letter-spacing: -.055em; line-height: 1; font-variant-numeric: tabular-nums; }
+.journey-readout { text-align: center; }
+.journey-readout span { display: block; color: #c8f4ff; background: none; -webkit-text-fill-color: #c8f4ff; font-size: clamp(2.4rem, 5vw, 3.7rem); font-weight: 850; letter-spacing: -.055em; line-height: 1; font-variant-numeric: tabular-nums; }
 .journey-readout small { margin-top: 5px; }
 .journey-contexts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 24px; padding: 15px 18px; border: 1px solid rgb(157 211 240 / .1); border-radius: 16px; background: rgb(157 211 240 / .035); }
 .journey-contexts div { min-width: 0; }

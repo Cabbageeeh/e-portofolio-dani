@@ -5,7 +5,7 @@ const safe = (value) => { try { const url = new URL(value, location.href); const
 const pages = new Map();
 const main = document.querySelector('#main');
 const homeAnchorIds = new Set(['tentang', 'jadwal', 'semester', 'karya', 'ruang-belajar-inovasi', 'proses', 'artefak', 'refleksi-mata-kuliah', 'refleksi']);
-const finals = ['Refleksi Program PPG', 'Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Harapan Pendidikan Indonesia', 'Upaya Menjadi Guru yang Profesional'];
+const finals = ['Refleksi Program PPG', 'Model Guru', 'Refleksi Akhir Praktik', 'Filosofi Mengajar', 'Rencana Tindak Lanjut', 'Upaya Menjadi Guru yang Profesional'];
 const add = (id, title, kind, semester) => pages.set(id, { id, title, kind, semester });
 const navLink = (id, label) => `<a href="#${id}" data-page="${id}">${esc(label)}</a>`;
 
@@ -53,16 +53,16 @@ function tile(id, title, subtitle, semester = 1, index = 0, kind = 'reflection-i
     <h3>${esc(title)}</h3>
     <p class="reflection-tile-description">${esc(subtitle)}</p>
     <span class="reflection-tile-ticket"><span>${ticketLabel}</span><strong>${ticketText}</strong></span>
-    <span class="tile-bottom">${action} <span aria-hidden="true">↗</span></span>
+    <span class="tile-bottom">${action} </span>
   </a>`;
 }
 function semesterCards() {
-  return P.semester.map((semester) => '<article class="semester-card mas-semester-card"><span class="semester-number">0' + semester.nomor + '</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ' + semester.nomor + '</h3><p class="mas-school">' + esc(semester.sekolah) + '</p><p class="mas-semester-note">' + semester.artefak.length + ' kategori artefak · ' + semester.mataKuliah.length + ' refleksi mata kuliah</p><div class="semester-links"><a href="#artefak-s' + semester.nomor + '">Telusuri artefak <span>↗</span></a><a href="#refleksi-s' + semester.nomor + '">Baca refleksi <span>↗</span></a></div></article>').join('');
+  return P.semester.map((semester) => '<article class="semester-card mas-semester-card"><span class="semester-number">0' + semester.nomor + '</span><p class="eyebrow">PRAKTIK PENGALAMAN LAPANGAN</p><h3>Semester ' + semester.nomor + '</h3><p class="mas-school">' + esc(semester.sekolah) + '</p><p class="mas-semester-note">' + semester.artefak.length + ' kategori artefak · ' + semester.mataKuliah.length + ' refleksi mata kuliah</p><div class="semester-links"><a href="#artefak-s' + semester.nomor + '">Telusuri artefak </a><a href="#refleksi-s' + semester.nomor + '">Baca refleksi </a></div></article>').join('');
 }
 function reflectionSemesterCards() {
   return P.semester.map((semester) => {
     const number = String(semester.nomor).padStart(2, '0');
-    const courses = semester.mataKuliah.map((title) => `<a href="#refleksi-s${semester.nomor}-${slug(title)}">${esc(title)}<span aria-hidden="true">↗</span></a>`).join('');
+    const courses = semester.mataKuliah.map((title) => `<a href="#refleksi-s${semester.nomor}-${slug(title)}">${esc(title)}</a>`).join('');
     return `<article class="course-reflection-card course-reflection-card--s${semester.nomor}">
       <span class="course-reflection-watermark" aria-hidden="true">${archiveIcon('bookCode', 'archive-watermark-svg')}</span>
       <div class="course-reflection-top"><span class="course-reflection-icon" aria-hidden="true">${archiveIcon('bookCode', 'archive-svg-icon')}</span><span class="course-reflection-count"><strong>${String(semester.mataKuliah.length).padStart(2, '0')}</strong><small>MATA KULIAH</small></span></div>
@@ -70,7 +70,7 @@ function reflectionSemesterCards() {
       <h3>Semester ${semester.nomor}</h3>
       <p class="course-reflection-school">${esc(semester.sekolah)}</p>
       <div class="course-reflection-links" aria-label="Pilih mata kuliah">${courses}</div>
-      <a class="course-reflection-all" href="#refleksi-s${semester.nomor}">Buka semua refleksi <span aria-hidden="true">↗</span></a>
+      <a class="course-reflection-all" href="#refleksi-s${semester.nomor}">Buka semua refleksi </a>
     </article>`;
   }).join('');
 }
@@ -121,7 +121,7 @@ function archiveArtifactCard(artifact, category) {
     .filter(([key]) => artifact[key])
     .map(([key, label]) => `<div><h4>${label}</h4><p>${esc(artifact[key])}</p></div>`).join('');
   const link = artifact.url && safe(artifact.url)
-    ? `<a class="archive-work-link" href="${esc(safe(artifact.url))}" data-preview-artifact data-artifact-title="${esc(artifact.judul || category.title)}">Buka artefak <span aria-hidden="true">↗</span></a>`
+    ? `<a class="archive-work-link" href="${esc(safe(artifact.url))}" data-preview-artifact data-artifact-title="${esc(artifact.judul || category.title)}">Buka artefak </a>`
     : '<span class="archive-work-pending">Berkas belum ditambahkan</span>';
   return `<article class="archive-work"><div class="archive-work-head"><div><p class="archive-work-kicker">${esc(artifact.jenis || 'ARTEFAK PEMBELAJARAN')}${artifact.siklus ? ` · SIKLUS ${esc(artifact.siklus)}` : ''}</p><h4>${esc(artifact.judul || category.title)}</h4></div>${link}</div>${artifact.deskripsi ? `<p class="archive-work-description">${esc(artifact.deskripsi)}</p>` : ''}${details ? `<details class="archive-work-analysis"><summary>Lihat analisis artefak <span aria-hidden="true">＋</span></summary><div>${details}</div></details>` : ''}</article>`;
 }
@@ -134,7 +134,7 @@ function artifactPreviewModal() {
   modal.id = 'artifactPreview';
   modal.className = 'artifact-preview';
   modal.hidden = true;
-  modal.innerHTML = '<div class="artifact-preview-scrim" data-preview-close aria-hidden="true"></div><section class="artifact-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="artifactPreviewTitle"><header class="artifact-preview-header"><div><p class="artifact-preview-kicker">PRATINJAU ARTEFAK</p><h2 id="artifactPreviewTitle"></h2></div><div class="artifact-preview-actions"><a class="artifact-preview-download" data-preview-download target="_blank" rel="noopener noreferrer">Unduh berkas asli <span aria-hidden="true">↗</span></a><button class="artifact-preview-close" type="button" data-preview-close aria-label="Tutup pratinjau">×</button></div></header><div class="artifact-preview-stage" data-preview-stage></div><p class="artifact-preview-note" data-preview-note></p></section>';
+  modal.innerHTML = '<div class="artifact-preview-scrim" data-preview-close aria-hidden="true"></div><section class="artifact-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="artifactPreviewTitle"><header class="artifact-preview-header"><div><p class="artifact-preview-kicker">PRATINJAU ARTEFAK</p><h2 id="artifactPreviewTitle"></h2></div><div class="artifact-preview-actions"><a class="artifact-preview-download" data-preview-download target="_blank" rel="noopener noreferrer">Unduh berkas asli </a><button class="artifact-preview-close" type="button" data-preview-close aria-label="Tutup pratinjau">×</button></div></header><div class="artifact-preview-stage" data-preview-stage></div><p class="artifact-preview-note" data-preview-note></p></section>';
   document.body.append(modal);
   return modal;
 }
@@ -177,7 +177,7 @@ function openArtifactPreview(link) {
     stage.innerHTML = `<video class="artifact-preview-video" src="${esc(url.href)}" controls playsinline></video>`;
     note.textContent = 'Video pembelajaran. Gunakan kontrol pemutar untuk melihat isinya.';
   } else {
-    stage.innerHTML = '<div class="artifact-preview-fallback"><span aria-hidden="true">↗</span><h3>Pratinjau belum tersedia untuk jenis berkas ini.</h3><p>Kamu tetap bisa membuka atau menyimpan berkas aslinya.</p></div>';
+    stage.innerHTML = '<div class="artifact-preview-fallback"><h3>Pratinjau belum tersedia untuk jenis berkas ini.</h3><p>Kamu tetap bisa membuka atau menyimpan berkas aslinya.</p></div>';
     note.textContent = '';
   }
   artifactPreviewReturnFocus = link;
@@ -224,7 +224,7 @@ function buildArchiveCategories(semesters = P.semester) {
 function archiveCategoryCards(categories, summary, detailLabel) {
   archiveCategories = categories;
   const selected = categories[0]?.key || '';
-  const cards = categories.map((category) => `<article class="archive-index-card ${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${archiveIcon(category.icon, 'archive-svg-icon')}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span aria-hidden="true">↘</span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-watermark" aria-hidden="true">${archiveIcon(category.icon, 'archive-watermark-svg')}</span></article>`).join('');
+  const cards = categories.map((category) => `<article class="archive-index-card ${category.tone}${category.key === selected ? ' is-selected' : ''}" data-archive-card="${category.key}"><span class="archive-index-icon" aria-hidden="true">${archiveIcon(category.icon, 'archive-svg-icon')}</span><button class="archive-index-toggle" type="button" data-archive-select="${category.key}" aria-label="Lihat rincian ${esc(category.title)}" aria-expanded="${category.key === selected}"><span class="archive-expand-mark" aria-hidden="true"></span></button><h3>${esc(category.title)}</h3><p>${esc(category.description)}</p><div class="archive-index-motif" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><strong>${category.count} <span>artefak</span></strong><span class="archive-index-watermark" aria-hidden="true">${archiveIcon(category.icon, 'archive-watermark-svg')}</span></article>`).join('');
   return `<div class="archive-index-summary"><span class="archive-summary-mark" aria-hidden="true">${archiveIcon('chip', 'archive-svg-icon')}</span><p><strong>${summary}</strong><span>${detailLabel}</span></p></div><div class="archive-index-grid">${cards}</div><div class="archive-detail-slot">${archiveCategoryPanel(categories, selected)}</div>`;
 }
 function archiveCards() {
@@ -255,7 +255,7 @@ function reflectionCards() {
         : prompts;
     const tone = `reflection-tone-${index % 6}`;
     const icon = icons[index % icons.length];
-    return `<article class="reflection-menu-card ${tone}"><span class="reflection-menu-watermark" aria-hidden="true">${archiveIcon(icon, 'reflection-watermark-svg')}</span><span class="reflection-menu-icon" aria-hidden="true">${archiveIcon(icon, 'archive-svg-icon')}</span><div class="reflection-menu-copy"><h3>${esc(title)}</h3><p>${esc(excerpt)}</p></div><div class="reflection-menu-paper"><p>${hasContent ? 'Pokok refleksi' : 'Kerangka refleksi'}</p><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></div><a class="reflection-menu-link" href="#${id}">Baca refleksi <span aria-hidden="true">↗</span></a></article>`;
+    return `<article class="reflection-menu-card ${tone}"><span class="reflection-menu-watermark" aria-hidden="true">${archiveIcon(icon, 'reflection-watermark-svg')}</span><span class="reflection-menu-icon" aria-hidden="true">${archiveIcon(icon, 'archive-svg-icon')}</span><div class="reflection-menu-copy"><h3>${esc(title)}</h3><p>${esc(excerpt)}</p></div><div class="reflection-menu-paper"><p>${hasContent ? 'Pokok refleksi' : 'Kerangka refleksi'}</p><ul>${points.map((point) => `<li>${esc(point)}</li>`).join('')}</ul></div><a class="reflection-menu-link" href="#${id}">Baca refleksi </a></article>`;
   }).join('');
 }
 function home() {
@@ -269,11 +269,11 @@ function home() {
       <div id="hero-project-board" class="hero-project-board" data-portfolio-animations="hero" aria-label="Papan animasi karya pilihan"></div>
       <span class="hero-caption">E-PORTOFOLIO / 2026</span>
     </section>
-    <div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#tentang">LANJUTKAN PERJALANAN ↓</a></div>
+    <div class="hero-strip"><span>PENDIDIKAN PROFESI GURU</span><span>INFORMATIKA</span><span>UNIVERSITAS NEGERI SURABAYA</span><a href="#tentang">LANJUTKAN PERJALANAN </a></div>
 
     <section class="mas-section mas-about" id="tentang" aria-labelledby="about-title">
       <div class="mas-section-head"><div><p class="eyebrow">01 / TENTANG SAYA</p><h2 id="about-title">Menjadi guru, dimulai dari terus belajar.</h2></div><span class="mas-index">PPG · 2026</span></div>
-      <div class="mas-about-grid"><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester <span>↗</span></a></div>
+      <div class="mas-about-grid"><div class="mas-about-copy"><p class="mas-lead">${esc(profile.bio)}</p><p>Portofolio ini merangkum praktik pembelajaran, perangkat yang disusun, karya kolaborasi, dan refleksi selama pendidikan profesi guru.</p><a class="mas-text-link" href="#semester">Lihat perjalanan dua semester </a></div>
         <dl class="mas-facts"><div><dt>NAMA</dt><dd>${esc(profile.nama)}</dd></div><div><dt>NIM</dt><dd>${esc(profile.nim)}</dd></div><div><dt>BIDANG STUDI</dt><dd>Informatika</dd></div><div><dt>PERGURUAN TINGGI</dt><dd>${esc(profile.kampus)}</dd></div></dl>
       </div>
       <div class="about-journey" data-portfolio-animations="journey" aria-label="Animasi jejak perjalanan PPG"></div>
@@ -314,9 +314,9 @@ function home() {
     <section class="mas-section learning-closing" id="penutup-ppg" aria-labelledby="learning-closing-title">
       <div class="learning-closing-copy">
         <p class="eyebrow">07 / PENUTUP · PERJALANAN PPG 2026</p>
-        <h2 id="learning-closing-title">Dari kode, tumbuh menjadi pendidik.</h2>
-        <p class="learning-closing-lead">Berangkat dari Teknik Informatika murni, perjalanan PPG mengenalkanku pada pedagogik, praktik di sekolah, dan cara baru merancang pembelajaran yang berpihak pada peserta didik.</p>
-        <div class="learning-closing-actions"><a class="learning-closing-button" href="#karya">Telusuri karya <span aria-hidden="true">↗</span></a><a class="learning-closing-link" href="#refleksi">Baca refleksi <span aria-hidden="true">↗</span></a></div>
+        <h2 id="learning-closing-title"><span>Terus belajar.</span><span>Terus berdampak.</span></h2>
+        <p class="learning-closing-lead">Bekal Informatika dan pengalaman PPG menjadi langkah awal saya untuk menghadirkan pembelajaran yang bermakna melalui teknologi, karya, dan refleksi.</p>
+        <div class="learning-closing-actions"><a class="learning-closing-button" href="#karya">Telusuri karya </a><a class="learning-closing-link" href="#refleksi">Baca refleksi </a></div>
       </div>
       <div class="learning-emblem" data-learning-emblem>
         <svg class="learning-emblem-svg" viewBox="0 0 400 400" role="presentation" focusable="false">
@@ -326,10 +326,6 @@ function home() {
             <linearGradient id="learning-page" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#d8efff"/></linearGradient>
             <linearGradient id="learning-route" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#74c5ec"/><stop offset="1" stop-color="#70e0bd"/></linearGradient>
             <filter id="learning-shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="15" stdDeviation="13" flood-color="#102d46" flood-opacity=".22"/></filter>
-            <path id="book-writing-left" d="M139 178Q165 177 189 192"/>
-            <path id="book-writing-left-two" d="M139 190Q165 189 189 204"/>
-            <path id="book-writing-right-one" d="M211 191Q237 176 263 177"/>
-            <path id="book-writing-right-two" d="M211 203Q237 188 263 189"/>
             <path id="learning-orbit-path" d="M200 200m-174 0a174 174 0 1 1 348 0a174 174 0 1 1-348 0"/>
           </defs>
           <circle class="learning-aura" cx="200" cy="200" r="156" fill="url(#learning-aura)"/>
@@ -346,24 +342,9 @@ function home() {
             <path d="M137 158Q166 157 189 173M137 170Q166 169 189 185M137 182Q166 181 189 197M137 194Q166 193 181 204M212 173Q236 157 263 158M212 185Q236 169 263 170M212 197Q236 181 263 182M219 204Q239 194 263 194" fill="none" stroke="#76a7c4" stroke-width="2" stroke-linecap="round" opacity=".65"/>
             <path d="M124 237Q164 230 200 251Q239 230 277 237M127 230Q164 224 195 243M205 243Q240 224 274 230" fill="none" stroke="#8caebe" stroke-width="1"/>
 
-            <g class="learning-writing">
-              <text class="learning-book-words learning-book-words--left"><textPath href="#book-writing-left" startOffset="50%" text-anchor="middle">Dari Teknik</textPath><textPath href="#book-writing-left-two" startOffset="50%" text-anchor="middle">Informatika</textPath></text>
-              <text class="learning-book-words learning-book-words--right"><textPath href="#book-writing-right-one" startOffset="50%" text-anchor="middle" textLength="49" lengthAdjust="spacingAndGlyphs">Untuk Pendidikan</textPath><textPath href="#book-writing-right-two" startOffset="50%" text-anchor="middle">Indonesia</textPath></text>
-              <g class="learning-writing-pen">
-                <g transform="translate(138 177) rotate(32) scale(1.3)">
-                  <path d="M0 0L-3-9V-43Q0-47 3-43V-9Z" fill="#173e5d" stroke="#8dcbe5" stroke-width="1"/>
-                  <path d="M-3-36H3V-13H-3Z" fill="#63b7dd"/>
-                  <path d="M-3-9L0 0L3-9Z" fill="#d9e6ee"/>
-                  <path d="M0 0L-.9-3H.9Z" fill="#173e5d"/>
-                  <path d="M2-40H5V-24" fill="none" stroke="#f4f9fd" stroke-width="1.5" stroke-linecap="round"/>
-                </g>
-              </g>
-            </g>
-
           </g>
           <circle class="learning-spark learning-spark--one" cx="84" cy="170" r="4"/><circle class="learning-spark learning-spark--two" cx="317" cy="237" r="5"/><circle class="learning-spark learning-spark--three" cx="255" cy="86" r="3"/>
         </svg>
-        <button class="learning-replay" type="button" data-learning-replay aria-label="Putar ulang animasi menulis di buku"><span aria-hidden="true">↻</span> Replay</button>
       </div>
       <p class="learning-closing-foot">Belajar · Mengajar · Bertumbuh</p>
     </section>
@@ -456,7 +437,7 @@ function render() {
       const items = page.semester.mataKuliah;
       body = '<div class="tiles">' + items.map((title, index) => tile(`refleksi-s${page.semester.nomor}-${slug(title)}`, title, 'Refleksi pengalaman belajar', page.semester.nomor, index, page.kind)).join('') + '</div>';
     } else if (page.kind === 'artifact') {
-      body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" data-preview-artifact data-artifact-title="' + esc(artifact.judul) + '" href="' + esc(safe(artifact.url)) + '">Lihat artefak ↗</a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
+      body = '<div class="artifact-list">' + ((content.artefak || []).map((artifact) => '<article class="artifact"><p class="eyebrow">' + esc(artifact.jenis || 'DOKUMEN') + (artifact.siklus ? ' / SIKLUS ' + esc(artifact.siklus) : '') + '</p><h2>' + esc(artifact.judul) + '</h2><p>' + esc(artifact.deskripsi || '') + '</p>' + (artifact.url && safe(artifact.url) ? '<a class="button" data-preview-artifact data-artifact-title="' + esc(artifact.judul) + '" href="' + esc(safe(artifact.url)) + '">Lihat artefak </a>' : '<span class="pill">Berkas belum ditambahkan</span>') + '<div class="analysis">' + [['konteks', 'Konteks pembelajaran'], ['tujuan', 'Tujuan'], ['kelebihan', 'Kelebihan'], ['kekurangan', 'Kekurangan & perbaikan'], ['teori', 'Keterkaitan teori mata kuliah']].map(([key, label]) => '<div><h3>' + label + '</h3><p>' + esc(artifact[key] || 'Analisis belum ditambahkan.') + '</p></div>').join('') + '</div></article>').join('') || empty('Artefak belum ditambahkan.', 'Dokumen, foto, dan tautan video dapat ditampilkan di sini beserta analisisnya.')) + '</div>';
     } else {
       body = '<article class="reading">' + ((content.paragraf || []).map((paragraph) => '<p>' + esc(paragraph) + '</p>').join('') || empty('Refleksi belum ditambahkan.', 'Catatan pengalaman, kekuatan, tantangan, dan rencana perbaikan dapat ditampilkan di sini.')) + (content.bagian || []).map((section) => '<h2>' + esc(section.judul) + '</h2><p>' + esc(section.teks) + '</p>').join('') + '</article>';
     }
@@ -480,17 +461,20 @@ function render() {
         : 'Dokumentasi perjalanan belajar menuju guru profesional.';
     const courseReflectionIcon = isCourseReflection ? archiveIcon(reflectionIconFor(page.title), 'archive-svg-icon') : '';
     const courseReflectionTop = isCourseReflection
-      ? '<div class="page-head-course-top"><span class="page-head-course-icon" aria-hidden="true">' + courseReflectionIcon + '</span><span class="page-head-course-label">REFLEKSI MATA KULIAH · SEMESTER 0' + page.semester.nomor + '</span><span class="page-head-course-arrow" aria-hidden="true">↘</span></div>'
+      ? '<div class="page-head-course-top"><span class="page-head-course-icon" aria-hidden="true">' + courseReflectionIcon + '</span><span class="page-head-course-label">REFLEKSI MATA KULIAH · SEMESTER 0' + page.semester.nomor + '</span></div>'
       : '';
     const courseReflectionWatermark = isCourseReflection ? '<span class="page-head-course-watermark" aria-hidden="true">' + courseReflectionIcon + '</span>' : '';
-    main.innerHTML = '<a class="back-button" href="#' + backId + '"><span class="back-arrow" aria-hidden="true">←</span><span class="back-label">Kembali</span><span class="back-context">ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a><section class="' + pageHeadClass + '">' + courseReflectionTop + courseReflectionWatermark + '<a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + pageDescription + '</p></section><section class="' + pageContentClass + '">' + body + '</section>';
+    const courseBackNavigation = isCourseReflection
+      ? '<nav class="course-back-navigation" aria-label="Navigasi kembali"><a class="back-button" href="#beranda"><span class="back-label">Kembali ke Beranda</span></a><a class="back-button" href="#' + backId + '"><span class="back-label">Kembali ke Refleksi Mata Kuliah S' + page.semester.nomor + '</span></a></nav>'
+      : '';
+    main.innerHTML = courseBackNavigation + (isCourseReflection ? '' : '<a class="back-button" href="#' + backId + '"><span class="back-label">Kembali</span><span class="back-context">ke ' + esc(pages.get(backId)?.title || 'Beranda') + '</span></a>') + '<section class="' + pageHeadClass + '">' + courseReflectionTop + courseReflectionWatermark + '<a href="#beranda" class="breadcrumb">Beranda / ' + (page.semester ? 'Semester ' + page.semester.nomor : 'Pengembangan diri') + '</a><p class="eyebrow">' + (page.semester ? esc(page.semester.sekolah) : 'REFLEKSI PROFESIONAL') + '</p><h1>' + esc(page.title) + '</h1><p>' + pageDescription + '</p></section><section class="' + pageContentClass + '">' + body + '</section>';
   }
   document.body.classList.toggle('is-home', id === 'beranda');
   updatePrimaryNav();
   window.PortfolioMotion?.reveal(main);
   document.title = (page && id !== 'beranda' ? `${page.title} — ` : '') + 'Muhammad Abduramadani | Portofolio';
   document.body.classList.remove('menu-open');
-  document.querySelector('#menuToggle').setAttribute('aria-expanded', 'false');
+  document.querySelector('#menuToggle')?.setAttribute('aria-expanded', 'false');
   if (anchorTarget) requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(anchorTarget)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' })));
   else window.scrollTo(0, 0);
 }
@@ -512,7 +496,7 @@ document.querySelector('#themeToggle').onclick = () => {
 let menuTrigger;
 const menuPanel = document.querySelector('#sidebar');
 menuPanel.setAttribute('aria-label', 'Menu portofolio');
-document.querySelector('#menuToggle').setAttribute('aria-controls', 'sidebar');
+document.querySelector('#menuToggle')?.setAttribute('aria-controls', 'sidebar');
 function positionMenu(trigger) {
   const rect = trigger.getBoundingClientRect();
   const viewportWidth = document.documentElement.clientWidth;
@@ -542,7 +526,7 @@ function toggleMenu(trigger) {
   if (trigger.id === 'menuToggle') trigger.setAttribute('aria-label', 'Tutup navigasi');
 }
 menuPanel.inert = true;
-document.querySelector('#menuToggle').onclick = (event) => toggleMenu(event.currentTarget);
+
 document.addEventListener('click', (event) => {
   if (document.body.classList.contains('menu-open') && !menuPanel.contains(event.target) && !event.target.closest('#menuToggle, .hero-menu')) closeMenu();
 });
@@ -633,14 +617,3 @@ document.addEventListener('keydown', (event) => {
 window.addEventListener('hashchange', navigatePage);
 document.querySelector('#year').textContent = new Date().getFullYear();
 render();
-
-document.addEventListener('click', (event) => {
-  const replay = event.target.closest('[data-learning-replay]');
-  if (!replay) return;
-  const writing = replay.closest('[data-learning-emblem]')?.querySelector('.learning-writing');
-  if (!writing || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  writing.getAnimations({ subtree: true }).forEach((animation) => {
-    animation.currentTime = 0;
-    animation.play();
-  });
-});

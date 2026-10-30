@@ -50,7 +50,7 @@ window.portfolioProjects = [
       <p class="project-meta">${escapeHTML(project.meta)}</p>
       <div class="project-copy"><p class="project-index">0${index + 1} / ${escapeHTML(project.kind || 'KARYA PPG')}</p><h3>${escapeHTML(project.title)}</h3><p class="project-description">${escapeHTML(project.description)}</p></div>
       <div class="project-ticket"><p>Ringkasan karya</p><ul>${points}</ul></div>
-      <a class="project-link" href="#${escapeHTML(target)}" data-project-target="${escapeHTML(target)}">${escapeHTML(project.action || 'Lihat preview interaktif')} <span aria-hidden="true">↘</span></a>
+      <a class="project-link" href="#${escapeHTML(target)}" data-project-target="${escapeHTML(target)}">${escapeHTML(project.action || 'Lihat preview interaktif')} </a>
     </article>`;
   }
   function featuredInnovationCard(project, index) {
@@ -68,7 +68,7 @@ window.portfolioProjects = [
         <h3 id="featured-project-title">${escapeHTML(project.title)}</h3>
         <p class="project-feature-description">${escapeHTML(project.description)}</p>
         <div class="project-ticket"><p>Ringkasan inovasi</p><ul>${details}</ul></div>
-        <a class="project-link" href="#${escapeHTML(target)}" data-project-target="${escapeHTML(target)}">Lihat rancangan inovasi <span aria-hidden="true">↘</span></a>
+        <a class="project-link" href="#${escapeHTML(target)}" data-project-target="${escapeHTML(target)}">Lihat rancangan inovasi </a>
       </div>
       <div class="project-feature-flow" aria-label="Alur pembelajaran Ruang Belajar">
         <div class="project-feature-flow-head"><div><span>RUANG BERTUMBUH</span><strong>Alur belajar per bab</strong></div><b>04 TAHAP</b></div>

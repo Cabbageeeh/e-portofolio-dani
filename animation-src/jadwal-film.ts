@@ -53,7 +53,7 @@ interface Lesson {
 }
 
 // Satu jadwal contoh dikunci manual; sisanya menunggu di antrean sesuai batasan.
-const tahfiz: Lesson = { id: 'tahfiz', subject: 'Tahfiz', teacher: 'Hasan', day: 2, period: 0, span: 1, tone: tone.agama };
+const tahfiz: Lesson = { id: 'tahfiz', subject: 'Informatika', teacher: 'Hasan', day: 2, period: 0, span: 1, tone: tone.agama };
 const queue: readonly Lesson[] = [
   { id: 'mat1', subject: 'Mat', teacher: 'Rina', day: 0, period: 0, span: 2, tone: tone.mat },
   { id: 'seni1', subject: 'Seni', teacher: 'Maya', day: 1, period: 2, span: 2, tone: tone.seni },
@@ -63,7 +63,7 @@ const queue: readonly Lesson[] = [
   { id: 'ips1', subject: 'IPS', teacher: 'Dedi', day: 0, period: 2, span: 1, tone: tone.ips },
   { id: 'ing1', subject: 'B. Ing', teacher: 'Andi', day: 2, period: 1, span: 1, tone: tone.ing },
   { id: 'mat2', subject: 'Mat', teacher: 'Rina', day: 2, period: 2, span: 1, tone: tone.mat },
-  { id: 'tik', subject: 'TIK', teacher: 'Bayu', day: 3, period: 0, span: 1, tone: tone.tik },
+  { id: 'tik', subject: 'KKA', teacher: 'Bayu', day: 3, period: 0, span: 1, tone: tone.tik },
   { id: 'indo2', subject: 'B. Indo', teacher: 'Sari', day: 3, period: 1, span: 1, tone: tone.indo },
   { id: 'seni2', subject: 'Seni', teacher: 'Maya', day: 0, period: 3, span: 1, tone: tone.seni },
   { id: 'agama', subject: 'Agama', teacher: 'Hasan', day: 0, period: 4, span: 1, tone: tone.agama },
@@ -121,7 +121,7 @@ const captions: readonly Caption[] = [
   { start: 3.1, end: 6.95, text: 'Lalu setiap jam pelajaran ditempatkan satu per satu.', tone: palette.ink },
   { start: 7.2, end: 9.3, text: 'Fisika jatuh pada slot Guru J yang tidak tersedia.', tone: palette.fail },
   { start: 9.45, end: 11.1, text: 'Mesin mencari slot lain dan menggeser Fisika ke Jumat.', tone: palette.wait },
-  { start: 11.3, end: 14.1, text: 'Semua jam terisi tanpa bentrok, dan Tahfiz tetap di tempatnya.', tone: palette.ok },
+  { start: 11.3, end: 14.1, text: 'Semua jam terisi tanpa bentrok, dan Informatika tetap di tempatnya.', tone: palette.ok },
   { start: 14.3, end: 17.6, text: 'Bila jadwal tidak dapat disusun, sistem menjelaskan sebabnya.', tone: palette.fail },
 ];
 
@@ -215,7 +215,7 @@ const tall: Layout = {
 };
 
 const rules = [
-  { title: 'Tahfiz dikunci', note: 'diatur manual, tidak boleh digeser', color: palette.ink },
+  { title: 'Informatika dikunci', note: 'diatur manual, tidak boleh digeser', color: palette.ink },
   { title: 'Guru J tidak tersedia', note: 'Kamis jam 3 dan 4', color: palette.wait },
   { title: 'Mat dua jam berurutan', note: 'tidak boleh dipisah', color: tone.mat },
 ];
@@ -314,13 +314,13 @@ export function jadwalFrame(time: number, format: FilmFormat = 'wide', teacher =
     })
     .filter((card) => card !== null);
 
-  // Jam pelajaran di kisi: Tahfiz yang terkunci jatuh lebih dulu, sisanya terbang dari antrean.
+  // Jam pelajaran di kisi: Informatika yang terkunci jatuh lebih dulu, sisanya terbang dari antrean.
   const focusOn = interpolate(time, [at.focus, at.focus + 0.3, at.focusEnd - 0.25, at.focusEnd], [0, 1, 1, 0]);
   const blocks = lessons.map((lesson, order) => {
     const index = order - 1;
-    const isTahfiz = order === 0;
+    const isInformatika = order === 0;
     const isFisika = index === fisika;
-    const launch = isTahfiz ? at.tahfiz : launchAt[index]!;
+    const launch = isInformatika ? at.tahfiz : launchAt[index]!;
     if (time < launch) return null;
     const home = cell(isFisika ? clashDay : lesson.day, lesson.period, lesson.span);
     let center = { x: home.x + home.w / 2, y: home.y + home.h / 2 };
@@ -330,8 +330,8 @@ export function jadwalFrame(time: number, format: FilmFormat = 'wide', teacher =
     let shadow = 0;
     let opacity = 1;
     let ring = 0;
-    const travel = isTahfiz ? 1 : interpolate(time, [launch, launch + flight], [0, 1], easeInOut);
-    if (isTahfiz) {
+    const travel = isInformatika ? 1 : interpolate(time, [launch, launch + flight], [0, 1], easeInOut);
+    if (isInformatika) {
       const drop = spring(time - launch, { stiffness: 200, damping: 14 });
       center = { x: center.x, y: center.y - (1 - drop) * 24 };
       opacity = clamp01(drop * 3);
@@ -368,7 +368,7 @@ export function jadwalFrame(time: number, format: FilmFormat = 'wide', teacher =
     const mine = lesson.teacher === teacher;
     opacity *= 1 - 0.74 * focusOn * (mine ? 0 : 1);
     opacity *= 1 - 0.6 * scanDim * (lesson.day >= 2 ? 1 : 0);
-    const landedAt = isTahfiz ? at.tahfiz : launch + flight;
+    const landedAt = isInformatika ? at.tahfiz : launch + flight;
     return {
       id: lesson.id,
       subject: lesson.subject,
@@ -385,7 +385,7 @@ export function jadwalFrame(time: number, format: FilmFormat = 'wide', teacher =
       shadow: round(shadow),
       ring: round(ring),
       focus: mine ? focusOn : 0,
-      locked: isTahfiz ? round(spring(time - at.lock, { stiffness: 300, damping: 14 }) * 1000) / 1000 : null,
+      locked: isInformatika ? round(spring(time - at.lock, { stiffness: 300, damping: 14 }) * 1000) / 1000 : null,
       clickable: time >= 11.2 && time < 14.2 && time >= landedAt + 0.1,
       tall: lesson.span > 1,
     };

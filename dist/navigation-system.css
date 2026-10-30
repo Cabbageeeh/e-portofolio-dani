@@ -60,3 +60,90 @@
   #navigation > .nav-group > a,
   #navigation details > a { transition-duration: .01ms !important; }
 }
+
+/* Quiet controls: explicit expansion marks replace decorative arrows. */
+#main .archive-index-toggle {
+  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+}
+#main .archive-index-toggle .archive-expand-mark { transform: none; }
+#main .archive-expand-mark::before { content: "+"; font: 500 24px/1 sans-serif; }
+#main .archive-index-toggle[aria-expanded="true"] .archive-expand-mark::before { content: "−"; }
+#main :is(.page-head-course-arrow, .back-arrow, .journey-entry-arrow) { display: none; }
+#main .back-button { padding: 13px 20px; }
+#main .path-step::after { content: none; }
+#main .tile-bottom > span:empty { display: none; }
+#main :is(.reflection-menu-link, .project-link, .course-reflection-all) { gap: 0; }
+/* Expansion glyphs use straight strokes, independent of legacy arrow rotation. */
+#main .archive-index-toggle .archive-expand-mark,
+#main .archive-index-toggle[aria-expanded="true"] .archive-expand-mark {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 14px;
+  transform: none;
+}
+#main .archive-index-toggle .archive-expand-mark::before,
+#main .archive-index-toggle .archive-expand-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: none;
+}
+#main .archive-index-toggle .archive-expand-mark::after { transform: rotate(90deg); }
+#main .archive-index-toggle[aria-expanded="true"] .archive-expand-mark::before { content: ""; }
+#main .archive-index-toggle[aria-expanded="true"] .archive-expand-mark::after { display: none; }
+#main .mas-semester-card .semester-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-height: 46px;
+  padding: 12px 22px;
+  line-height: 1.35;
+  text-align: center;
+}
+#main :is(.back-button, .project-link, .reflection-menu-link, .learning-closing-button) {
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+#main .course-reflection-all { justify-content: flex-start; }
+#main .journey-entry { grid-template-columns: 25px minmax(0, 1fr); }
+#main .journey-entry-arrow:empty { display: none; }
+/* The header is the single navigation surface, including on small screens. */
+#portfolioShell #sidebar, #portfolioShell .hero-menu { display: none !important; }
+@media (max-width: 760px) {
+  #portfolioShell > header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    height: auto;
+    min-height: 108px;
+    gap: 8px 12px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  #portfolioShell > header .brand { max-width: 100%; }
+  #portfolioShell > header .actions { grid-column: 2; grid-row: 1; }
+  #portfolioShell > header .top-nav {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0;
+    margin: 0;
+  }
+  #portfolioShell > header .top-nav a {
+    padding: 8px 5px;
+    margin: 0;
+    font-size: clamp(10px, 2.8vw, 12px);
+    white-space: nowrap;
+  }
+}
