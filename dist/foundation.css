@@ -451,11 +451,12 @@ body.menu-open #sidebar { opacity: 1; visibility: visible; pointer-events: auto;
   }
 }
 
-/* Fit the desktop hero into the visible space below the header. */
+/* Keep a clear, consistent gap below the header while fitting the desktop hero. */
 @media (min-width: 761px) {
   .editorial-hero {
-    height: min(740px, calc(100svh - 112px));
-    min-height: min(580px, calc(100svh - 112px));
+    margin-top: 24px;
+    height: min(740px, calc(100svh - 136px));
+    min-height: min(580px, calc(100svh - 136px));
     max-height: none;
   }
 }
